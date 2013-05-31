@@ -54,7 +54,8 @@
         android:layout_marginBottom="-8dp"
         android:hint="@string/preference1_defaultValue"
         android:inputType="number"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:imeOptions="actionSend" />
 
     <TextView
         android:id="@+id/preference1_preferenceUnit"
@@ -107,7 +108,8 @@
         android:layout_marginBottom="-8dp"
         android:hint="@string/preference2_defaultValue"
         android:inputType="number"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:imeOptions="actionSend" />
 
     <TextView
         android:id="@+id/preference2_preferenceUnit"
@@ -159,7 +161,9 @@
         android:layout_marginLeft="4dp"
         android:layout_marginBottom="-8dp"
         android:hint="@string/preference3_defaultValue"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:imeOptions="actionSend" />
 
     <TextView
         android:id="@+id/preference3_preferenceUnit"

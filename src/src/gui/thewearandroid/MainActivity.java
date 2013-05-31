@@ -432,7 +432,7 @@ public class MainActivity extends Activity {
 		public Object instantiateItem(ViewGroup container, int position) {
 			Context context = MainActivity.this;
 			ImageView imageView = myImageViews[position];
-			Log.d("BUG", "Setting Image for position " + position);
+			Log.d("TheWearDebug", "Setting Image for position " + position);
 
 			ForecastInfo myForecastInfo = null;
 			try {

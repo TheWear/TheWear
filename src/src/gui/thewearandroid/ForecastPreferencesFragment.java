@@ -10,11 +10,15 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class ForecastPreferencesFragment extends DialogFragment {
 
@@ -55,6 +59,11 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	 * 
 	 * * Set the onChangeListeners for the SeekBars to change the EditText
 	 * values when the seekBar is changed
+	 * 
+	 * * Set the onEditorActionListeners for the EditText to let the user change
+	 * the preferences through the EditTexsts. if the user chooses a too small
+	 * or too big value, the minimum or maximum value for the preference is used
+	 * respectively.
 	 * 
 	 * * Set a positive button (OK button) for saving of the preferences and to
 	 * close the window
@@ -129,7 +138,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		Log.d("TheWearDebug", "PreferenceConvertors initiated");
 
 		// Set max of the SeekBars
-		Resources res = getResources();
+		final Resources res = getResources();
 		int preference1SeekBarMax = (res.getInteger(R.integer.preference1_max))
 				- (res.getInteger(R.integer.preference1_min));
 		Log.d("TheWearAndroid", "preference1SeekBarMax = "
@@ -252,6 +261,129 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		// TODO Make it possible to change the preferences through the EditText,
 		// and check if the onSeekBarChangeListeners don't derp out when doing
 		// so.
+
+		preference1EditText
+				.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView editedTextView,
+							int actionId, KeyEvent keyEvent) {
+						boolean handled = false;
+						if (actionId == EditorInfo.IME_ACTION_SEND) {
+							String submittedPreference = editedTextView
+									.getText().toString();
+							int parsedIntPreference = Integer
+									.parseInt(submittedPreference);
+							// Correct too high and too low values
+							int maxPref = res
+									.getInteger(R.integer.preference1_max);
+							int minPref = res
+									.getInteger(R.integer.preference1_min);
+							if (parsedIntPreference > maxPref) {
+								parsedIntPreference = maxPref;
+								String parsedStringPrefrence = parsedIntPreference
+										+ "";
+								editedTextView.setText(parsedStringPrefrence);
+							} else if (parsedIntPreference < minPref) {
+								parsedIntPreference = minPref;
+								String parsedStringPrefrence = parsedIntPreference
+										+ "";
+								editedTextView.setText(parsedStringPrefrence);
+							}
+							int adjustedparsedIntPreference = myPreference1Convertor
+									.NormalToAdjusted(parsedIntPreference);
+							preference1SeekBar
+									.setProgress(adjustedparsedIntPreference);
+
+							preference1Value = parsedIntPreference;
+
+							handled = true;
+						}
+						return handled;
+					}
+				});
+
+		preference2EditText
+				.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView editedTextView,
+							int actionId, KeyEvent keyEvent) {
+						boolean handled = false;
+						if (actionId == EditorInfo.IME_ACTION_SEND) {
+							String submittedPreference = editedTextView
+									.getText().toString();
+							int parsedIntPreference = Integer
+									.parseInt(submittedPreference);
+							// Correct too high and too low values
+							int maxPref = res
+									.getInteger(R.integer.preference2_max);
+							int minPref = res
+									.getInteger(R.integer.preference2_min);
+							if (parsedIntPreference > maxPref) {
+								parsedIntPreference = maxPref;
+								String parsedStringPrefrence = parsedIntPreference
+										+ "";
+								editedTextView.setText(parsedStringPrefrence);
+							} else if (parsedIntPreference < minPref) {
+								parsedIntPreference = minPref;
+								String parsedStringPrefrence = parsedIntPreference
+										+ "";
+								editedTextView.setText(parsedStringPrefrence);
+							}
+							int adjustedparsedIntPreference = myPreference2Convertor
+									.NormalToAdjusted(parsedIntPreference);
+							preference2SeekBar
+									.setProgress(adjustedparsedIntPreference);
+
+							preference2Value = parsedIntPreference;
+
+							handled = true;
+						}
+						return handled;
+					}
+				});
+
+		preference3EditText
+				.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView editedTextView,
+							int actionId, KeyEvent keyEvent) {
+						boolean handled = false;
+						if (actionId == EditorInfo.IME_ACTION_SEND) {
+							String submittedPreference = editedTextView
+									.getText().toString();
+							int parsedIntPreference = Integer
+									.parseInt(submittedPreference);
+							// Correct too high and too low values
+							int maxPref = res
+									.getInteger(R.integer.preference3_max);
+							int minPref = res
+									.getInteger(R.integer.preference3_min);
+							if (parsedIntPreference > maxPref) {
+								parsedIntPreference = maxPref;
+								String parsedStringPrefrence = parsedIntPreference
+										+ "";
+								editedTextView.setText(parsedStringPrefrence);
+							} else if (parsedIntPreference < minPref) {
+								parsedIntPreference = minPref;
+								String parsedStringPrefrence = parsedIntPreference
+										+ "";
+								editedTextView.setText(parsedStringPrefrence);
+							}
+							int adjustedparsedIntPreference = myPreference3Convertor
+									.NormalToAdjusted(parsedIntPreference);
+							preference3SeekBar
+									.setProgress(adjustedparsedIntPreference);
+
+							preference3Value = parsedIntPreference;
+
+							handled = true;
+						}
+						return handled;
+					}
+				});
 
 		// Add action Buttons
 		builder.setPositiveButton(R.string.positive_button,

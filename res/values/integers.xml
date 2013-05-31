@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="preference1_max">20</integer>
+    <integer name="preference1_min">0</integer>
+    <integer name="preference2_max">9</integer>
+    <integer name="preference2_min">3</integer>
+    <integer name="preference3_max">30</integer>
+    <integer name="preference3_min">15</integer>
+</resources>

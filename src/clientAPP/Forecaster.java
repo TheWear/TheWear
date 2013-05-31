@@ -278,19 +278,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		}
 	}
 
-	// THIS DOESN'T WORK
-	// onCancelled is only called when cancelled from outside the Forecaster
-	// protected void onCancelled(LocationStruct locationInfo) {
-	// Log.d("TheWearDebug", "Forecaster AsyncTask is Canceled");
-	// // Close the ProgressDialog
-	// myProgressDialog.dismiss();
-	// // Show Toast to explain error
-	// Toast myToast = Toast.makeText(applicationContext,
-	// "Cannot connect to the Internet", Toast.LENGTH_LONG);
-	// myToast.setGravity(Gravity.CENTER, 0, 0);
-	// myToast.show();
-	// }
-
 	/**
 	 * specificForecast retrieves the forecast for a specific hour (12, 18, 24)
 	 * and processes it to the corresponding Bitmap. Inputs are the specific

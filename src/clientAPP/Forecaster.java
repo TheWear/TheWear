@@ -148,45 +148,54 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			reason = "internetConnection";
 		} else {
 
-			// Store Location Coordinates for further use
-			myGridCoach.setLocation(locationInfo.lat, locationInfo.lng);
-			progressCounter = progressCounter + 4;
-			publishProgress(progressCounter); // Total: 19/100
-			Log.d("TheWearDebug",
-					"LocationInfo coordinates stored for further use");
+			// Check if the location is known
+			if (locationInfo.address == "Unknown location") {
+				isCancelled = true;
+				reason = "unknownLocation";
+			} else {
 
-			// Save the Location in the
-			SharedPreferences sharedPref = applicationContext
-					.getSharedPreferences(applicationContext
-							.getString(R.string.TheWear_preference_key),
-							Context.MODE_PRIVATE);
-			SharedPreferences.Editor editor = sharedPref.edit();
-			editor.putString(
-					applicationContext.getString(R.string.location_preference),
-					locationInfo.address);
-			editor.commit();
-			progressCounter = progressCounter + 4;
-			publishProgress(progressCounter); // Total: 23/100
-			Log.d("TheWearDebug", "saved userLocation: " + locationInfo.address);
+				// Store Location Coordinates for further use
+				myGridCoach.setLocation(locationInfo.lat, locationInfo.lng);
+				progressCounter = progressCounter + 4;
+				publishProgress(progressCounter); // Total: 19/100
+				Log.d("TheWearDebug",
+						"LocationInfo coordinates stored for further use");
 
-			// Convert location coordinates to gridpoints used by GFS
-			Double[] gridCoos = myGridCoach.convertToGridCoos();
-			progressCounter = progressCounter + 4;
-			publishProgress(progressCounter); // Total: 27/100
-			Log.d("TheWearDebug", "Converted coordinates to Gridpoints");
+				// Save the Location in the
+				SharedPreferences sharedPref = applicationContext
+						.getSharedPreferences(applicationContext
+								.getString(R.string.TheWear_preference_key),
+								Context.MODE_PRIVATE);
+				SharedPreferences.Editor editor = sharedPref.edit();
+				editor.putString(applicationContext
+						.getString(R.string.location_preference),
+						locationInfo.address);
+				editor.commit();
+				progressCounter = progressCounter + 4;
+				publishProgress(progressCounter); // Total: 23/100
+				Log.d("TheWearDebug", "saved userLocation: "
+						+ locationInfo.address);
 
-			// Get the different specific forecasts, and cancel when
-			// necessary
-			specificForecast(12, gridCoos, 0); // Total: 50/100
-			if (isCancelled == false) {
-				specificForecast(18, gridCoos, 1); // Total: 73/100
+				// Convert location coordinates to gridpoints used by GFS
+				Double[] gridCoos = myGridCoach.convertToGridCoos();
+				progressCounter = progressCounter + 4;
+				publishProgress(progressCounter); // Total: 27/100
+				Log.d("TheWearDebug", "Converted coordinates to Gridpoints");
+
+				// Get the different specific forecasts, and cancel when
+				// necessary
+				specificForecast(12, gridCoos, 0); // Total: 50/100
 				if (isCancelled == false) {
-					specificForecast(24, gridCoos, 2); // Total: 96/100
+					specificForecast(18, gridCoos, 1); // Total: 73/100
 					if (isCancelled == false) {
-						forecastInfo = new ForecastInfo(locationInfo.address,
-								mouseOverInfo, mergedImage);
-						progressCounter = progressCounter + 4;
-						publishProgress(progressCounter); // Total: 100/100
+						specificForecast(24, gridCoos, 2); // Total: 96/100
+						if (isCancelled == false) {
+							forecastInfo = new ForecastInfo(
+									locationInfo.address, mouseOverInfo,
+									mergedImage);
+							progressCounter = progressCounter + 4;
+							publishProgress(progressCounter); // Total: 100/100
+						}
 					}
 				}
 			}
@@ -248,6 +257,17 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 								Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
+			} else if (reason == "unknownLocation") {
+				locationField.setText("");
+				locationField.clearFocus();
+				Toast myToast = Toast
+						.makeText(
+								applicationContext,
+								"Location unknown. Please enter a new location",
+								Toast.LENGTH_LONG);
+				myToast.setGravity(Gravity.CENTER, 0, 0);
+				myToast.show();
+				// CLear the locationField
 			} else {
 				Log.e("TheWearDebug", "Error: reason doesn't exist.");
 			}

@@ -314,11 +314,14 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		int tabNumber = mViewPager.getCurrentItem();
-		if (myForecastInfo.detailedForecastInformation[tabNumber] != null) {
+		Log.i("TheWearDebug","tabNumber: " + tabNumber);
+		String detailedInformation = myForecastInfo.detailedForecastInformation[tabNumber];
+		Log.i("TheWearDebug","detailedInformation: " + detailedInformation);
+		if (detailedInformation != null) {
 			Log.d("TheWearDebug", "Weather information available");
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(myForecastInfo.detailedForecastInformation[tabNumber])
+			builder.setMessage(detailedInformation)
 					.setTitle(R.string.forecastInfo_title);
 			builder.setPositiveButton(R.string.positive_button,
 					new DialogInterface.OnClickListener() {
@@ -331,7 +334,7 @@ public class MainActivity extends Activity {
 			dialog.show();
 
 		} else {
-			Log.d("TheWearDebug", "No weather information available");
+			Log.d("TheWearDebug", "No detailed weather information available");
 			Toast myToast = Toast.makeText(getApplicationContext(),
 					"No weather information available", Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -351,6 +354,7 @@ public class MainActivity extends Activity {
 		// AsyncTask to return (show) the during the Forecaster AsyncTask
 		// looked up location to the user.
 		EditText locationField = (EditText) findViewById(R.id.editText1);
+		locationField.clearFocus();
 
 		// Call the Forecaster AsyncTask
 		myForecasterObject = new Forecaster(this, locationField, myImageViews);

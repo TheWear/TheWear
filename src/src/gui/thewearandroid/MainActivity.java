@@ -314,9 +314,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		int tabNumber = mViewPager.getCurrentItem();
-		Log.i("TheWearDebug","tabNumber: " + tabNumber);
 		String detailedInformation = myForecastInfo.detailedForecastInformation[tabNumber];
-		Log.i("TheWearDebug","detailedInformation: " + detailedInformation);
 		if (detailedInformation != null) {
 			Log.d("TheWearDebug", "Weather information available");
 
@@ -336,7 +334,7 @@ public class MainActivity extends Activity {
 		} else {
 			Log.d("TheWearDebug", "No detailed weather information available");
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					"No weather information available", Toast.LENGTH_SHORT);
+					"No detailed weather information available", Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}

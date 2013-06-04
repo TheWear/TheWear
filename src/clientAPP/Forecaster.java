@@ -118,7 +118,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 		// Initialise ForecastInfo
 		ForecastInfo forecastInfo = null;
-		String[] mouseOverInfo = { null, null, null };
 
 		// Get the coordinates from the location using GridCoach
 

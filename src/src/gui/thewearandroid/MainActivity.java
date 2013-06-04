@@ -298,7 +298,15 @@ public class MainActivity extends Activity {
 		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
 	}
 
-	public void showForecastInformation(View v) {
+	/**
+	 * showForecastInformation gets the detailed forecast information, and
+	 * constructs the dialog and shows it.
+	 * 
+	 * input: the tab position of the imageView to connect the detailed
+	 * information with the corresponding imageView.
+	 */
+
+	public void showForecastInformation(int position) {
 		// Show the additional forecast information
 		ForecastInfo myForecastInfo = null;
 		Log.d("TheWearDebug", "\'about\' clicked");
@@ -313,14 +321,13 @@ public class MainActivity extends Activity {
 			Log.e("TheWearDebug", "ExecutionException");
 			e.printStackTrace();
 		}
-		int tabNumber = mViewPager.getCurrentItem();
-		String detailedInformation = myForecastInfo.detailedForecastInformation[tabNumber];
+		String detailedInformation = myForecastInfo.detailedForecastInformation[position];
 		if (detailedInformation != null) {
 			Log.d("TheWearDebug", "Weather information available");
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(detailedInformation)
-					.setTitle(R.string.forecastInfo_title);
+			builder.setMessage(detailedInformation).setTitle(
+					R.string.forecastInfo_title);
 			builder.setPositiveButton(R.string.positive_button,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
@@ -334,7 +341,8 @@ public class MainActivity extends Activity {
 		} else {
 			Log.d("TheWearDebug", "No detailed weather information available");
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					"No detailed weather information available", Toast.LENGTH_SHORT);
+					"No detailed weather information available",
+					Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}
@@ -431,7 +439,7 @@ public class MainActivity extends Activity {
 		 */
 
 		@Override
-		public Object instantiateItem(ViewGroup container, int position) {
+		public Object instantiateItem(ViewGroup container, final int position) {
 			Context context = MainActivity.this;
 			ImageView imageView = myImageViews[position];
 			Log.d("TheWearDebug", "Setting Image for position " + position);
@@ -467,6 +475,14 @@ public class MainActivity extends Activity {
 			// Options: CENTER, CENTER_INSIDE, FIT_CENTER
 			imageView.setImageBitmap(bitmap);
 			((ViewPager) container).addView(imageView, 0);
+
+			// set OnclickListener for imageView
+			imageView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					showForecastInformation(position);
+				}
+			});
 
 			return imageView;
 		}

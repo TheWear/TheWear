@@ -66,30 +66,29 @@ public final class R {
         public static final int umbrellabroken=0x7f02001f;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0019;
+        public static final int action_settings=0x7f0a0018;
         public static final int appRelativeLayout=0x7f0a0000;
         public static final int button_back=0x7f0a0005;
         public static final int button_forecast=0x7f0a0003;
         public static final int button_forward=0x7f0a0006;
         public static final int editText1=0x7f0a0002;
         public static final int imageButton1=0x7f0a0007;
-        public static final int imageButton2=0x7f0a0008;
-        public static final int preference1_imageView=0x7f0a000a;
-        public static final int preference1_preferenceName=0x7f0a000b;
-        public static final int preference1_preferenceNumber=0x7f0a000c;
-        public static final int preference1_preferenceUnit=0x7f0a000d;
-        public static final int preference2_imageView=0x7f0a000f;
-        public static final int preference2_preferenceName=0x7f0a0010;
-        public static final int preference2_preferenceNumber=0x7f0a0011;
-        public static final int preference2_preferenceUnit=0x7f0a0012;
-        public static final int preference3_imageView=0x7f0a0014;
-        public static final int preference3_preferenceName=0x7f0a0015;
-        public static final int preference3_preferenceNumber=0x7f0a0016;
-        public static final int preference3_preferenceUnit=0x7f0a0017;
-        public static final int preferences_textViewTitle=0x7f0a0009;
-        public static final int seekBar1=0x7f0a000e;
-        public static final int seekBar2=0x7f0a0013;
-        public static final int seekBar3=0x7f0a0018;
+        public static final int preference1_imageView=0x7f0a0009;
+        public static final int preference1_preferenceName=0x7f0a000a;
+        public static final int preference1_preferenceNumber=0x7f0a000b;
+        public static final int preference1_preferenceUnit=0x7f0a000c;
+        public static final int preference2_imageView=0x7f0a000e;
+        public static final int preference2_preferenceName=0x7f0a000f;
+        public static final int preference2_preferenceNumber=0x7f0a0010;
+        public static final int preference2_preferenceUnit=0x7f0a0011;
+        public static final int preference3_imageView=0x7f0a0013;
+        public static final int preference3_preferenceName=0x7f0a0014;
+        public static final int preference3_preferenceNumber=0x7f0a0015;
+        public static final int preference3_preferenceUnit=0x7f0a0016;
+        public static final int preferences_textViewTitle=0x7f0a0008;
+        public static final int seekBar1=0x7f0a000d;
+        public static final int seekBar2=0x7f0a0012;
+        public static final int seekBar3=0x7f0a0017;
         public static final int textView1=0x7f0a0004;
         public static final int viewPager=0x7f0a0001;
     }

@@ -32,6 +32,8 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	// TODO implements Menu, MenuInflator, MenuItem, or an other class? Goal:
+	// use the menu button of the phone.
 
 	/**
 	 * The GUI of the Application.
@@ -227,7 +229,7 @@ public class MainActivity extends Activity {
 	 * goToSettings is called by imageButton1 and shows the settings window of
 	 * our app;
 	 * 
-	 * showForecastInformation is called by imageButton2 and shows in-dept
+	 * showForecastInformation is called by imageButton2 and shows in-depth
 	 * forecast information (for example: wind speed, mm rain...)
 	 */
 
@@ -301,6 +303,9 @@ public class MainActivity extends Activity {
 	/**
 	 * showForecastInformation gets the detailed forecast information, and
 	 * constructs the dialog and shows it.
+	 * 
+	 * if there is no detailed forecast information available, a toast is shown
+	 * that notifies the user of this.
 	 * 
 	 * input: the tab position of the imageView to connect the detailed
 	 * information with the corresponding imageView.
@@ -436,6 +441,16 @@ public class MainActivity extends Activity {
 		 * This method checks if a forecast got retrieved: if so, the image
 		 * displaying the forecast is shown, otherwise getImages is called, and
 		 * a default image is displayed.
+		 * 
+		 * When this method constructs a View -- consisting of 1 ImageView --,
+		 * an onClickListener is set for the ImageView. The onClickListener
+		 * calls the showForecastInformation() method (located in the
+		 * MainActivity class). The code in the showForecastInformation() can't
+		 * be executed in the ImagePagerAdapter subclass because the
+		 * AlertDialog.Builder doesn't work in this subclass. I have decided to
+		 * put all the code in the showForecastInformation() method instead of
+		 * making a method only for building the Dialog to keep that part of the
+		 * code together.
 		 */
 
 		@Override

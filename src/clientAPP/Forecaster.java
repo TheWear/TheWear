@@ -1,5 +1,7 @@
 package clientAPP;
 
+import java.util.ArrayList;
+
 import src.gui.thewearandroid.R;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -40,13 +42,13 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	private ImageView[] myImageViews;
 	private ProgressDialog myProgressDialog;
 	private EditText locationField;
-	private String[] dataset;
-	private WeatherEnumHandler weather_data;
+	private ArrayList<String[]> dataset = new ArrayList<String[]>();
 	private boolean isCancelled;
 	private Bitmap[] mergedImage = { null, null, null };
 	private String[] mouseOverInfo = { null, null, null };
 	private int progressCounter;
 	private String reason;
+	private String[] localDataset = null;
 
 	/**
 	 * Constructor for the Forecaster AsyncTask to be able to import the
@@ -191,7 +193,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 						if (isCancelled == false) {
 							forecastInfo = new ForecastInfo(
 									locationInfo.address, mouseOverInfo,
-									mergedImage);
+									mergedImage, dataset);
 							progressCounter = progressCounter + 4;
 							publishProgress(progressCounter); // Total: 100/100
 						}
@@ -259,11 +261,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			} else if (reason == "unknownLocation") {
 				locationField.setText("");
 				locationField.clearFocus();
-				Toast myToast = Toast
-						.makeText(
-								applicationContext,
-								"Location unknown. Please enter a new location",
-								Toast.LENGTH_LONG);
+				Toast myToast = Toast.makeText(applicationContext,
+						"Location unknown. Please enter a new location",
+						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 				// CLear the locationField
@@ -301,8 +301,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * specificForecast retrieves the forecast for a specific hour (12, 18, 24)
 	 * and processes it to the corresponding Bitmap. Inputs are the specific
 	 * hour (forecast); the coordinates (gridCoos); and the forecastNumber for
-	 * further processing (0, 1, 2) this method stores the bitmap and the
-	 * mousOver information directly in the right variables for further use.
+	 * further processing (0, 1, 2) this method stores the bitmap, the mousOver
+	 * information and the dataset directly in the right variables for further
+	 * use.
 	 * 
 	 * Input is forecast, Double[] gridCoos, int forecastNumber;
 	 * 
@@ -316,31 +317,34 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 		// Get Weather data from our server
 		ServerCommunicator myServerCommunicator = new ServerCommunicator();
-		dataset = myServerCommunicator.getWeatherData(forecast, gridCoos[0],
-				gridCoos[1]);
-		Log.d("TheWearDebug", "dataset length: " + dataset.length);
+		localDataset = myServerCommunicator.getWeatherData(forecast,
+				gridCoos[0], gridCoos[1]);
+		Log.d("TheWearDebug", "dataset length: " + localDataset.length);
 		progressCounter = progressCounter + 7;
 		publishProgress(progressCounter); // Total: 7/22
-		if (dataset == null) {
+		if (localDataset == null) {
 			isCancelled = true;
 			reason = "serverConnection";
 			Log.d("TheWearDebug", "Canceling Forecaster... (connection)");
-		} else if (dataset.length == 1) {
+		} else if (localDataset.length == 1) {
 			isCancelled = true;
 			reason = "server";
 			Log.d("TheWearDebug", "Canceling Forecaster... (server)");
 		} else {
 			Log.d("TheWearDebug", "Got weather dataset from our server");
 
+			dataset.add(forecastNumber, localDataset);
+
+			WeatherEnumHandler weather_data;
 			weather_data = new WeatherEnumHandler();
-			weather_data.handleWeatherEnum(dataset, applicationContext);
+			weather_data.handleWeatherEnum(localDataset, applicationContext);
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 11/23
 			Log.d("TheWearDebug", "handled WeatherEnum");
 
 			boolean[] advice = weather_data.weathertype.show_imgs;
 
-			MouseOverManager myMouseOver = new MouseOverManager(dataset);
+			MouseOverManager myMouseOver = new MouseOverManager(localDataset);
 			mouseOverInfo[forecastNumber] = myMouseOver.getString();
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 15/23

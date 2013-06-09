@@ -1,5 +1,6 @@
 package src.gui.thewearandroid;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import clientAPP.ForecastInfo;
@@ -294,9 +295,35 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * goToSettings() shows the preferences menu (the
+	 * ForecastPreferencesFragment) when called.
+	 * 
+	 * This method tries to retrieve the dataset of the last forecast, and
+	 * passes it to the setter method of the ForecastPreferencesFragment(),
+	 * together with the ImageViews that should be changed, and the
+	 * applicationContext.
+	 */
+
 	public void goToSettings(View v) {
 		// Show the Preferences Window
+		ForecastInfo myForecastInfo = null;
+		Log.d("TheWearDebug", "\'about\' clicked");
+		try {
+			myForecastInfo = myForecasterObject.get();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "InterruptedException");
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "ExecutionException");
+			e.printStackTrace();
+		}
+		ArrayList<String[]> myDataset = myForecastInfo.dataset;
 		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
+		myForecastPreferencesFragment.passNecessaryInformation(myImageViews, myDataset,
+				this);
 		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
 	}
 

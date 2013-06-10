@@ -52,5 +52,8 @@
         <item>umbrella</item>
         <item>sunglasses_2</item>
     </string-array>
+    <string name="social_media_dialog_Title">Share</string>
+    <string name="facebookButton">Facebook Button</string>
+    <string name="shareButton">Button that opens the share dialog</string>
 
 </resources>

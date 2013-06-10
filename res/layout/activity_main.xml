@@ -87,28 +87,26 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_forecast"
         android:layout_marginBottom="4dp"
-        android:layout_marginRight="-8dp"
-        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentLeft="true"
         android:contentDescription="@string/settingsButton"
         android:onClick="goToSettings"
         android:longClickable="false"
         android:src="@drawable/action_settings" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
-    <!-- To be used later?
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_forecast"
         android:layout_marginBottom="4dp"
-        android:layout_marginRight="8dp"
-        android:layout_alignParentLeft="true"
-        android:contentDescription="@string/aboutButton"
-        android:onClick="showForecastInformation"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/shareButton"
+        android:onClick="showSocialMediaPicker"
         android:longClickable="false"
-        android:src="@drawable/action_about" />
-     -->
+        android:src="@drawable/social_share" />
 
 
 </RelativeLayout>

@@ -1,0 +1,42 @@
+<!--
+	The XML code linked with SocialMediaPickerDialog. These two files
+	together display a dialog in which the user can chose how to share the forecast image.
+	This file contains the basic layout of the dialog.-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+        <TextView
+        android:id="@+id/social_textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/social_media_dialog_Title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageButton
+            android:id="@+id/imageButton1FB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/social_textViewTitle"
+            android:src="@drawable/com_facebook_icon"
+            android:contentDescription="@string/facebookButton"
+            android:onClick="shareFacebook" />
+
+        <ImageButton
+            android:id="@+id/imageButton2Twitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageButton1FB"
+            android:src="@drawable/bird_blue_32"
+            android:contentDescription="@string/facebookButton"
+            android:onClick="shareTwitter" />
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package src.gui.thewearandroid;
 
 import java.util.ArrayList;
 
+import clientAPP.ForecastInfo;
 import clientAPP.MergeImage;
 import clientAPP.PreferenceConvertor;
 import clientAPP.WeatherEnumHandler;
@@ -58,7 +59,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	private PreferenceConvertor myPreference2Convertor;
 	private PreferenceConvertor myPreference3Convertor;
 	private ImageView[] myImageViews = { null, null, null };
-	private ArrayList<String[]> datasets;
+	ForecastInfo myForecastInfo;
 	private Context applicationContext;
 	private ProgressBar myProgressBar;
 
@@ -78,8 +79,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	 * 
 	 * * Set a positive button (OK button) for saving of the preferences, to
 	 * close the window and to change the forecast images according to the new
-	 * preferences values. A progressBar is shown to notify the user that the images
-	 * are changing.
+	 * preferences values. A progressBar is shown to notify the user that the
+	 * images are changing.
 	 * 
 	 * * Set a negative button (Cancel button) to cancel a change of preferences
 	 * and to close the window
@@ -401,7 +402,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 					public void onClick(DialogInterface dialog, int id) {
 						myProgressBar.setIndeterminate(true);
 						myProgressBar.setVisibility(0);
-						
+
 						// Saves the changed preference values and closes the
 						// dialog
 						SharedPreferences.Editor editor = sharedPref.edit();
@@ -415,27 +416,33 @@ public class ForecastPreferencesFragment extends DialogFragment {
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
 						// Set the new Bitmaps in the ImageViews
-						if (datasets == null) {
+						if (myForecastInfo == null) {
 							Log.d("TheWearDebug",
 									"No Dataset available, so the forecast image isn't changed.");
 						} else {
-							
-							// Recreate the Bitmaps and set them into the
-							// imageViews
-							Bitmap[] myBitmap = { null, null, null };
-							for (int i = 0; i <= 2; i++) {
-								WeatherEnumHandler weather_data;
-								weather_data = new WeatherEnumHandler();
-								weather_data.handleWeatherEnum(datasets.get(i),
-										applicationContext);
-								Log.d("TheWearDebug", "handled WeatherEnum");
+							ArrayList<String[]> datasets = myForecastInfo.dataset;
+							if (datasets == null) {
+								Log.d("TheWearDebug",
+										"No Dataset available, so the forecast image isn't changed.");
+							} else {
+								// Recreate the Bitmaps and set them into the
+								// imageViews
+								Bitmap[] myBitmap = { null, null, null };
+								for (int i = 0; i <= 2; i++) {
+									WeatherEnumHandler weather_data;
+									weather_data = new WeatherEnumHandler();
+									weather_data.handleWeatherEnum(
+											datasets.get(i), applicationContext);
+									Log.d("TheWearDebug", "handled WeatherEnum");
 
-								boolean[] advice = weather_data.weathertype.show_imgs;
+									boolean[] advice = weather_data.weathertype.show_imgs;
 
-								MergeImage myMergeImage = new MergeImage();
-								myBitmap[i] = myMergeImage.MergeForecastImage(
-										advice, applicationContext);
-								myImageViews[i].setImageBitmap(myBitmap[i]);
+									MergeImage myMergeImage = new MergeImage();
+									myBitmap[i] = myMergeImage
+											.MergeForecastImage(advice,
+													applicationContext);
+									myImageViews[i].setImageBitmap(myBitmap[i]);
+								}
 							}
 						}
 					}
@@ -501,7 +508,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		Log.d("TheWearDebug", "Created buttons and listeners of those buttons");
 
 		// Set the ProgressBar invisible
-		myProgressBar = (ProgressBar) dialogView.findViewById(R.id.progressBar1);
+		myProgressBar = (ProgressBar) dialogView
+				.findViewById(R.id.progressBar1);
 		myProgressBar.setVisibility(4);
 
 		return builder.create();
@@ -514,9 +522,9 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	 */
 
 	public void passNecessaryInformation(ImageView[] myImageViews,
-			ArrayList<String[]> datasets, Context applicationContext) {
+			ForecastInfo myForecastInfo, Context applicationContext) {
 		this.myImageViews = myImageViews;
-		this.datasets = datasets;
+		this.myForecastInfo = myForecastInfo;
 		this.applicationContext = applicationContext;
 
 	}

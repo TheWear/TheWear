@@ -118,7 +118,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		// Initialize the progressCounter
 		progressCounter = 0;
 
-		// Initialise ForecastInfo
+		// Initialize ForecastInfo
 		ForecastInfo forecastInfo = null;
 
 		// Get the coordinates from the location using GridCoach
@@ -241,16 +241,19 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 			// Show Toast to explain error
 			if (reason == "internetConnection") {
+				Log.i("TheWearDebug","Forecaster canceled. Reason: internetConnection");
 				Toast myToast = Toast.makeText(applicationContext,
 						"Cannot connect to the Internet", Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "serverConnection") {
+				Log.i("TheWearDebug","Forecaster canceled. Reason: serverConnection");
 				Toast myToast = Toast.makeText(applicationContext,
 						"Cannot connect to TheWear server", Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "server") {
+				Log.i("TheWearDebug","Forecaster canceled. Reason: server");
 				Toast myToast = Toast
 						.makeText(
 								applicationContext,
@@ -259,6 +262,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "unknownLocation") {
+				Log.i("TheWearDebug","Forecaster canceled. Reason: unknownLocation");
 				locationField.setText("");
 				locationField.clearFocus();
 				Toast myToast = Toast.makeText(applicationContext,

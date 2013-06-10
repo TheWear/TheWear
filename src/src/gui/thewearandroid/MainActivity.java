@@ -1,6 +1,5 @@
 package src.gui.thewearandroid;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import clientAPP.ForecastInfo;
@@ -43,6 +42,7 @@ public class MainActivity extends Activity {
 	private ViewPager mViewPager;
 	private ImageView[] myImageViews = { null, null, null };
 	private Forecaster myForecasterObject;
+	private SocialMediaPickerFragment mySocialMediaPickerFragment;
 
 	/**
 	 * onCreate of the GUI contains all the code we want to have executed on
@@ -320,10 +320,10 @@ public class MainActivity extends Activity {
 			Log.e("TheWearDebug", "ExecutionException");
 			e.printStackTrace();
 		}
-		ArrayList<String[]> myDataset = myForecastInfo.dataset;
+		// Catch an empty myForecastInfo
 		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-		myForecastPreferencesFragment.passNecessaryInformation(myImageViews, myDataset,
-				this);
+		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
+				myForecastInfo, this);
 		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
 	}
 
@@ -353,30 +353,86 @@ public class MainActivity extends Activity {
 			Log.e("TheWearDebug", "ExecutionException");
 			e.printStackTrace();
 		}
-		String detailedInformation = myForecastInfo.detailedForecastInformation[position];
-		if (detailedInformation != null) {
-			Log.d("TheWearDebug", "Weather information available");
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(detailedInformation).setTitle(
-					R.string.forecastInfo_title);
-			builder.setPositiveButton(R.string.positive_button,
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							// User clicked OK button
-						}
-					});
-			// 3. Get the AlertDialog from create()
-			AlertDialog dialog = builder.create();
-			dialog.show();
-
-		} else {
+		if (myForecastInfo == null) {
 			Log.d("TheWearDebug", "No detailed weather information available");
 			Toast myToast = Toast.makeText(getApplicationContext(),
 					"No detailed weather information available",
 					Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
+		} else {
+			String detailedInformation = myForecastInfo.detailedForecastInformation[position];
+			if (detailedInformation != null) {
+				Log.d("TheWearDebug", "Weather information available");
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage(detailedInformation).setTitle(
+						R.string.forecastInfo_title);
+				builder.setPositiveButton(R.string.positive_button,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// User clicked OK button
+							}
+						});
+				// Get the AlertDialog from create()
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			} else {
+				Log.d("TheWearDebug",
+						"No detailed weather information available");
+				Toast myToast = Toast.makeText(getApplicationContext(),
+						"No detailed weather information available",
+						Toast.LENGTH_SHORT);
+				myToast.setGravity(Gravity.CENTER, 0, 0);
+				myToast.show();
+			}
+		}
+	}
+
+	/**
+	 * showSocialMediaPicker() opens a Dialog containing the social media that
+	 * can be used for sharing, so the user can pick the social media they
+	 * prefer.
+	 * 
+	 * This method also gets the current forecast image and passes it to the
+	 * SocialMediaPickerFragment along with the tabNumber for the time
+	 * reference.
+	 */
+
+	public void showSocialMediaPicker(View v) {
+		// Get the Bitmap
+		ForecastInfo myForecastInfo = null;
+		try {
+			myForecastInfo = myForecasterObject.get();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "InterruptedException");
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "ExecutionException");
+			e.printStackTrace();
+		}
+		if (myForecastInfo == null) {
+			Log.d("TheWearDebug", "No Bitmap to share");
+			Toast myToast = Toast.makeText(getApplicationContext(),
+					"No forecast to share", Toast.LENGTH_SHORT);
+			myToast.setGravity(Gravity.CENTER, 0, 0);
+			myToast.show();
+		} else {
+			int tabNumber = mViewPager.getCurrentItem();
+			Bitmap currentBitmap = myForecastInfo.mergedImages[tabNumber];
+			if (currentBitmap != null) {
+				mySocialMediaPickerFragment = new SocialMediaPickerFragment();
+				mySocialMediaPickerFragment.show(getFragmentManager(),
+						"Preferences");
+			} else {
+				Log.d("TheWearDebug", "No Bitmap to share");
+				Toast myToast = Toast.makeText(getApplicationContext(),
+						"No forecast to share", Toast.LENGTH_SHORT);
+				myToast.setGravity(Gravity.CENTER, 0, 0);
+				myToast.show();
+			}
 		}
 	}
 
@@ -499,9 +555,15 @@ public class MainActivity extends Activity {
 				e.printStackTrace();
 			}
 			Bitmap bitmap = null;
-			if (myForecastInfo.mergedImages[position] != null) {
-				bitmap = myForecastInfo.mergedImages[position];
+			if (myForecastInfo != null) {
+				if (myForecastInfo.mergedImages[position] != null) {
+					bitmap = myForecastInfo.mergedImages[position];
+				} else {
+					Log.d("TheWearAndroid", "mergedImage[pos] == null");
+					bitmap = getImages(position);
+				}
 			} else {
+				Log.d("TheWearAndroid", "myForecastInfo == null");
 				bitmap = getImages(position);
 			}
 
@@ -533,5 +595,29 @@ public class MainActivity extends Activity {
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			((ViewPager) container).removeView((ImageView) object);
 		}
+	}
+
+	/**
+	 * shareFacebook() is called when the Facebook button on the
+	 * social_media_dialog.xml is clicked on the social_media_dialog.xml.
+	 */
+
+	public void shareFacebook(View v) {
+		Log.d("TheWearDebug", "Sharing over Facebook");
+		// Close the SocialMediaPickerFragment
+		mySocialMediaPickerFragment.dismiss();
+		// TODO Implement sharing over Facebook
+	}
+
+	/**
+	 * shareTwitter() is called when the Twitter button on the
+	 * social_media_dialog.xml is clicked on the social_media_dialog.xml.
+	 */
+
+	public void shareTwitter(View v) {
+		Log.d("TheWearDebug", "Sharing over Twitter");
+		// Close the SocialMediaPickerFragment
+		mySocialMediaPickerFragment.dismiss();
+		// TODO implement sharing over Twitter
 	}
 }

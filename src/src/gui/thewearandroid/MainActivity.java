@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 	private ImageView[] myImageViews = { null, null, null };
 	private Forecaster myForecasterObject;
 	private SocialMediaPickerFragment mySocialMediaPickerFragment;
+	private boolean appCreated = false;
 
 	/**
 	 * onCreate of the GUI contains all the code we want to have executed on
@@ -62,9 +63,7 @@ public class MainActivity extends Activity {
 	 * clickable non-clickable when necessary, and to dynamically change the
 	 * title (moment for the forecast) to the applicable one;
 	 * 
-	 * * starting the forecast on creation of the App when we do have a saved
-	 * location preference (so when the user did run the App at least once),
-	 * otherwise a toast is shown.
+	 * 
 	 */
 
 	@Override
@@ -184,38 +183,58 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
+		// Indicate the App just started
+		appCreated = true;
 		Log.i("TheWearDebug", "onCreate() finished");
-
-		// Forecast on startup:
-
-		// Get the Location Preference.
-		Context context = this;
-		SharedPreferences sharedPref = context.getSharedPreferences(
-				getString(R.string.TheWear_preference_key),
-				Context.MODE_PRIVATE);
-		String startLocation = sharedPref.getString(
-				getString(R.string.location_preference), null);
-		Log.d("TheWearDebug", "Got startLocation: " + startLocation);
-
-		// Check if the preference is empty. If the Preference is empty, it
-		// means the application is not yet used.
-		if (startLocation != null) {
-			Log.d("TheWearDebug", "startLocation != null");
-
-			// Start Forecast
-			handleStartForecast(startLocation);
-
-		} else {
-			Log.d("TheWearDebug", "startLocation == null");
-			// A toast shown only on the first startup
-			Toast myToast = Toast.makeText(getApplicationContext(),
-					"Enter Location and press Play for the Forecast",
-					Toast.LENGTH_LONG);
-			myToast.setGravity(Gravity.CENTER, 0, 0);
-			myToast.show();
-		}
-		Log.i("TheWearDebug", "onStart() finished");
 	} // End onCreate
+
+	/**
+	 * onResume is called when the application is visible and just before the
+	 * application starts interacting with the user.
+	 * 
+	 * The Forecast will be started only if the user just started the App
+	 * (checked with appCreated) and if we do have a saved location preference
+	 * (so when the user did run the App at least once), otherwise a toast is
+	 * shown.
+	 */
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (appCreated == true) {
+			// Forecast on startup:
+
+			// Get the Location Preference.
+			Context context = this;
+			SharedPreferences sharedPref = context.getSharedPreferences(
+					getString(R.string.TheWear_preference_key),
+					Context.MODE_PRIVATE);
+			String startLocation = sharedPref.getString(
+					getString(R.string.location_preference), null);
+			Log.d("TheWearDebug", "Got startLocation: " + startLocation);
+
+			// Check if the preference is empty. If the Preference is empty, it
+			// means the application is not yet used.
+			if (startLocation != null) {
+				Log.d("TheWearDebug", "startLocation != null");
+
+				// Start Forecast
+				handleStartForecast(startLocation);
+
+			} else {
+				Log.d("TheWearDebug", "startLocation == null");
+				// A toast shown only on the first startup
+				Toast myToast = Toast.makeText(getApplicationContext(),
+						"Enter Location and press Play for the Forecast",
+						Toast.LENGTH_LONG);
+				myToast.setGravity(Gravity.CENTER, 0, 0);
+				myToast.show();
+			}
+			// Indicate the App did the forecast on startup to prevent the
+			// forecast to be executed in other cases when onResume() is called
+			appCreated = false;
+		}
+	} // End onResume()
 
 	/**
 	 * onCreateOptionsMenu() is only called on creating the activity and creates

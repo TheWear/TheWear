@@ -278,6 +278,7 @@ public class MainActivity extends Activity {
 		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
 				myForecastInfo, this);
 		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
+
 		return true;
 	}
 

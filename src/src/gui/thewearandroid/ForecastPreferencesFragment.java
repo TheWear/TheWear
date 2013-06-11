@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -62,6 +63,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	ForecastInfo myForecastInfo;
 	private Context applicationContext;
 	private ProgressBar myProgressBar;
+	private Dialog myDialog;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -84,10 +86,6 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	 * 
 	 * * Set a negative button (Cancel button) to cancel a change of preferences
 	 * and to close the window
-	 * 
-	 * * Set a neutral button (default button) to set the preference values back
-	 * to the default ones. The Dialog should not close when this button is
-	 * pressed (as it currently does now)
 	 */
 
 	@Override
@@ -453,46 +451,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								// Set preference values to default
-								preference1Value = defaultPreference1Value;
-								preference2Value = defaultPreference2Value;
-								preference3Value = defaultPreference3Value;
-								// set the EditText to the new value
-								String setPreference1Value = preference1Value
-										+ "";
-								String setPreference2Value = preference2Value
-										+ "";
-								String setPreference3Value = preference3Value
-										+ "";
-								preference1EditText
-										.setText(setPreference1Value);
-								preference2EditText
-										.setText(setPreference2Value);
-								preference3EditText
-										.setText(setPreference3Value);
-								// set the SeekBar to the new value
-								adjustedPreference1Value = myPreference1Convertor
-										.NormalToAdjusted(preference1Value);
-								adjustedPreference2Value = myPreference2Convertor
-										.NormalToAdjusted(preference2Value);
-								adjustedPreference3Value = myPreference3Convertor
-										.NormalToAdjusted(preference3Value);
-								preference1SeekBar
-										.setProgress(adjustedPreference1Value);
-								preference2SeekBar
-										.setProgress(adjustedPreference2Value);
-								preference3SeekBar
-										.setProgress(adjustedPreference3Value);
-
-								// TODO prevent the closing of the Dialog when
-								// clicked
-								// link that might help with this:
-								// http://stackoverflow.com/questions/2620444/how-to-prevent-a-dialog-from-closing-when-a-button-is-clicked/15619098#15619098
-								// An other option is to use a "normal" button
-								// on the dialog
-								// instead of a pre-programmed one, but I prefer
-								// using these
-								// for aesthetic reasons.
+								// Initiating original onClickListener
+								// is overwritten at OnStart()
 							}
 						})
 				.setNegativeButton(R.string.negative_button,
@@ -512,7 +472,58 @@ public class ForecastPreferencesFragment extends DialogFragment {
 				.findViewById(R.id.progressBar1);
 		myProgressBar.setVisibility(4);
 
-		return builder.create();
+		myDialog = builder.create();
+
+		return myDialog;
+	}
+
+	/**
+	 * onStart() sets an onClickListener for the neutral button that doesn't
+	 * close the dialog when clicked unlike the original onClickListener
+	 * 
+	 * When Clicked the neutral button sets the preference values back to the
+	 * default ones.
+	 */
+
+	@Override
+	public void onStart() {
+		super.onStart(); // super.onStart() is where dialog.show() is actually
+							// called on the underlying dialog, so we have to do
+							// it after this point
+		AlertDialog d = (AlertDialog) getDialog();
+		if (d != null) {
+			Log.d("TheWearDebug", "Custom onClickDialog set");
+			Button positiveButton = (Button) d.getButton(Dialog.BUTTON_NEUTRAL);
+			positiveButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// Set preference values to default
+					preference1Value = defaultPreference1Value;
+					preference2Value = defaultPreference2Value;
+					preference3Value = defaultPreference3Value;
+					// set the EditText to the new value
+					String setPreference1Value = preference1Value + "";
+					String setPreference2Value = preference2Value + "";
+					String setPreference3Value = preference3Value + "";
+					preference1EditText.setText(setPreference1Value);
+					preference2EditText.setText(setPreference2Value);
+					preference3EditText.setText(setPreference3Value);
+					// set the SeekBar to the new value
+					adjustedPreference1Value = myPreference1Convertor
+							.NormalToAdjusted(preference1Value);
+					adjustedPreference2Value = myPreference2Convertor
+							.NormalToAdjusted(preference2Value);
+					adjustedPreference3Value = myPreference3Convertor
+							.NormalToAdjusted(preference3Value);
+					preference1SeekBar.setProgress(adjustedPreference1Value);
+					preference2SeekBar.setProgress(adjustedPreference2Value);
+					preference3SeekBar.setProgress(adjustedPreference3Value);
+					Log.d("TheWearDebug", "Preferences set to default");
+				}
+			});
+		} else {
+			Log.e("TheWearDebug", "No Dialog yet");
+		}
 	}
 
 	/**
@@ -526,6 +537,5 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		this.myImageViews = myImageViews;
 		this.myForecastInfo = myForecastInfo;
 		this.applicationContext = applicationContext;
-
 	}
 }

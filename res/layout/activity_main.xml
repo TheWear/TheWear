@@ -82,20 +82,6 @@
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
     <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_forecast"
-        android:layout_marginBottom="4dp"
-        android:layout_marginRight="8dp"
-        android:layout_alignParentLeft="true"
-        android:contentDescription="@string/settingsButton"
-        android:onClick="goToSettings"
-        android:longClickable="false"
-        android:src="@drawable/action_settings" />
-    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
-
-    <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,6 +93,6 @@
         android:onClick="showSocialMediaPicker"
         android:longClickable="false"
         android:src="@drawable/social_share" />
-
+    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
 </RelativeLayout>

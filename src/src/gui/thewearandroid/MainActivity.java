@@ -20,6 +20,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -32,8 +35,6 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	// TODO implements Menu, MenuInflator, MenuItem, or an other class? Goal:
-	// use the menu button of the phone.
 
 	/**
 	 * The GUI of the Application.
@@ -217,6 +218,61 @@ public class MainActivity extends Activity {
 	} // End onCreate
 
 	/**
+	 * onCreateOptionsMenu() is only called on creating the activity and creates
+	 * the menu in the ActionBar
+	 */
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return true;
+	}
+
+	/**
+	 * goToPreferences() shows the preferences menu (the
+	 * ForecastPreferencesFragment) when called.
+	 * 
+	 * This method tries to retrieve the dataset of the last forecast, and
+	 * passes it to the setter method of the ForecastPreferencesFragment(),
+	 * together with the ImageViews that should be changed, and the
+	 * applicationContext.
+	 */
+
+	public boolean goToPreferences(MenuItem menu) {
+		// Show the Preferences Window
+		ForecastInfo myForecastInfo = null;
+		Log.d("TheWearDebug", "\'about\' clicked");
+		try {
+			myForecastInfo = myForecasterObject.get();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "InterruptedException");
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "ExecutionException");
+			e.printStackTrace();
+		}
+		// Catch an empty myForecastInfo
+		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
+		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
+				myForecastInfo, this);
+		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
+		return true;
+	}
+
+	/**
+	 * showAbout()
+	 */
+
+	public boolean showAbout(MenuItem menu) {
+		Log.d("TheWearDebug","About our App");
+		// TODO add about dialog.
+		return true;
+	}
+
+	/**
 	 * Methods used by the buttons. These buttons are linked to these methods
 	 * using Android:onClick="methodName"
 	 * 
@@ -293,38 +349,6 @@ public class MainActivity extends Activity {
 			Log.e("SwitchForecastButton",
 					"An error occured while switching Forecast (back). Check the Selected Forecast");
 		}
-	}
-
-	/**
-	 * goToSettings() shows the preferences menu (the
-	 * ForecastPreferencesFragment) when called.
-	 * 
-	 * This method tries to retrieve the dataset of the last forecast, and
-	 * passes it to the setter method of the ForecastPreferencesFragment(),
-	 * together with the ImageViews that should be changed, and the
-	 * applicationContext.
-	 */
-
-	public void goToSettings(View v) {
-		// Show the Preferences Window
-		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'about\' clicked");
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
-			e.printStackTrace();
-		}
-		// Catch an empty myForecastInfo
-		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
-				myForecastInfo, this);
-		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
 	}
 
 	/**

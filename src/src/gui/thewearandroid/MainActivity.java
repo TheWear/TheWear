@@ -219,7 +219,7 @@ public class MainActivity extends Activity {
 
 	/**
 	 * onCreateOptionsMenu() is only called on creating the activity and creates
-	 * the menu in the ActionBar
+	 * the menu in the ActionBar from the menu file main.xml
 	 */
 
 	@Override
@@ -263,12 +263,22 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * showAbout()
+	 * showAbout() shows the user a dialog containing information of our App.
 	 */
 
 	public boolean showAbout(MenuItem menu) {
-		Log.d("TheWearDebug","About our App");
-		// TODO add about dialog.
+		Log.d("TheWearDebug", "About our App");
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.about_text).setTitle(R.string.action_about);
+		builder.setPositiveButton(R.string.positive_button,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User clicked OK button
+					}
+				});
+		// Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
 		return true;
 	}
 

@@ -58,7 +58,7 @@ public class ServerCommunicator {
 			} catch (IOException e1) {
 				// TODO Add error message for IOException
 				Log.e("TheWearDebug","IOException 3");
-				// This gets called when the application can't retrieve the weather data from the server.
+				// This is called when the application can't retrieve the weather data from the server.
 				dataset = null;
 			}
 		} catch (MalformedURLException e1) {

@@ -323,7 +323,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		ServerCommunicator myServerCommunicator = new ServerCommunicator();
 		localDataset = myServerCommunicator.getWeatherData(forecast,
 				gridCoos[0], gridCoos[1]);
-		Log.d("TheWearDebug", "dataset length: " + localDataset.length);
 		progressCounter = progressCounter + 7;
 		publishProgress(progressCounter); // Total: 7/22
 		if (localDataset == null) {

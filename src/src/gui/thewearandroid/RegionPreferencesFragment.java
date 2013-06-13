@@ -51,6 +51,12 @@ public class RegionPreferencesFragment extends DialogFragment {
 	 * 
 	 * * Set the dialog layout and content
 	 * 
+	 * Set the region displayed by the spinner as the user preference-region or,
+	 * if there isn't a user preference, set the default region
+	 * 
+	 * * Set an OnItemSelectedListener for the Spinner to register if the user
+	 * chooses an other region
+	 * 
 	 * * Set a positive button (OK button) for saving of the region preference,
 	 * to close the window and to change the forecast images according to the
 	 * new preferences values. A progressBar is shown to notify the user that
@@ -100,7 +106,8 @@ public class RegionPreferencesFragment extends DialogFragment {
 		ccTLDCodes = res.getStringArray(R.array.ccTLDCodes);
 		int preferencePosition = -1;
 		for (int i = 0; i < ccTLDCodes.length; i++) {
-			int equalLocationPreference = ccTLDCodes[i].trim().compareTo(regionPreference.trim());
+			int equalLocationPreference = ccTLDCodes[i].trim().compareTo(
+					regionPreference.trim());
 			if (equalLocationPreference == 0) {
 				preferencePosition = i;
 				break;
@@ -119,13 +126,13 @@ public class RegionPreferencesFragment extends DialogFragment {
 			public void onItemSelected(AdapterView<?> parent, View v,
 					int position, long id) {
 				regionPreference = ccTLDCodes[parent.getSelectedItemPosition()];
-				Log.d("TheWearDebug", "regionPreference clicked: " + regionPreference);
+				Log.d("TheWearDebug", "regionPreference clicked: "
+						+ regionPreference);
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
+				// Nothing Happens
 			}
 		});
 
@@ -236,7 +243,8 @@ public class RegionPreferencesFragment extends DialogFragment {
 					ccTLDCodes = res.getStringArray(R.array.ccTLDCodes);
 					int preferencePosition = -1;
 					for (int i = 0; i < ccTLDCodes.length; i++) {
-						int equalLocationPreference = ccTLDCodes[i].trim().compareTo(regionPreference.trim());
+						int equalLocationPreference = ccTLDCodes[i].trim()
+								.compareTo(regionPreference.trim());
 						if (equalLocationPreference == 0) {
 							preferencePosition = i;
 							break;

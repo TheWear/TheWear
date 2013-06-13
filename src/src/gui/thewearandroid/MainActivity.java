@@ -261,7 +261,7 @@ public class MainActivity extends Activity {
 	public boolean goToPreferences(MenuItem menu) {
 		// Show the Preferences Window
 		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'about\' clicked");
+		Log.d("TheWearDebug", "\'Preferences\' clicked");
 		try {
 			myForecastInfo = myForecasterObject.get();
 		} catch (InterruptedException e) {
@@ -278,6 +278,40 @@ public class MainActivity extends Activity {
 		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
 				myForecastInfo, this);
 		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
+
+		return true;
+	}
+
+	/**
+	 * goToPreferences() shows the preferences menu (the
+	 * ForecastPreferencesFragment) when called.
+	 * 
+	 * This method tries to retrieve the dataset of the last forecast, and
+	 * passes it to the setter method of the ForecastPreferencesFragment(),
+	 * together with the ImageViews that should be changed, and the
+	 * applicationContext.
+	 */
+
+	public boolean goToLocationPreferences(MenuItem menu) {
+		// Show the Preferences Window
+		ForecastInfo myForecastInfo = null;
+		Log.d("TheWearDebug", "\'Location Preferences\' clicked");
+		try {
+			myForecastInfo = myForecasterObject.get();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "InterruptedException");
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "ExecutionException");
+			e.printStackTrace();
+		}
+		// Catch an empty myForecastInfo
+		RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
+		myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
+				myForecastInfo, this);
+		myRegionPreferencesFragment.show(getFragmentManager(), "Preferences");
 
 		return true;
 	}

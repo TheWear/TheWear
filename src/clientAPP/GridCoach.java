@@ -64,16 +64,27 @@ public class GridCoach {
 		return gridCoos;
 	}
 
-	public String PlaceToURL() {
+	/**
+	 * placeToURL constructs the URL used for the location request to google
+	 * maps
+	 * 
+	 * it has the string region code as input parameter
+	 * 
+	 * outputs the URL as string
+	 */
+
+	public String PlaceToURL(String region) {
 		String urlString = ("http://maps.googleapis.com/maps/api/geocode/json?address="
-				+ this.strLocation + "&sensor=false");
+				+ this.strLocation + "&sensor=false&region=" + region.trim());
 		return urlString;
 	}
 
 	public LocationStruct URLToJSonString(String strUrl) {
 		// TODO clean the Try - Catch Structures (Remove obsolete catches)
-		// TODO Need a check that a response was not redirected to an unexpected host?
-		// TODO Add a way to check if there is a network available: maybe trying to ping;
+		// TODO Need a check that a response was not redirected to an unexpected
+		// host?
+		// TODO Add a way to check if there is a network available: maybe trying
+		// to ping;
 		// ConnectivityManager doesn't always work
 
 		LocationStruct data = null;
@@ -87,7 +98,8 @@ public class GridCoach {
 				conn = (HttpURLConnection) jsonURL.openConnection();
 				try {
 					BufferedReader reader = new BufferedReader(
-							new InputStreamReader(conn.getInputStream(), "UTF-8"));
+							new InputStreamReader(conn.getInputStream(),
+									"UTF-8"));
 					StringBuilder sb = new StringBuilder();
 					String inputData = null;
 					try {
@@ -110,7 +122,7 @@ public class GridCoach {
 					JSONObject json_obj;
 					try {
 						json_obj = (JSONObject) parser.parse(sb.toString());
-	
+
 						if (((String) json_obj.get("status")).equals("OK")) {
 							String address = null;
 							Double lat = null;
@@ -120,13 +132,15 @@ public class GridCoach {
 										.get("results");
 								for (Object result : results.toArray()) {
 									JSONObject result2 = (JSONObject) result;
-									if (result2.containsKey("formatted_address")) {
+									if (result2
+											.containsKey("formatted_address")) {
 										address = (String) result2
 												.get("formatted_address");
 										if (result2.containsKey("geometry")) {
 											JSONObject geometry = (JSONObject) result2
 													.get("geometry");
-											if (geometry.containsKey("location")) {
+											if (geometry
+													.containsKey("location")) {
 												JSONObject location = (JSONObject) geometry
 														.get("location");
 												if (location.containsKey("lat")
@@ -150,7 +164,7 @@ public class GridCoach {
 							Double lng = null;
 							data = new LocationStruct(address, lat, lng);
 						}
-	
+
 					} catch (ParseException e) {
 						e.printStackTrace();
 						// error
@@ -161,18 +175,19 @@ public class GridCoach {
 
 			} catch (MalformedURLException e1) {
 				Log.e("Connection Error", "Connection Error 1");
-				Log.e("TheWearDebug","MalformedURLException in GridCoach");
+				Log.e("TheWearDebug", "MalformedURLException in GridCoach");
 				data = null;
 			} catch (UnsupportedEncodingException e1) {
 				e1.printStackTrace();
-				Log.e("TheWearDebug","UnsupportedEncodingException in GridCoach");
+				Log.e("TheWearDebug",
+						"UnsupportedEncodingException in GridCoach");
 				data = null;
 			} catch (IOException e1) {
 				e1.printStackTrace();
-				Log.e("TheWearDebug","IOException in GridCoach");
+				Log.e("TheWearDebug", "IOException in GridCoach");
 				data = null;
 			}
-			
+
 			Log.d("TheWearDebug", "Completed URLToJSonString");
 
 		} catch (MalformedURLException e2) {

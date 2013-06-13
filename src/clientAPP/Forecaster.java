@@ -6,6 +6,7 @@ import src.gui.thewearandroid.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -128,8 +129,19 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		progressCounter = progressCounter + 4;
 		publishProgress(progressCounter); // Total: 4/100
 
+		// Get the region preference from the SharedPreferences
+		// Get default Preference Values
+		Resources res = applicationContext.getResources();
+		String defaultRegion = res.getString(R.string.default_region);
+		// Read the preference values from Shared Preferences
+		SharedPreferences sharedPref = applicationContext.getSharedPreferences(
+				applicationContext.getString(R.string.TheWear_preference_key),
+				Context.MODE_PRIVATE);
+		String regionPreference = sharedPref.getString(
+				res.getString(R.string.region_preference), defaultRegion);
+
 		// Construct URL for call to google maps
-		String strUrl = myGridCoach.PlaceToURL();
+		String strUrl = myGridCoach.PlaceToURL(regionPreference);
 		progressCounter = progressCounter + 4;
 		publishProgress(progressCounter); // Total: 8/100
 		Log.d("TheWearDebug", "URL to google maps Constructed");
@@ -163,10 +175,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 						"LocationInfo coordinates stored for further use");
 
 				// Save the Location in the
-				SharedPreferences sharedPref = applicationContext
-						.getSharedPreferences(applicationContext
-								.getString(R.string.TheWear_preference_key),
-								Context.MODE_PRIVATE);
 				SharedPreferences.Editor editor = sharedPref.edit();
 				editor.putString(applicationContext
 						.getString(R.string.location_preference),
@@ -241,19 +249,21 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 			// Show Toast to explain error
 			if (reason == "internetConnection") {
-				Log.i("TheWearDebug","Forecaster canceled. Reason: internetConnection");
+				Log.i("TheWearDebug",
+						"Forecaster canceled. Reason: internetConnection");
 				Toast myToast = Toast.makeText(applicationContext,
 						"Cannot connect to the Internet", Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "serverConnection") {
-				Log.i("TheWearDebug","Forecaster canceled. Reason: serverConnection");
+				Log.i("TheWearDebug",
+						"Forecaster canceled. Reason: serverConnection");
 				Toast myToast = Toast.makeText(applicationContext,
 						"Cannot connect to TheWear server", Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "server") {
-				Log.i("TheWearDebug","Forecaster canceled. Reason: server");
+				Log.i("TheWearDebug", "Forecaster canceled. Reason: server");
 				Toast myToast = Toast
 						.makeText(
 								applicationContext,
@@ -262,7 +272,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "unknownLocation") {
-				Log.i("TheWearDebug","Forecaster canceled. Reason: unknownLocation");
+				Log.i("TheWearDebug",
+						"Forecaster canceled. Reason: unknownLocation");
 				locationField.setText("");
 				locationField.clearFocus();
 				Toast myToast = Toast.makeText(applicationContext,

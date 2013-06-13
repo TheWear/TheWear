@@ -2,11 +2,20 @@
 
     <item
         android:id="@+id/action_preferences"
-        android:orderInCategory="10"
+        android:orderInCategory="1"
         android:showAsAction="always|withText"
         android:title="@string/action_preferences"
         android:icon="@drawable/action_settings"
         android:onClick="goToPreferences"
+        android:layout_gravity="right" />
+
+    <item
+        android:id="@+id/action_regionPreference"
+        android:orderInCategory="10"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/action_regionPreference"
+        android:icon="@drawable/location_place"
+        android:onClick="goToLocationPreferences"
         android:layout_gravity="right" />
 
     <item

@@ -129,7 +129,7 @@ public final class R {
     public static final class string {
         public static final int EditTextHint=0x7f06000d;
         public static final int TheWear_preference_key=0x7f06000e;
-        public static final int aboutButton=0x7f060021;
+        public static final int aboutButton=0x7f060022;
         public static final int about_text=0x7f060004;
         public static final int action_about=0x7f060002;
         public static final int action_preferences=0x7f060001;
@@ -137,13 +137,14 @@ public final class R {
         public static final int appDescription=0x7f06000c;
         public static final int app_name=0x7f060000;
         public static final int button1=0x7f060008;
-        public static final int default_region=0x7f060027;
-        public static final int facebookButton=0x7f060029;
+        public static final int closeDialog=0x7f060020;
+        public static final int default_region=0x7f060028;
+        public static final int facebookButton=0x7f06002a;
         public static final int forecastDescription=0x7f060009;
-        public static final int forecastInfo_title=0x7f060022;
-        public static final int forecast_preference1=0x7f060023;
-        public static final int forecast_preference2=0x7f060024;
-        public static final int forecast_preference3=0x7f060025;
+        public static final int forecastInfo_title=0x7f060023;
+        public static final int forecast_preference1=0x7f060024;
+        public static final int forecast_preference2=0x7f060025;
+        public static final int forecast_preference3=0x7f060026;
         public static final int location_preference=0x7f06000f;
         public static final int negative_button=0x7f06001f;
         public static final int neutral_button=0x7f06001e;
@@ -163,10 +164,10 @@ public final class R {
         public static final int preference3_imageView_descr=0x7f060019;
         public static final int preference_dialog_Title=0x7f060010;
         public static final int previous=0x7f06000a;
-        public static final int region_preference=0x7f060026;
-        public static final int settingsButton=0x7f060020;
-        public static final int shareButton=0x7f06002a;
-        public static final int social_media_dialog_Title=0x7f060028;
+        public static final int region_preference=0x7f060027;
+        public static final int settingsButton=0x7f060021;
+        public static final int shareButton=0x7f06002b;
+        public static final int social_media_dialog_Title=0x7f060029;
         public static final int title_section1=0x7f060005;
         public static final int title_section2=0x7f060006;
         public static final int title_section3=0x7f060007;

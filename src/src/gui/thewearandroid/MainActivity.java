@@ -324,7 +324,7 @@ public class MainActivity extends Activity {
 		Log.d("TheWearDebug", "About our App");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(R.string.about_text).setTitle(R.string.action_about);
-		builder.setPositiveButton(R.string.positive_button,
+		builder.setPositiveButton(R.string.closeDialog,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						// User clicked OK button

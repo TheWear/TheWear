@@ -100,6 +100,9 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		dialogView = inflater.inflate(R.layout.preference_dialog, null);
 		builder.setView(dialogView);
 		Log.d("TheWearDebug", "Preferences Dialog Created");
+		
+		// Set dialog Title
+		builder.setTitle(R.string.preference_dialog_Title);
 
 		// Get default Preference Values
 		defaultPreference1Value = Integer

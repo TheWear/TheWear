@@ -15,7 +15,7 @@
         android:showAsAction="ifRoom|withText"
         android:title="@string/action_regionPreference"
         android:icon="@drawable/location_place"
-        android:onClick="goToLocationPreferences"
+        android:onClick="goToLocationPreference"
         android:layout_gravity="right" />
 
     <item

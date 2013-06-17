@@ -79,6 +79,9 @@ public class RegionPreferencesFragment extends DialogFragment {
 		builder.setView(dialogView);
 		Log.d("TheWearDebug", "Region preference Dialog Created");
 
+		// Set dialog Title
+				builder.setTitle(R.string.region_preference_dialog_Title);
+
 		// Get default Preference Values
 		defaultRegion = getString(R.string.default_region);
 

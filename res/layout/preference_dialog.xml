@@ -12,22 +12,13 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/preferences_textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/preference_dialog_Title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <!-- First Preference -->
     <ImageView
         android:id="@+id/preference1_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/preferences_textViewTitle"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
         android:contentDescription="@string/preference1_imageView_descr"

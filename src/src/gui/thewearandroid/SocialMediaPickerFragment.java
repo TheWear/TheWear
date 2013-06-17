@@ -36,6 +36,10 @@ public class SocialMediaPickerFragment extends DialogFragment {
 		View dialogView = inflater.inflate(R.layout.social_media_dialog, null);
 		builder.setView(dialogView);
 		Log.d("TheWearDebug", "Share Dialog Created");
+
+		// Set dialog Title
+		builder.setTitle(R.string.social_media_dialog_Title);
+
 		// set Cancel button
 		builder.setNegativeButton(R.string.negative_button,
 				new DialogInterface.OnClickListener() {

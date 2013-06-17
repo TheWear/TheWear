@@ -14,8 +14,10 @@ public class MouseOverManager {
 
 	private String mouseOverStringFormat = 
 			"Temperature (°C) %s%n"+ //TMP
+			"Maximum Temperature (°C)  %s%n"+ //TMAX
+			"Minimum Temperature (°C)  %s%n"+ //TMIN
 			"Precipitation (mm/6hours) %s%n"+ //APCP
-			"Sunshine %s%%%n"+ //TCDC
+			"Cloud cover %s%%%n"+ //TCDC
 			"Windspeed (m/s) %s%n"+ //sqrt(UGRD^2+VGRD^2)
 			"%s"; //WEASD
 	private String[] dataset;
@@ -24,6 +26,8 @@ public class MouseOverManager {
 	private String attr3;
 	private String attr4;
 	private String attr5;
+	private String attr6;
+	private String attr7;
 	private Double kelvin = 273.2;
 
 	public MouseOverManager(String[] d) {
@@ -33,15 +37,19 @@ public class MouseOverManager {
 		attr2=dataset[2];
 		attr3=String.valueOf(
 				Math.round(100-Double.parseDouble(dataset[4])));
-		attr4=dataset[6];
+		attr4=String.valueOf(100-Double.parseDouble(dataset[6]));
 		if (Double.parseDouble(dataset[7])>0) {
-			attr5 = "; Snowdepth (cm) " + dataset[7];
+			attr5 = "Snowdepth (cm) " + dataset[7];
 		}else{attr5 = "";}
+		attr6=String.valueOf(
+				Math.round((Double.parseDouble(dataset[8])-kelvin)*100)/100.0);
+		attr7=String.valueOf(
+				Math.round((Double.parseDouble(dataset[9])-kelvin)*100)/100.0);
 	}
 
 	public String getString() {
 		String mouseOverString = String.format(
-				mouseOverStringFormat,attr1,attr2,attr3,attr4,attr5);
+				mouseOverStringFormat,attr1,attr6,attr7,attr2,attr3,attr4,attr5);
 		return mouseOverString;
 	}
 }

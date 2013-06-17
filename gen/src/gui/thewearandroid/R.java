@@ -11,9 +11,10 @@ public final class R {
     public static final class array {
         /**  This list is also posted on our drive, related to the countries 
          */
-        public static final int ccTLDCodes=0x7f070001;
-        public static final int ccTLDCountries=0x7f070002;
-        public static final int pathnames=0x7f070000;
+        public static final int ccTLDCodes=0x7f070002;
+        public static final int ccTLDCountries=0x7f070003;
+        public static final int optionsMenuList=0x7f070000;
+        public static final int pathnames=0x7f070001;
     }
     public static final class attr {
     }
@@ -75,36 +76,35 @@ public final class R {
         public static final int umbrellabroken=0x7f020024;
     }
     public static final class id {
-        public static final int action_about=0x7f0a0020;
-        public static final int action_preferences=0x7f0a001e;
-        public static final int action_regionPreference=0x7f0a001f;
+        public static final int action_about=0x7f0a001f;
+        public static final int action_preferences=0x7f0a001d;
+        public static final int action_regionPreference=0x7f0a001e;
         public static final int appRelativeLayout=0x7f0a0000;
         public static final int button_back=0x7f0a0005;
         public static final int button_forecast=0x7f0a0003;
         public static final int button_forward=0x7f0a0006;
         public static final int editText1=0x7f0a0002;
-        public static final int imageButton1FB=0x7f0a001c;
+        public static final int imageButton1FB=0x7f0a001b;
         public static final int imageButton2=0x7f0a0007;
-        public static final int imageButton2Twitter=0x7f0a001d;
-        public static final int preference1_imageView=0x7f0a0009;
-        public static final int preference1_preferenceName=0x7f0a000a;
-        public static final int preference1_preferenceNumber=0x7f0a000b;
-        public static final int preference1_preferenceUnit=0x7f0a000c;
-        public static final int preference2_imageView=0x7f0a000e;
-        public static final int preference2_preferenceName=0x7f0a000f;
-        public static final int preference2_preferenceNumber=0x7f0a0010;
-        public static final int preference2_preferenceUnit=0x7f0a0011;
-        public static final int preference3_imageView=0x7f0a0013;
-        public static final int preference3_preferenceName=0x7f0a0014;
-        public static final int preference3_preferenceNumber=0x7f0a0015;
-        public static final int preference3_preferenceUnit=0x7f0a0016;
-        public static final int preferences_textViewTitle=0x7f0a0008;
-        public static final int progressBar1=0x7f0a0018;
-        public static final int regionPreference_textViewTitle=0x7f0a0019;
-        public static final int seekBar1=0x7f0a000d;
-        public static final int seekBar2=0x7f0a0012;
-        public static final int seekBar3=0x7f0a0017;
-        public static final int social_textViewTitle=0x7f0a001b;
+        public static final int imageButton2Twitter=0x7f0a001c;
+        public static final int listText=0x7f0a0008;
+        public static final int optionsListView=0x7f0a0009;
+        public static final int preference1_imageView=0x7f0a000a;
+        public static final int preference1_preferenceName=0x7f0a000b;
+        public static final int preference1_preferenceNumber=0x7f0a000c;
+        public static final int preference1_preferenceUnit=0x7f0a000d;
+        public static final int preference2_imageView=0x7f0a000f;
+        public static final int preference2_preferenceName=0x7f0a0010;
+        public static final int preference2_preferenceNumber=0x7f0a0011;
+        public static final int preference2_preferenceUnit=0x7f0a0012;
+        public static final int preference3_imageView=0x7f0a0014;
+        public static final int preference3_preferenceName=0x7f0a0015;
+        public static final int preference3_preferenceNumber=0x7f0a0016;
+        public static final int preference3_preferenceUnit=0x7f0a0017;
+        public static final int progressBar1=0x7f0a0019;
+        public static final int seekBar1=0x7f0a000e;
+        public static final int seekBar2=0x7f0a0013;
+        public static final int seekBar3=0x7f0a0018;
         public static final int spinner1=0x7f0a001a;
         public static final int textView1=0x7f0a0004;
         public static final int viewPager=0x7f0a0001;
@@ -119,9 +119,11 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int preference_dialog=0x7f030001;
-        public static final int region_preference_dialog=0x7f030002;
-        public static final int social_media_dialog=0x7f030003;
+        public static final int list_view_row=0x7f030001;
+        public static final int options_menu=0x7f030002;
+        public static final int preference_dialog=0x7f030003;
+        public static final int region_preference_dialog=0x7f030004;
+        public static final int social_media_dialog=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -139,7 +141,7 @@ public final class R {
         public static final int button1=0x7f060008;
         public static final int closeDialog=0x7f060020;
         public static final int default_region=0x7f060028;
-        public static final int facebookButton=0x7f06002a;
+        public static final int facebookButton=0x7f06002b;
         public static final int forecastDescription=0x7f060009;
         public static final int forecastInfo_title=0x7f060023;
         public static final int forecast_preference1=0x7f060024;
@@ -149,6 +151,7 @@ public final class R {
         public static final int negative_button=0x7f06001f;
         public static final int neutral_button=0x7f06001e;
         public static final int next=0x7f06000b;
+        public static final int options=0x7f06002d;
         public static final int positive_button=0x7f06001d;
         public static final int preference1=0x7f060012;
         public static final int preference1_Unit=0x7f060014;
@@ -165,9 +168,10 @@ public final class R {
         public static final int preference_dialog_Title=0x7f060010;
         public static final int previous=0x7f06000a;
         public static final int region_preference=0x7f060027;
+        public static final int region_preference_dialog_Title=0x7f060029;
         public static final int settingsButton=0x7f060021;
-        public static final int shareButton=0x7f06002b;
-        public static final int social_media_dialog_Title=0x7f060029;
+        public static final int shareButton=0x7f06002c;
+        public static final int social_media_dialog_Title=0x7f06002a;
         public static final int title_section1=0x7f060005;
         public static final int title_section2=0x7f060006;
         public static final int title_section3=0x7f060007;

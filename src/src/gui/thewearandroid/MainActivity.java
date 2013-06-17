@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 	private ImageView[] myImageViews = { null, null, null };
 	private Forecaster myForecasterObject;
 	private SocialMediaPickerFragment mySocialMediaPickerFragment;
+	private MenuFragment myMenuFragment;
 	private boolean appCreated = false;
 
 	/**
@@ -183,6 +184,9 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
+
+		// TODO add Time stuffs
+
 		// Indicate the App just started
 		appCreated = true;
 		Log.i("TheWearDebug", "onCreate() finished");
@@ -237,6 +241,26 @@ public class MainActivity extends Activity {
 	} // End onResume()
 
 	/**
+	 * Opens the options menu when the menu button is clicked.
+	 */
+
+	@Override
+	public boolean onKeyDown(int keycode, KeyEvent event) {
+		switch (keycode) {
+		case KeyEvent.KEYCODE_MENU:
+
+			// Open Options Menu
+			myMenuFragment = new MenuFragment();
+			myMenuFragment.passNecessaryInformation(this, this);
+			myMenuFragment.show(getFragmentManager(), "Menu");
+
+			return true;
+		}
+
+		return super.onKeyDown(keycode, event);
+	}
+
+	/**
 	 * onCreateOptionsMenu() is only called on creating the activity and creates
 	 * the menu in the ActionBar from the menu file main.xml
 	 */
@@ -249,90 +273,31 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * goToPreferences() shows the preferences menu (the
-	 * ForecastPreferencesFragment) when called.
-	 * 
-	 * This method tries to retrieve the dataset of the last forecast, and
-	 * passes it to the setter method of the ForecastPreferencesFragment(),
-	 * together with the ImageViews that should be changed, and the
-	 * applicationContext.
+	 * goToPreferences() calls showForecastPreferences() to show the forecast
+	 * preferences dialog
 	 */
 
 	public boolean goToPreferences(MenuItem menu) {
-		// Show the Preferences Window
-		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'Preferences\' clicked");
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
-			e.printStackTrace();
-		}
-		// Catch an empty myForecastInfo
-		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
-				myForecastInfo, this);
-		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
-
+		showForecastPreferences();
 		return true;
 	}
 
 	/**
-	 * goToPreferences() shows the preferences menu (the
-	 * ForecastPreferencesFragment) when called.
-	 * 
-	 * This method tries to retrieve the dataset of the last forecast, and
-	 * passes it to the setter method of the ForecastPreferencesFragment(),
-	 * together with the ImageViews that should be changed, and the
-	 * applicationContext.
+	 * goToLocationPreference() calls showForecastPreferences() to show the
+	 * forecast preferences dialog
 	 */
 
-	public boolean goToLocationPreferences(MenuItem menu) {
-		// Show the Preferences Window
-		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'Location Preferences\' clicked");
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
-			e.printStackTrace();
-		}
-		// Catch an empty myForecastInfo
-		RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
-		myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
-				myForecastInfo, this);
-		myRegionPreferencesFragment.show(getFragmentManager(), "Preferences");
-
+	public boolean goToLocationPreference(MenuItem menu) {
+		showLocationPreference();
 		return true;
 	}
 
 	/**
-	 * showAbout() shows the user a dialog containing information of our App.
+	 * showAbout() calls showAboutApp to show the about dialog.
 	 */
 
 	public boolean showAbout(MenuItem menu) {
-		Log.d("TheWearDebug", "About our App");
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.about_text).setTitle(R.string.action_about);
-		builder.setPositiveButton(R.string.closeDialog,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// User clicked OK button
-					}
-				});
-		// Get the AlertDialog from create()
-		AlertDialog dialog = builder.create();
-		dialog.show();
+		showAboutApp();
 		return true;
 	}
 
@@ -346,12 +311,6 @@ public class MainActivity extends Activity {
 	 * tab;
 	 * 
 	 * goBack is called by the 'button_back' and let you go to the next tab;
-	 * 
-	 * goToSettings is called by imageButton1 and shows the settings window of
-	 * our app;
-	 * 
-	 * showForecastInformation is called by imageButton2 and shows in-depth
-	 * forecast information (for example: wind speed, mm rain...)
 	 */
 
 	// Start Forecast, used by all 3 of the pages
@@ -413,6 +372,60 @@ public class MainActivity extends Activity {
 			Log.e("SwitchForecastButton",
 					"An error occured while switching Forecast (back). Check the Selected Forecast");
 		}
+	}
+
+	/**
+	 * shareFacebook() is called when the Facebook button on the
+	 * social_media_dialog.xml is clicked on the social_media_dialog.xml.
+	 */
+
+	public void shareFacebook(View v) {
+		Log.d("TheWearDebug", "Sharing over Facebook");
+		// Close the SocialMediaPickerFragment
+		mySocialMediaPickerFragment.dismiss();
+		// TODO Implement sharing over Facebook
+	}
+
+	/**
+	 * shareTwitter() is called when the Twitter button on the
+	 * social_media_dialog.xml is clicked on the social_media_dialog.xml.
+	 */
+
+	public void shareTwitter(View v) {
+		Log.d("TheWearDebug", "Sharing over Twitter");
+		// Close the SocialMediaPickerFragment
+		mySocialMediaPickerFragment.dismiss();
+		// TODO implement sharing over Twitter
+	}
+
+	/**
+	 * showMenuItem1() calls showForecastPreferences() to show the forecast
+	 * preferences dialog and closes the menu dialog.
+	 */
+
+	public void showMenuItem1() {
+		myMenuFragment.dismiss();
+		showForecastPreferences();
+	}
+
+	/**
+	 * showMenuItem2() calls showLocationPreference() to show the forecast
+	 * location preference dialog and closes the menu dialog.
+	 */
+
+	public void showMenuItem2() {
+		myMenuFragment.dismiss();
+		showLocationPreference();
+	}
+
+	/**
+	 * showMenuItem3() calls showAboutApp() to show the about dialog and closes
+	 * the menu dialog.
+	 */
+
+	public void showMenuItem3() {
+		myMenuFragment.dismiss();
+		showAboutApp();
 	}
 
 	/**
@@ -522,6 +535,89 @@ public class MainActivity extends Activity {
 				myToast.show();
 			}
 		}
+	}
+
+	/**
+	 * showForecastPreferences() shows the preferences menu (the
+	 * ForecastPreferencesFragment) when called.
+	 * 
+	 * This method tries to retrieve the dataset of the last forecast, and
+	 * passes it to the setter method of the ForecastPreferencesFragment(),
+	 * together with the ImageViews that should be changed, and the
+	 * applicationContext.
+	 */
+
+	public void showForecastPreferences() {
+		// Show the Preferences Window
+		ForecastInfo myForecastInfo = null;
+		Log.d("TheWearDebug", "\'Preferences\' clicked");
+		try {
+			myForecastInfo = myForecasterObject.get();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "InterruptedException");
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "ExecutionException");
+			e.printStackTrace();
+		}
+		// Catch an empty myForecastInfo
+		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
+		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
+				myForecastInfo, this);
+		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
+	}
+
+	/**
+	 * showLocationPreferences() shows the region preference menu (the
+	 * RegionPreferencesFragment) when called.
+	 * 
+	 * This method tries to retrieve the dataset of the last forecast, and
+	 * passes it to the setter method of the ForecastPreferencesFragment(),
+	 * together with the ImageViews that should be changed, and the
+	 * applicationContext.
+	 */
+
+	public void showLocationPreference() {
+		// Show the Preferences Window
+		ForecastInfo myForecastInfo = null;
+		Log.d("TheWearDebug", "\'Location Preferences\' clicked");
+		try {
+			myForecastInfo = myForecasterObject.get();
+		} catch (InterruptedException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "InterruptedException");
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// Auto-generated catch block
+			Log.e("TheWearDebug", "ExecutionException");
+			e.printStackTrace();
+		}
+		// Catch an empty myForecastInfo
+		RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
+		myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
+				myForecastInfo, this);
+		myRegionPreferencesFragment.show(getFragmentManager(), "Preferences");
+	}
+
+	/**
+	 * showAbout() shows the user a dialog containing information of our App.
+	 */
+
+	public void showAboutApp() {
+		Log.d("TheWearDebug", "About our App");
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.about_text).setTitle(R.string.action_about);
+		builder.setPositiveButton(R.string.closeDialog,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User clicked OK button
+					}
+				});
+		// Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	/**
@@ -683,29 +779,5 @@ public class MainActivity extends Activity {
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			((ViewPager) container).removeView((ImageView) object);
 		}
-	}
-
-	/**
-	 * shareFacebook() is called when the Facebook button on the
-	 * social_media_dialog.xml is clicked on the social_media_dialog.xml.
-	 */
-
-	public void shareFacebook(View v) {
-		Log.d("TheWearDebug", "Sharing over Facebook");
-		// Close the SocialMediaPickerFragment
-		mySocialMediaPickerFragment.dismiss();
-		// TODO Implement sharing over Facebook
-	}
-
-	/**
-	 * shareTwitter() is called when the Twitter button on the
-	 * social_media_dialog.xml is clicked on the social_media_dialog.xml.
-	 */
-
-	public void shareTwitter(View v) {
-		Log.d("TheWearDebug", "Sharing over Twitter");
-		// Close the SocialMediaPickerFragment
-		mySocialMediaPickerFragment.dismiss();
-		// TODO implement sharing over Twitter
 	}
 }

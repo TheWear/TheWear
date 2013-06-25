@@ -71,7 +71,7 @@ public class TimeHandler {
 				if (currentHourMinute > forecastTimes[2]) {
 					if (currentHourMinute > forecastTimes[3]) {
 						// forecastTime3 <= currentHourMinute < forecastTime4
-						timeString = getTimeString(forecastTimes[3]);
+						timeString = getTimeString(forecastTimes[0]);
 
 					} else {
 						// forecastTime4 <= currentHourMinute

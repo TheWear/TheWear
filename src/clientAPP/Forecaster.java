@@ -9,10 +9,12 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
@@ -50,6 +52,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	private int progressCounter;
 	private String reason;
 	private String[] localDataset = null;
+	private ForecastTimeStruct myForecastTimeStruct;
+	private TextView titleTextView;
+	private ViewPager mViewPager;
 
 	/**
 	 * Constructor for the Forecaster AsyncTask to be able to import the
@@ -57,14 +62,19 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * this Class, and can be used to show a ProgressDialog.
 	 * 
 	 * Parameters for this constructor: Context context, EditText editText,
-	 * ImageView[] imageViews
+	 * ImageView[] imageViews, TextView titleTextView, ViewPager mViewPager
 	 */
 
-	public Forecaster(Context context, EditText editText, ImageView[] imageViews) {
+	public Forecaster(Context context, EditText editText,
+			ImageView[] imageViews, ForecastTimeStruct myForecastTimeStruct,
+			TextView titleTextView, ViewPager mViewPager) {
 		// can take other parameters if needed
 		this.applicationContext = context;
 		this.locationField = editText;
 		this.myImageViews = imageViews;
+		this.myForecastTimeStruct = myForecastTimeStruct;
+		this.titleTextView = titleTextView;
+		this.mViewPager = mViewPager;
 	}
 
 	// Log.d("TheWearDebug","");
@@ -98,8 +108,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * This method contains all the code for retrieving retrieve the full
 	 * location and coordinates of that location from the location the user
 	 * entered; to retrieve the forecast data for those coordinates from our
-	 * server; and to compare the data to our defined thresholds and the user
-	 * preferences.
+	 * server; to compare the data to our defined thresholds and the user
+	 * preferences; and to get the time corresponding with the forecast in the
+	 * title.
 	 * 
 	 * There is a progressCounter that gets raised trough this method (and
 	 * trough the specificForecast too) to keep track of the progress. This
@@ -193,16 +204,25 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 				// Get the different specific forecasts, and cancel when
 				// necessary
-				specificForecast(12, gridCoos, 0); // Total: 50/100
+				specificForecast(12, gridCoos, 0); // Total: 49/100
 				if (isCancelled == false) {
-					specificForecast(18, gridCoos, 1); // Total: 73/100
+					specificForecast(18, gridCoos, 1); // Total: 71/100
 					if (isCancelled == false) {
-						specificForecast(24, gridCoos, 2); // Total: 96/100
+						specificForecast(24, gridCoos, 2); // Total: 93/100
 						if (isCancelled == false) {
 							forecastInfo = new ForecastInfo(
 									locationInfo.address, mouseOverInfo,
 									mergedImage, dataset);
 							progressCounter = progressCounter + 4;
+							publishProgress(progressCounter); // Total: 97/100
+
+							// set the time for the titles corresponding with
+							// the forecast
+							TimeHandler myTimeHandler = new TimeHandler();
+							myForecastTimeStruct
+									.setForecastTimeStruct(myTimeHandler
+											.getTimeTitles());
+							progressCounter = progressCounter + 3;
 							publishProgress(progressCounter); // Total: 100/100
 						}
 					}
@@ -232,8 +252,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * ¨ onPostExecute contains all the code we want to have executed when the
 	 * background thread is finished: it closes the progressDialog, and either
 	 * shows an error message when the background thread encountered a
-	 * problem/an error, or updates the ImageViews with the forecast image and
-	 * the EditText with the full location
+	 * problem/an error, or updates the ImageViews with the forecast image the
+	 * EditText with the full location, and the EditText with the time title.
 	 * 
 	 * This method has access to the GUI
 	 */
@@ -307,6 +327,10 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				myImageViews[position].setImageBitmap(mergedImage[position]);
 			}
 
+			// Set new title for current tab:
+			int tab = mViewPager.getCurrentItem();
+			titleTextView.setText(myForecastTimeStruct.forecastTimeString[tab]);
+
 			// Close the ProgressDialog
 			myProgressDialog.dismiss();
 		}
@@ -366,8 +390,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			MergeImage myMergeImage = new MergeImage();
 			mergedImage[forecastNumber] = myMergeImage.MergeForecastImage(
 					advice, applicationContext);
-			progressCounter = progressCounter + 8;
-			publishProgress(progressCounter); // Total: 23/23
+			progressCounter = progressCounter + 7;
+			publishProgress(progressCounter); // Total: 22/22
 		}
 	}
 }

@@ -3,6 +3,7 @@ package src.gui.thewearandroid;
 import java.util.concurrent.ExecutionException;
 
 import clientAPP.ForecastInfo;
+import clientAPP.ForecastTimeStruct;
 import clientAPP.Forecaster;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,6 +47,8 @@ public class MainActivity extends Activity {
 	private SocialMediaPickerFragment mySocialMediaPickerFragment;
 	private MenuFragment myMenuFragment;
 	private boolean appCreated = false;
+	private ForecastTimeStruct myForecastTimeStruct;
+	private TextView titleTextView;
 
 	/**
 	 * onCreate of the GUI contains all the code we want to have executed on
@@ -138,12 +141,16 @@ public class MainActivity extends Activity {
 		ImagePagerAdapter adapter = new ImagePagerAdapter();
 		mViewPager.setAdapter(adapter);
 
-		final TextView textView = (TextView) findViewById(R.id.textView1);
+		titleTextView = (TextView) findViewById(R.id.textView1);
 		// Set the TextView for startup
 		final String tab1 = getString(R.string.title_section1);
 		final String tab2 = getString(R.string.title_section2);
 		final String tab3 = getString(R.string.title_section3);
-		textView.setText(tab1);
+		String[] tabTitles = { tab1, tab2, tab3 };
+		// Save a temporary title until the one corresponding with the forecast
+		// is saved.
+		myForecastTimeStruct = new ForecastTimeStruct(tabTitles);
+		titleTextView.setText(myForecastTimeStruct.forecastTimeString[0]);
 
 		// Initiate ImageViews for use in the Forecaster
 		myImageViews[0] = new ImageView(this);
@@ -163,7 +170,8 @@ public class MainActivity extends Activity {
 							// Forecast 1: Set the goBackButton unClickable
 							goBackButton.setClickable(false);
 							Log.d("TheWearDebug", "goBackButton unClickable");
-							textView.setText(tab1);
+							titleTextView
+									.setText(myForecastTimeStruct.forecastTimeString[0]);
 						} else if (position == 1) {
 							// Forecast 2: Set the goBackButton & the
 							// goForwardButton Clickable
@@ -171,12 +179,14 @@ public class MainActivity extends Activity {
 							Log.d("TheWearDebug", "goBackButton Clickable");
 							goForwardButton.setClickable(true);
 							Log.d("TheWearDebug", "goForwardButton Clickable");
-							textView.setText(tab2);
+							titleTextView
+									.setText(myForecastTimeStruct.forecastTimeString[1]);
 						} else if (position == 2) {
 							// Forecast 3: Set the goForwardButton unClickable
 							goForwardButton.setClickable(false);
 							Log.d("TheWearDebug", "Forecast 3");
-							textView.setText(tab3);
+							titleTextView
+									.setText(myForecastTimeStruct.forecastTimeString[2]);
 						} else {
 							// Should not happen
 							Log.e("TheWearDebug",
@@ -184,8 +194,6 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
-
-		// TODO add Time stuffs
 
 		// Indicate the App just started
 		appCreated = true;
@@ -635,7 +643,8 @@ public class MainActivity extends Activity {
 		locationField.clearFocus();
 
 		// Call the Forecaster AsyncTask
-		myForecasterObject = new Forecaster(this, locationField, myImageViews);
+		myForecasterObject = new Forecaster(this, locationField, myImageViews,
+				myForecastTimeStruct, titleTextView, mViewPager);
 		myForecasterObject.execute(userLocation);
 		Log.d("TheWearDebug", "Finished the Forecast AsyncTask");
 	}

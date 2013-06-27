@@ -41,16 +41,23 @@
     <string name="forecast_preference2">TheWear.Preferences.Preference2</string>
     <string name="forecast_preference3">TheWear.Preferences.Preference3</string>
     <string name="region_preference">TheWear.Preferences.Region</string>
+    <string name="time_notation_preference">TheWear.Preferences.TimeNotation</string>
     <string name="default_region">nl</string>
     <string name="region_preference_dialog_Title">Region Preferences</string>
     <string name="social_media_dialog_Title">Share</string>
     <string name="facebookButton">Facebook Button</string>
     <string name="shareButton">Button that opens the share dialog</string>
     <string name="options">Options</string>
+    <string name="largeText">Large Text</string>
+    <string name="setting1">Time Notation</string>
+    <string name="settingsRadioButton1">12-hours</string>
+    <string name="settingsRadioButton2">24-hours</string>
+    <string name="settingsDialogTitle">Settings</string>
 
     <string-array name="optionsMenuList">
         <item>ForecastPreferences</item>
         <item>RegionPreferences</item>
+        <item>Settings</item>
         <item>About TheWear</item>
     </string-array>
 

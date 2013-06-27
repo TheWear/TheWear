@@ -229,9 +229,7 @@ public class RegionPreferencesFragment extends DialogFragment {
 
 	@Override
 	public void onStart() {
-		super.onStart(); // super.onStart() is where dialog.show() is actually
-							// called on the underlying dialog, so we have to do
-							// it after this point
+		super.onStart();
 		AlertDialog d = (AlertDialog) getDialog();
 		if (d != null) {
 			Log.d("TheWearDebug", "Custom onClickDialog set");

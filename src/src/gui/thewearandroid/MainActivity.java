@@ -132,9 +132,11 @@ public class MainActivity extends Activity {
 		final ImageButton goForwardButton = (ImageButton) findViewById(R.id.button_forward);
 		final ImageButton goBackButton = (ImageButton) findViewById(R.id.button_back);
 
-		// Making the goBackButton unClickable on App startup (you start with
+		// Making the goBackButton unClickable and invisible on App startup (you
+		// start with
 		// the first Forecast)
 		goBackButton.setClickable(false);
+		goBackButton.setVisibility(View.INVISIBLE);
 
 		// Set ViewPager to be able to swipe the Images
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -167,23 +169,29 @@ public class MainActivity extends Activity {
 						Log.d("TheWearDebug",
 								"SimpleOnPageChangeListener triggered");
 						if (position == 0) {
-							// Forecast 1: Set the goBackButton unClickable
+							// Forecast 1: Set the goBackButton unClickable and
+							// invisible
 							goBackButton.setClickable(false);
+							goBackButton.setVisibility(View.INVISIBLE);
 							Log.d("TheWearDebug", "goBackButton unClickable");
 							titleTextView
 									.setText(myForecastTimeStruct.forecastTimeString[0]);
 						} else if (position == 1) {
 							// Forecast 2: Set the goBackButton & the
-							// goForwardButton Clickable
+							// goForwardButton Clickable and visible
 							goBackButton.setClickable(true);
+							goBackButton.setVisibility(View.VISIBLE);
 							Log.d("TheWearDebug", "goBackButton Clickable");
 							goForwardButton.setClickable(true);
+							goForwardButton.setVisibility(View.VISIBLE);
 							Log.d("TheWearDebug", "goForwardButton Clickable");
 							titleTextView
 									.setText(myForecastTimeStruct.forecastTimeString[1]);
 						} else if (position == 2) {
 							// Forecast 3: Set the goForwardButton unClickable
+							// and invisible
 							goForwardButton.setClickable(false);
+							goForwardButton.setVisibility(View.INVISIBLE);
 							Log.d("TheWearDebug", "Forecast 3");
 							titleTextView
 									.setText(myForecastTimeStruct.forecastTimeString[2]);
@@ -297,6 +305,15 @@ public class MainActivity extends Activity {
 
 	public boolean goToLocationPreference(MenuItem menu) {
 		showLocationPreference();
+		return true;
+	}
+
+	/**
+	 * goToSettings() calls showAboutApp to show the about dialog.
+	 */
+
+	public boolean goToSettings(MenuItem menu) {
+		showSettings();
 		return true;
 	}
 
@@ -432,6 +449,16 @@ public class MainActivity extends Activity {
 	 */
 
 	public void showMenuItem3() {
+		myMenuFragment.dismiss();
+		showSettings();
+	}
+
+	/**
+	 * showMenuItem4() calls showAboutApp() to show the about dialog and closes
+	 * the menu dialog.
+	 */
+
+	public void showMenuItem4() {
 		myMenuFragment.dismiss();
 		showAboutApp();
 	}
@@ -607,6 +634,19 @@ public class MainActivity extends Activity {
 		myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
 				myForecastInfo, this);
 		myRegionPreferencesFragment.show(getFragmentManager(), "Preferences");
+	}
+
+	/**
+	 * showSettings() shows the settings menu (the SettingsFragment) when
+	 * called.
+	 */
+
+	public void showSettings() {
+		Log.d("TheWearDebug", "Settings");
+		SettingsFragment mySettingsFragment = new SettingsFragment();
+		mySettingsFragment.passNecessaryInformation(myForecastTimeStruct,
+				titleTextView, mViewPager);
+		mySettingsFragment.show(getFragmentManager(), "Settings");
 	}
 
 	/**

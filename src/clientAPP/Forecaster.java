@@ -218,10 +218,12 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 							// set the time for the titles corresponding with
 							// the forecast
-							TimeHandler myTimeHandler = new TimeHandler();
-							myForecastTimeStruct
-									.setForecastTimeStruct(myTimeHandler
-											.getTimeTitles());
+							TimeHandler myTimeHandler = new TimeHandler(
+									sharedPref, res);
+							myForecastTimeStruct.setForecastTimeStruct(
+									myTimeHandler.getCurrentForecastedTimeTitles(),
+									myTimeHandler.getForecastTimeHour(),
+									myTimeHandler.getForecastTimeMinute());
 							progressCounter = progressCounter + 3;
 							publishProgress(progressCounter); // Total: 100/100
 						}

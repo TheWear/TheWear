@@ -69,8 +69,10 @@ public class MenuFragment extends DialogFragment {
 				case 2: // Option 3
 					mainActivity.showMenuItem3();
 					break;
+				case 3: // Option 4
+					mainActivity.showMenuItem4();
 				default: // ERROR
-					Log.d("TheWearDebug", "This position is incorrect.");
+					Log.e("TheWearDebug", "This position is incorrect.");
 				}
 			}
 		});

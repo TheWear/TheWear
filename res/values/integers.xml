@@ -6,4 +6,5 @@
     <integer name="preference2_min">3</integer>
     <integer name="preference3_max">30</integer>
     <integer name="preference3_min">15</integer>
+    <integer name="defaultTimeNotation">1</integer>
 </resources>

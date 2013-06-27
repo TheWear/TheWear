@@ -7,6 +7,10 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import src.gui.thewearandroid.R;
+
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.Log;
 
 public class TimeHandler {
@@ -22,6 +26,21 @@ public class TimeHandler {
 	private final int forecast3UTCTimeMins = 720; // 12:00h
 	private final int forecast4UTCTimeMins = 1080; // 18:00h
 	private final int oneHour = 60; // minutes
+	private int[] forecastTimeHour;
+	private int[] forecastTimeMinute;
+	private SharedPreferences sharedPref;
+	private Resources res;
+
+	/**
+	 * the TimeHandler(SharedPreferences sharedPref, Resources res) constructor
+	 * is used to initiate the TimeHandler class with the necessary information
+	 * for the calculations.
+	 */
+
+	public TimeHandler(SharedPreferences sharedPref, Resources res) {
+		this.sharedPref = sharedPref;
+		this.res = res;
+	}
 
 	/**
 	 * getOffsetFromUTC() retrieves the offset of the current time from UTC
@@ -36,19 +55,15 @@ public class TimeHandler {
 		DateTimeZone myDateTimeZone = DateTimeZone.getDefault();
 		int offsetFormUTC = myDateTimeZone.getOffset(dateMs);
 		int offsetFromUTCMin = Math.round(offsetFormUTC / (1000 * 60));
-
-		Log.d("TheWearDebug", "Offset from UTC is (minutes): "
-				+ offsetFromUTCMin);
-
 		return offsetFromUTCMin;
 	}
 
 	/**
-	 * getCurrentForecastTime returns a string array containing the three hours
-	 * at which the the three forecasts 'expire'.
+	 * getCurrentForecastTime() returns a string array containing the three time
+	 * titles that indicates when the forecast is valid.
 	 */
 
-	public String[] getCurrentForecastedTime() {
+	public String[] getCurrentForecastedTimeTitles() {
 
 		int offset = getOffsetFromUTC();
 		DateTimeZone myDateTimeZone = DateTimeZone.getDefault();
@@ -167,67 +182,195 @@ public class TimeHandler {
 
 	/**
 	 * getHourOfDayString() returns the hours of the day as a string formatted
-	 * as 'HH'. input is the DateTime.
+	 * as 'HH'. Input is the hourOfDay as int and an int indicating what time
+	 * notation has to be used ('0': 12-hours notation; '1': 24-hours notation).
+	 * 
+	 * getHOurOfDayString is a static method.
 	 */
 
-	public String getHourOfDayString(DateTime dateTime) {
-		int hourOfDayInt = dateTime.getHourOfDay();
+	public static String getHourOfDayString(int hourOfDayInt, int timeNotation) {
 		String hourOfDayString = null;
-		if (hourOfDayInt < 10) {
-			hourOfDayString = "0" + hourOfDayInt;
-		} else {
-			hourOfDayString = "" + hourOfDayInt;
+		// CHeck what time notation to use and correct the time if necessary
+		switch (timeNotation) {
+		case 0:
+			hourOfDayInt = to12HourClock(hourOfDayInt);
+			break;
+		case 1:
+			// Nothing to change
+			break;
+		default:
+			Log.e("TheWearDebug",
+					"No such time notation preference (TimeHandler)");
 		}
+		// To string
+		hourOfDayString = to2CharString(hourOfDayInt);
 		return hourOfDayString;
 	}
 
 	/**
 	 * getMinuteOfHourString() returns the minutes of the hour as a string
-	 * formatted as 'MM'. input is the DateTime.
+	 * formatted as 'MM'. input is the minuteOfHour as int.
+	 * 
+	 * getMinuteOfHourString is a static method.
 	 */
 
-	public String getMinuteOfHourString(DateTime dateTime) {
-		int minuteOfHourInt = dateTime.getMinuteOfHour();
+	public static String getMinuteOfHourString(int minuteOfHourInt) {
 		String minuteOfHourString = null;
-		if (minuteOfHourInt < 10) {
-			minuteOfHourString = "0" + minuteOfHourInt;
-		} else {
-			minuteOfHourString = "" + minuteOfHourInt;
-		}
+		minuteOfHourString = to2CharString(minuteOfHourInt);
 		return minuteOfHourString;
 	}
 
 	/**
-	 * getTimeString() returns the time as a string formatted as 'HH:MMh' (HH
+	 * getTimeString() returns the time as a string formatted as 'HH:MM*' (HH
 	 * and MM representing hours and minutes respectively from the forecastTime
-	 * in minutes. (forecastTime is the time the first forecast ends).
+	 * in minutes. The star represents the hour symbol 'h' for the 24-hours
+	 * notation or 'am'/'pm' for the 12-hours notation
+	 * 
+	 * Input is the time the first forecast ends.
 	 */
 
 	public String[] getTimeString(int forecastTime) {
+		forecastTimeHour = new int[3];
+		forecastTimeMinute = new int[3];
 		DateTime FirstForecastEndTime = getFirstForecastEndTime(forecastTime);
+		forecastTimeHour[0] = FirstForecastEndTime.getHourOfDay();
+		forecastTimeMinute[0] = FirstForecastEndTime.getMinuteOfHour();
 		DateTime SecondforecastEndTime = getNextForecastEndTime(FirstForecastEndTime);
+		forecastTimeHour[1] = SecondforecastEndTime.getHourOfDay();
+		forecastTimeMinute[1] = SecondforecastEndTime.getMinuteOfHour();
 		DateTime ThirdforecastEndTime = getNextForecastEndTime(SecondforecastEndTime);
-		String[] timeString = new String[3];
-		timeString[0] = getHourOfDayString(FirstForecastEndTime) + ":"
-				+ getMinuteOfHourString(FirstForecastEndTime) + "h";
-		timeString[1] = getHourOfDayString(SecondforecastEndTime) + ":"
-				+ getMinuteOfHourString(SecondforecastEndTime) + "h";
-		timeString[2] = getHourOfDayString(ThirdforecastEndTime) + ":"
-				+ getMinuteOfHourString(ThirdforecastEndTime) + "h";
-		return timeString;
+		forecastTimeHour[2] = ThirdforecastEndTime.getHourOfDay();
+		forecastTimeMinute[2] = ThirdforecastEndTime.getMinuteOfHour();
+
+		int timeNotationPreference = sharedPref.getInt(
+				res.getString(R.string.time_notation_preference),
+				res.getInteger(R.integer.defaultTimeNotation));
+		String[] titleString = constructTitleStrings(forecastTimeHour,
+				forecastTimeMinute, timeNotationPreference);
+		return titleString;
 	}
 
 	/**
-	 * getTimeTitles() returns the full time titles as a String array with 3
-	 * elements.
+	 * getForecastTimeHour() is the getter method for the forecastTimeHour.
 	 */
 
-	public String[] getTimeTitles() {
-		String[] timeString = getCurrentForecastedTime();
-		String[] timeTitles = new String[3];
-		timeTitles[0] = "now – " + timeString[0];
-		timeTitles[1] = timeString[0] + " – " + timeString[1];
-		timeTitles[2] = timeString[1] + " – " + timeString[2];
-		return timeTitles;
+	public int[] getForecastTimeHour() {
+		return forecastTimeHour;
+	}
+
+	/**
+	 * getForecastTimeMinute() is the getter method for the forecastTimeMinute.
+	 */
+
+	public int[] getForecastTimeMinute() {
+		return forecastTimeMinute;
+	}
+
+	/**
+	 * getAmPm() checks if 'am' or 'pm' has to be used for the 12-hours
+	 * notation, and returns the correct one as string.
+	 * 
+	 * Input is the hour as 24-hours time.
+	 * 
+	 * getAmPm() is a static method.
+	 */
+
+	public static String getAmPm(int hour) {
+		String amPm = null;
+		if (hour < 12) {
+			amPm = "am";
+		} else {
+			amPm = "pm";
+		}
+		return amPm;
+	}
+
+	/**
+	 * to12HourClock() converts the 24-hours time to the 12-hours time.
+	 * 
+	 * Input is the hour as 24-hours time.
+	 * 
+	 * to12HourClock() returns the 12-hours time as int.
+	 * 
+	 * to 12HoursClock() is a static method.
+	 */
+
+	public static int to12HourClock(int hour) {
+		int newHour = -1;
+		if (hour <= 12) {
+			if (hour == 0) {
+				newHour = 12;
+			} else {
+				newHour = hour;
+			}
+		} else {
+			newHour = hour - 12;
+		}
+		return newHour;
+	}
+
+	/**
+	 * to2CharString() converts an integer to an 2 character long string. A '0'
+	 * will be added before all numbers below 10.
+	 * 
+	 * Input: integer; Returns: String.
+	 * 
+	 * to2CharString() is a static method.
+	 */
+
+	public static String to2CharString(int myInt) {
+		String myString = null;
+		if (myInt < 10) {
+			myString = "0" + myInt;
+		} else {
+			myString = "" + myInt;
+		}
+		return myString;
+	}
+
+	/**
+	 * constructTitleStrings() constructs the full time titles for the forecast
+	 * titles whilst taking the time notation preference of the user into
+	 * account.
+	 * 
+	 * Input: int[] hour and int[] minute, both containing 3 elements; int
+	 * timeNotationPreference for the time notation that should be used ('0':
+	 * 12-hours notation; '1': 24-hours notation)
+	 * 
+	 * Returns the full time titles as String[].
+	 * 
+	 * constructTitleStrings() is a static method.
+	 */
+
+	public static String[] constructTitleStrings(int[] hour, int[] minute,
+			int timeNotationPreference) {
+		String[] titleSuffix = { null, null, null };
+		switch (timeNotationPreference) {
+		case 0: // 12-hours notation
+			// Convert time to 12-hours notation
+			for (int i = 0; i <= 2; i++) {
+				titleSuffix[i] = getAmPm(hour[i]);
+				hour[i] = to12HourClock(hour[i]);
+			}
+			break;
+		case 1: // 24-hours notation
+			for (int i = 0; i <= 2; i++) {
+				titleSuffix[i] = "h";
+			}
+			break;
+		default: // ERROR
+			Log.e("TheWearDebug",
+					"No such time notation preference, can't change the title");
+		}
+		String[] titleString = new String[3];
+		titleString[0] = "now – " + to2CharString(hour[0]) + ":"
+				+ to2CharString(minute[0]) + titleSuffix[0];
+		for (int i = 1; i <= 2; i++) {
+			titleString[i] = to2CharString(hour[(i - 1)]) + ":"
+					+ to2CharString(minute[(i - 1)]) + titleSuffix[(i - 1)]
+					+ " – " + to2CharString(hour[i]) + ":"
+					+ to2CharString(minute[i]) + titleSuffix[i];
+		}
+		return titleString;
 	}
 }

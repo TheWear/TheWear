@@ -19,6 +19,15 @@
         android:layout_gravity="right" />
 
     <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="50"
+        android:showAsAction="ifRoom"
+        android:title="@string/settingsDialogTitle"
+        android:icon="@drawable/content_edit"
+        android:onClick="goToSettings"
+       android:layout_gravity="right" />
+
+    <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"

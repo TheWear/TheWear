@@ -60,7 +60,6 @@
         <item>Settings</item>
         <item>About TheWear</item>
     </string-array>
-
     <string-array name="pathnames">
         <item>base</item>
         <item>left_arm_down</item>
@@ -80,6 +79,7 @@
 
     <!-- This list is also posted on our drive, related to the countries -->
     <string-array name="ccTLDCodes">
+        <item>com</item>
         <item>af</item>
         <item>ax</item>
         <item>al</item>
@@ -94,6 +94,7 @@
         <item>am</item>
         <item>aw</item>
         <item>ac</item>
+        <item>asia</item>
         <item>au</item>
         <item>at</item>
         <item>az</item>
@@ -250,6 +251,7 @@
         <item>om</item>
         <item>pk</item>
         <item>pw</item>
+        <item>ps</item>
         <item>pa</item>
         <item>pg</item>
         <item>py</item>
@@ -293,7 +295,6 @@
         <item>su</item>
         <item>es</item>
         <item>lk</item>
-        <item>ps</item>
         <item>sd</item>
         <item>sr</item>
         <item>sj</item>
@@ -336,6 +337,7 @@
     </string-array>
 
     <string-array name="ccTLDCountries">
+        <item>International</item>
         <item>Afghanistan</item>
         <item>Åland</item>
         <item>Albania</item>
@@ -350,6 +352,7 @@
         <item>Armenia</item>
         <item>Aruba</item>
         <item>Ascension Island</item>
+        <item>Asia</item>
         <item>Australia</item>
         <item>Austria</item>
         <item>Azerbaijan</item>
@@ -506,6 +509,7 @@
         <item>Oman</item>
         <item>Pakistan</item>
         <item>Palau</item>
+        <item>Palestine</item>
         <item>Panama</item>
         <item>Papua New Guinea</item>
         <item>Paraguay</item>
@@ -549,7 +553,6 @@
         <item>Soviet Union</item>
         <item>Spain</item>
         <item>Sri Lanka</item>
-        <item>State of Palestine</item>
         <item>Sudan</item>
         <item>Suriname</item>
         <item>Svalbard and Jan Mayen Islands</item>

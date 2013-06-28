@@ -221,7 +221,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 							TimeHandler myTimeHandler = new TimeHandler(
 									sharedPref, res);
 							myForecastTimeStruct.setForecastTimeStruct(
-									myTimeHandler.getCurrentForecastedTimeTitles(),
+									myTimeHandler
+											.getCurrentForecastedTimeTitles(),
 									myTimeHandler.getForecastTimeHour(),
 									myTimeHandler.getForecastTimeMinute());
 							progressCounter = progressCounter + 3;
@@ -384,8 +385,10 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 			boolean[] advice = weather_data.weathertype.show_imgs;
 
-			MouseOverManager myMouseOver = new MouseOverManager(localDataset);
-			mouseOverInfo[forecastNumber] = myMouseOver.getString();
+			DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
+					localDataset);
+			mouseOverInfo[forecastNumber] = myDetailedForecastInformationManager
+					.getString();
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 15/23
 

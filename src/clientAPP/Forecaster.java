@@ -1,6 +1,7 @@
 package clientAPP;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import src.gui.thewearandroid.R;
 import android.app.ProgressDialog;
@@ -396,6 +397,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			Log.d("TheWearDebug", "handled WeatherEnum");
 
 			boolean[] advice = weather_data.weathertype.show_imgs;
+			advice = Arrays.copyOf(advice, advice.length + 1);
+			advice[advice.length - 1] = weather_data.sunglasses;
 
 			DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
 					localDataset);

@@ -477,7 +477,7 @@ public class MainActivity extends Activity {
 	public void showForecastInformation(int position) {
 		// Show the additional forecast information
 		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'about\' clicked");
+		Log.d("TheWearDebug", "Detailed Information clicked");
 		try {
 			myForecastInfo = myForecasterObject.get();
 		} catch (InterruptedException e) {
@@ -656,7 +656,8 @@ public class MainActivity extends Activity {
 	public void showAboutApp() {
 		Log.d("TheWearDebug", "About our App");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.about_text).setTitle(R.string.action_about);
+		String aboutText = getString(R.string.about_text) + "\nVersion: " + getString(R.string.testVersion);
+		builder.setMessage(aboutText).setTitle(R.string.action_about);
 		builder.setPositiveButton(R.string.closeDialog,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {

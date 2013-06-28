@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="testVersion">v0.001</string>
     <string name="app_name">TheWear</string>
     <string name="action_preferences">Preferences</string>
     <string name="action_about">About TheWear</string>
@@ -60,6 +61,8 @@
         <item>Settings</item>
         <item>About TheWear</item>
     </string-array>
+
+    <string name="sunGlassesPathname">sunglasses_2</string>
     <string-array name="pathnames">
         <item>base</item>
         <item>left_arm_down</item>
@@ -74,7 +77,6 @@
         <item>scarf</item>
         <item>short_pants</item>
         <item>umbrella</item>
-        <item>sunglasses_2</item>
     </string-array>
 
     <!-- This list is also posted on our drive, related to the countries -->

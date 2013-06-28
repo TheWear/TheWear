@@ -17,7 +17,7 @@ public class WeatherEnumHandler {
 		double temp = Double.parseDouble(weather_data[1]);// 293.15; // Kelvin
 															// (average)
 		double prec = Double.parseDouble(weather_data[2]);// 5; // mm
-		double clcover = Double.parseDouble(weather_data[5]);// 80; //
+		double clcover = Double.parseDouble(weather_data[4]);// 80; //
 																// percentage
 		double wind = Double.parseDouble(weather_data[6]);// 10; // meter per
 															// second

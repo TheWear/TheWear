@@ -5,18 +5,18 @@ package clientAPP;
  */
 
 public enum WeatherEnums {
-	LIGHTRAIN("10110000000010"), // umbrella
-	HEAVYRAIN("11100001110000"), // raincoat
-	STORMYRAIN("11100001110000"), // raincoat
-	SNOW("11100001110000"), // not used yet
-	COOLWINDY("11100000001000"), // scarf
-	COLD("11100110001000"), // scarf, hat, mittens
-	WARMLIGHTRAIN("10110000000010"), // short-pants and
+	LIGHTRAIN("1011000000001"), // umbrella
+	HEAVYRAIN("1110000111000"), // raincoat
+	STORMYRAIN("1110000111000"), // raincoat
+	SNOW("1110000111000"), // not used yet
+	COOLWINDY("1110000000100"), // scarf
+	COLD("1110011000100"), // scarf, hat, mittens
+	WARMLIGHTRAIN("1011000000001"), // short-pants and
 	// umbrella
-	WARM("11100000000100"), // short-pants
-	SUNNYWEATHER("11100000000001"),
-	WARMSUNNYWEATHER("11100000000101"),
-	DEFAULT("11100000000000");
+	WARM("1110000000010"), // short-pants
+	SUNNYWEATHER("1110000000000"),
+	WARMSUNNYWEATHER("1110000000010"),
+	DEFAULT("1110000000000");
 
 	public boolean[] show_imgs;
 

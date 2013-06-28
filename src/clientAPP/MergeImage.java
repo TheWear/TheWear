@@ -1,5 +1,7 @@
 package clientAPP;
 
+import java.util.Arrays;
+
 import src.gui.thewearandroid.R;
 import android.content.Context;
 import android.content.res.Resources;
@@ -26,6 +28,8 @@ public class MergeImage {
 		// Initiate resources
 		Resources res = context.getResources();
 		String[] imagePathname = res.getStringArray(R.array.pathnames);
+		imagePathname = Arrays.copyOf(imagePathname, imagePathname.length + 1);
+		imagePathname[imagePathname.length - 1] = res.getString(R.string.sunGlassesPathname);
 
 		if (imagePathname.length == advice.length) {
 			for (int i = 0; i < advice.length; i++) {
@@ -44,6 +48,8 @@ public class MergeImage {
 					}
 				}
 			}
+		} else {
+			Log.e("TheWearDebug","The number of pathnames doesn't correspont with the advice length.");
 		}
 		return myBitmap;
 	}

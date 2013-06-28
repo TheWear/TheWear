@@ -1,7 +1,6 @@
 package clientAPP;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 
 import org.joda.time.DateTime;
@@ -21,10 +20,6 @@ public class TimeHandler {
 	 * applicable whilst taking the time zones into account.
 	 */
 
-	private final int forecast1UTCTimeMins = 0; // 00:00h
-	private final int forecast2UTCTimeMins = 360; // 06:00h
-	private final int forecast3UTCTimeMins = 720; // 12:00h
-	private final int forecast4UTCTimeMins = 1080; // 18:00h
 	private final int oneHour = 60; // minutes
 	private int[] forecastTimeHour;
 	private int[] forecastTimeMinute;
@@ -61,53 +56,19 @@ public class TimeHandler {
 	/**
 	 * getCurrentForecastTime() returns a string array containing the three time
 	 * titles that indicates when the forecast is valid.
+	 * 
+	 * Input: first forecast end time in hours in UTC time zone
 	 */
 
-	public String[] getCurrentForecastedTimeTitles() {
+	public String[] getCurrentForecastedTimeTitles(
+			int firstForecastEndTimeHoursUTC) {
 
 		int offset = getOffsetFromUTC();
-		DateTimeZone myDateTimeZone = DateTimeZone.getDefault();
-		DateTime myDateTime = new DateTime(myDateTimeZone);
-		int hourOfDay = myDateTime.getHourOfDay();
-		int minuteOfHour = myDateTime.getMinuteOfHour();
-		int currentHourMinute = (hourOfDay * 60) + minuteOfHour;
-		String[] timeString = null;
+		int firstForecastTimeMinutesUTC = firstForecastEndTimeHoursUTC * 60;
+		int correctForecastTime = correctForecastedTime(
+				firstForecastTimeMinutesUTC, offset);
+		String[] timeString = getTimeString(correctForecastTime);
 
-		int[] forecastTimes = new int[4];
-		forecastTimes[0] = correctForecastedTime(forecast1UTCTimeMins, offset);
-		forecastTimes[1] = correctForecastedTime(forecast2UTCTimeMins, offset);
-		forecastTimes[2] = correctForecastedTime(forecast3UTCTimeMins, offset);
-		forecastTimes[3] = correctForecastedTime(forecast4UTCTimeMins, offset);
-		// sort the forecastTimes array to have them in ascending order after
-		// calculating the correctedForecastedTime
-		Arrays.sort(forecastTimes);
-		if (currentHourMinute > forecastTimes[0]) {
-			if (currentHourMinute > forecastTimes[1]) {
-				if (currentHourMinute > forecastTimes[2]) {
-					if (currentHourMinute > forecastTimes[3]) {
-						// forecastTime4 <= currentHourMinute
-						timeString = getTimeString(forecastTimes[0]);
-
-					} else {
-						// forecastTime3 <= currentHourMinute < forecastTime4
-						timeString = getTimeString(forecastTimes[3]);
-
-					}
-				} else {
-					// forecastTime2 <= currentHourMinute < forecastTime3
-					timeString = getTimeString(forecastTimes[2]);
-
-				}
-			} else {
-				// forecastTime1 <= currentHourMinute < forecastTime2
-				timeString = getTimeString(forecastTimes[1]);
-
-			}
-		} else {
-			// currentHourMinute < forecastTime1
-			timeString = getTimeString(forecastTimes[0]);
-
-		}
 		return timeString;
 	}
 

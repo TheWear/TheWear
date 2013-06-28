@@ -55,6 +55,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	private ForecastTimeStruct myForecastTimeStruct;
 	private TextView titleTextView;
 	private ViewPager mViewPager;
+	private int firstForecastEndTime;
 
 	/**
 	 * Constructor for the Forecaster AsyncTask to be able to import the
@@ -222,7 +223,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 									sharedPref, res);
 							myForecastTimeStruct.setForecastTimeStruct(
 									myTimeHandler
-											.getCurrentForecastedTimeTitles(),
+											.getCurrentForecastedTimeTitles(firstForecastEndTime),
 									myTimeHandler.getForecastTimeHour(),
 									myTimeHandler.getForecastTimeMinute());
 							progressCounter = progressCounter + 3;
@@ -373,6 +374,11 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			Log.d("TheWearDebug", "Canceling Forecaster... (server)");
 		} else {
 			Log.d("TheWearDebug", "Got weather dataset from our server");
+
+			if (forecastNumber == 0) {
+				String firstForecastServerInformation = localDataset[0];
+				firstForecastEndTime = myServerCommunicator.extractForecastRetrievedTime(firstForecastServerInformation);
+			}
 
 			dataset.add(forecastNumber, localDataset);
 

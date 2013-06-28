@@ -221,11 +221,13 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 							// the forecast
 							TimeHandler myTimeHandler = new TimeHandler(
 									sharedPref, res);
-							myForecastTimeStruct.setForecastTimeStruct(
-									myTimeHandler
-											.getCurrentForecastedTimeTitles(firstForecastEndTime),
-									myTimeHandler.getForecastTimeHour(),
-									myTimeHandler.getForecastTimeMinute());
+							myForecastTimeStruct
+									.setForecastTimeStruct(
+											myTimeHandler
+													.getCurrentForecastedTimeTitles(firstForecastEndTime),
+											myTimeHandler.getForecastTimeHour(),
+											myTimeHandler
+													.getForecastTimeMinute());
 							progressCounter = progressCounter + 3;
 							publishProgress(progressCounter); // Total: 100/100
 						}
@@ -348,6 +350,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * information and the dataset directly in the right variables for further
 	 * use.
 	 * 
+	 * The forecast time information of the first forecast is saved as an int
+	 * variable for furter use.
+	 * 
 	 * Input is forecast, Double[] gridCoos, int forecastNumber;
 	 * 
 	 * returns void.
@@ -377,7 +382,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 			if (forecastNumber == 0) {
 				String firstForecastServerInformation = localDataset[0];
-				firstForecastEndTime = myServerCommunicator.extractForecastRetrievedTime(firstForecastServerInformation);
+				firstForecastEndTime = myServerCommunicator
+						.extractForecastRetrievedTime(firstForecastServerInformation);
 			}
 
 			dataset.add(forecastNumber, localDataset);

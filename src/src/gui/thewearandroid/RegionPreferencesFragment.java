@@ -1,6 +1,8 @@
 package src.gui.thewearandroid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import clientAPP.ForecastInfo;
 import clientAPP.MergeImage;
 import clientAPP.WeatherEnumHandler;
@@ -176,6 +178,8 @@ public class RegionPreferencesFragment extends DialogFragment {
 									Log.d("TheWearDebug", "handled WeatherEnum");
 
 									boolean[] advice = weather_data.weathertype.show_imgs;
+									advice = Arrays.copyOf(advice, advice.length + 1);
+									advice[advice.length - 1] = weather_data.sunglasses;
 
 									MergeImage myMergeImage = new MergeImage();
 									myBitmap[i] = myMergeImage

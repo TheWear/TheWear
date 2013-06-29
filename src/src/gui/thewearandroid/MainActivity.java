@@ -2,6 +2,7 @@ package src.gui.thewearandroid;
 
 import java.util.concurrent.ExecutionException;
 
+import clientAPP.DetailedForecastInformationManager;
 import clientAPP.ForecastInfo;
 import clientAPP.ForecastTimeStruct;
 import clientAPP.Forecaster;
@@ -497,9 +498,18 @@ public class MainActivity extends Activity {
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		} else {
-			String detailedInformation = myForecastInfo.detailedForecastInformation[position];
-			if (detailedInformation != null) {
+			String[] dataset = myForecastInfo.dataset.get(position);
+
+			if (dataset != null) {
 				Log.d("TheWearDebug", "Weather information available");
+
+				DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
+						dataset);
+				SharedPreferences sharedPref = getSharedPreferences(
+						getString(R.string.TheWear_preference_key),
+						Context.MODE_PRIVATE);
+				String detailedInformation = myDetailedForecastInformationManager
+						.getString(sharedPref, getResources());
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setMessage(detailedInformation).setTitle(
@@ -656,7 +666,8 @@ public class MainActivity extends Activity {
 	public void showAboutApp() {
 		Log.d("TheWearDebug", "About our App");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		String aboutText = getString(R.string.about_text) + "\nVersion: " + getString(R.string.testVersion);
+		String aboutText = getString(R.string.about_text) + "\nVersion: "
+				+ getString(R.string.testVersion);
 		builder.setMessage(aboutText).setTitle(R.string.action_about);
 		builder.setPositiveButton(R.string.closeDialog,
 				new DialogInterface.OnClickListener() {

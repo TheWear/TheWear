@@ -1,10 +1,12 @@
 package src.gui.thewearandroid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import clientAPP.ForecastInfo;
 import clientAPP.MergeImage;
 import clientAPP.PreferenceConvertor;
+import clientAPP.SettingsConvertor;
 import clientAPP.WeatherEnumHandler;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -64,6 +66,13 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	private Context applicationContext;
 	private ProgressBar myProgressBar;
 	private Dialog myDialog;
+	private int temperatureNotation;
+	private int preference1_min;
+	private int preference1_max;
+	private int preference2_min;
+	private int preference2_max;
+	private int preference3_min;
+	private int preference3_max;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -86,6 +95,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	 * 
 	 * * Set a negative button (Cancel button) to cancel a change of preferences
 	 * and to close the window
+	 * 
+	 * The temperatures are shown as °C or °F according to the user preference.
 	 */
 
 	@Override
@@ -100,9 +111,6 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		dialogView = inflater.inflate(R.layout.preference_dialog, null);
 		builder.setView(dialogView);
 		Log.d("TheWearDebug", "Preferences Dialog Created");
-		
-		// Set dialog Title
-		builder.setTitle(R.string.preference_dialog_Title);
 
 		// Get default Preference Values
 		defaultPreference1Value = Integer
@@ -111,6 +119,9 @@ public class ForecastPreferencesFragment extends DialogFragment {
 				.parseInt(getString(R.string.preference2_defaultValue));
 		defaultPreference3Value = Integer
 				.parseInt(getString(R.string.preference3_defaultValue));
+		final Resources res = getResources();
+		final int defaultTemperatureNotation = res
+				.getInteger(R.integer.defaultTemperatureNotation);
 		Log.d("TheWearDebug", "Got default Vales");
 
 		// Read the preference values from Shared Preferences
@@ -126,7 +137,46 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		preference3Value = sharedPref.getInt(
 				getString(R.string.forecast_preference3),
 				defaultPreference3Value);
+		temperatureNotation = sharedPref.getInt(
+				getString(R.string.temperature_notation_preference),
+				defaultTemperatureNotation);
 		Log.d("TheWearDebug", "Red the preference values");
+
+		// Set dialog Title
+		builder.setTitle(R.string.preference_dialog_Title);
+
+		// Set Preference Unit °C or °F
+		TextView Preference1UnitTextView = (TextView) dialogView
+				.findViewById(R.id.preference1_preferenceUnit);
+		TextView Preference3UnitTextView = (TextView) dialogView
+				.findViewById(R.id.preference3_preferenceUnit);
+		switch (temperatureNotation) {
+		case 0: // °C
+			Preference1UnitTextView.setText(R.string.setting2RadioButton1);
+			Preference3UnitTextView.setText(R.string.setting2RadioButton1);
+			break;
+		case 1: // °F
+			Preference1UnitTextView.setText(R.string.setting2RadioButton2);
+			Preference3UnitTextView.setText(R.string.setting2RadioButton2);
+			break;
+		default:
+			Log.e("TheWearDebug", "No such temperature notation");
+		}
+
+		// °C or °F
+		switch (temperatureNotation) {
+		case 0: // °C, no conversion needed
+			// Nothing
+			break;
+		case 1: // °F, conversion needed.
+			preference1Value = SettingsConvertor
+					.celsiusToFahrenheit(preference1Value);
+			preference3Value = SettingsConvertor
+					.celsiusToFahrenheit(preference3Value);
+			break;
+		default:
+			Log.e("TheWearDebug", "No such temperature notation");
+		}
 
 		// Initiate EditTexts and SeekBars
 		preference1EditText = (EditText) dialogView
@@ -141,31 +191,64 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		Log.d("TheWearDebug", "EditTexts and SeekBars initiated");
 
 		// Initiate PreferenceConvertor
+		// Temperature
 		myPreference1Convertor = new PreferenceConvertor();
 		myPreference1Convertor.initiatePreferenceConvertor(getActivity(),
-				"preference1");
+				"preference1", temperatureNotation);
+		// Wind
 		myPreference2Convertor = new PreferenceConvertor();
 		myPreference2Convertor.initiatePreferenceConvertor(getActivity(),
-				"preference2");
+				"preference2", -1);
+		// Temperature
 		myPreference3Convertor = new PreferenceConvertor();
 		myPreference3Convertor.initiatePreferenceConvertor(getActivity(),
-				"preference3");
+				"preference3", temperatureNotation);
 		Log.d("TheWearDebug", "PreferenceConvertors initiated");
 
+		// Max. and Min of the preferences:
+		preference1_max = -1;
+		preference3_max = -1;
+		preference1_min = -1;
+		preference3_min = -1;
+		switch (temperatureNotation) {
+		case 0: // °C, no conversion needed
+			preference1_max = res.getInteger(R.integer.preference1_max);
+			preference3_max = res.getInteger(R.integer.preference3_max);
+			preference1_min = res.getInteger(R.integer.preference1_min);
+			preference3_min = res.getInteger(R.integer.preference3_min);
+			break;
+		case 1: // °F, conversion needed.
+			preference1_max = SettingsConvertor.celsiusToFahrenheit(res
+					.getInteger(R.integer.preference1_max));
+			preference3_max = SettingsConvertor.celsiusToFahrenheit(res
+					.getInteger(R.integer.preference3_max));
+			preference1_min = SettingsConvertor.celsiusToFahrenheit(res
+					.getInteger(R.integer.preference1_min));
+			preference3_min = SettingsConvertor.celsiusToFahrenheit(res
+					.getInteger(R.integer.preference3_min));
+			break;
+		default:
+			Log.e("TheWearDebug", "No such temperature notation");
+		}
+		preference2_max = res.getInteger(R.integer.preference2_max);
+		preference2_min = res.getInteger(R.integer.preference2_min);
+
 		// Set max of the SeekBars
-		final Resources res = getResources();
-		int preference1SeekBarMax = (res.getInteger(R.integer.preference1_max))
-				- (res.getInteger(R.integer.preference1_min));
+		int preference1SeekBarMax = preference1_max - preference1_min;
+		Log.d("TheWearAndroid", "preference1_max = " + preference1_max
+				+ " & preference1_min = " + preference1_min);
 		Log.d("TheWearAndroid", "preference1SeekBarMax = "
 				+ preference1SeekBarMax);
-		int preference2SeekBarMax = (res.getInteger(R.integer.preference2_max))
-				- (res.getInteger(R.integer.preference2_min));
-		Log.d("TheWearAndroid", "preference2SeekBarMax = "
-				+ preference2SeekBarMax);
-		int preference3SeekBarMax = (res.getInteger(R.integer.preference3_max))
-				- (res.getInteger(R.integer.preference3_min));
+		int preference3SeekBarMax = preference3_max - preference3_min;
+		Log.d("TheWearAndroid", "preference3_max = " + preference3_max
+				+ " & preference3_min = " + preference3_min);
 		Log.d("TheWearAndroid", "preference3SeekBarMax = "
 				+ preference3SeekBarMax);
+		int preference2SeekBarMax = preference2_max - preference2_min;
+		Log.d("TheWearAndroid", "preference2_max = " + preference2_max
+				+ " & preference2_min = " + preference2_min);
+		Log.d("TheWearAndroid", "preference2SeekBarMax = "
+				+ preference2SeekBarMax);
 		preference1SeekBar.setMax(preference1SeekBarMax);
 		preference2SeekBar.setMax(preference2SeekBarMax);
 		preference3SeekBar.setMax(preference3SeekBarMax);
@@ -286,17 +369,13 @@ public class ForecastPreferencesFragment extends DialogFragment {
 							int parsedIntPreference = Integer
 									.parseInt(submittedPreference);
 							// Correct too high and too low values
-							int maxPref = res
-									.getInteger(R.integer.preference1_max);
-							int minPref = res
-									.getInteger(R.integer.preference1_min);
-							if (parsedIntPreference > maxPref) {
-								parsedIntPreference = maxPref;
+							if (parsedIntPreference > preference1_max) {
+								parsedIntPreference = preference1_max;
 								String parsedStringPrefrence = parsedIntPreference
 										+ "";
 								editedTextView.setText(parsedStringPrefrence);
-							} else if (parsedIntPreference < minPref) {
-								parsedIntPreference = minPref;
+							} else if (parsedIntPreference < preference1_min) {
+								parsedIntPreference = preference1_min;
 								String parsedStringPrefrence = parsedIntPreference
 										+ "";
 								editedTextView.setText(parsedStringPrefrence);
@@ -327,17 +406,13 @@ public class ForecastPreferencesFragment extends DialogFragment {
 							int parsedIntPreference = Integer
 									.parseInt(submittedPreference);
 							// Correct too high and too low values
-							int maxPref = res
-									.getInteger(R.integer.preference2_max);
-							int minPref = res
-									.getInteger(R.integer.preference2_min);
-							if (parsedIntPreference > maxPref) {
-								parsedIntPreference = maxPref;
+							if (parsedIntPreference > preference2_max) {
+								parsedIntPreference = preference2_max;
 								String parsedStringPrefrence = parsedIntPreference
 										+ "";
 								editedTextView.setText(parsedStringPrefrence);
-							} else if (parsedIntPreference < minPref) {
-								parsedIntPreference = minPref;
+							} else if (parsedIntPreference < preference2_min) {
+								parsedIntPreference = preference2_min;
 								String parsedStringPrefrence = parsedIntPreference
 										+ "";
 								editedTextView.setText(parsedStringPrefrence);
@@ -368,17 +443,13 @@ public class ForecastPreferencesFragment extends DialogFragment {
 							int parsedIntPreference = Integer
 									.parseInt(submittedPreference);
 							// Correct too high and too low values
-							int maxPref = res
-									.getInteger(R.integer.preference3_max);
-							int minPref = res
-									.getInteger(R.integer.preference3_min);
-							if (parsedIntPreference > maxPref) {
-								parsedIntPreference = maxPref;
+							if (parsedIntPreference > preference3_max) {
+								parsedIntPreference = preference3_max;
 								String parsedStringPrefrence = parsedIntPreference
 										+ "";
 								editedTextView.setText(parsedStringPrefrence);
-							} else if (parsedIntPreference < minPref) {
-								parsedIntPreference = minPref;
+							} else if (parsedIntPreference < preference3_min) {
+								parsedIntPreference = preference3_min;
 								String parsedStringPrefrence = parsedIntPreference
 										+ "";
 								editedTextView.setText(parsedStringPrefrence);
@@ -404,15 +475,34 @@ public class ForecastPreferencesFragment extends DialogFragment {
 						myProgressBar.setIndeterminate(true);
 						myProgressBar.setVisibility(0);
 
+						// Convert back to °C for saving purposes if necessary.
+						int savingPreference1Value = -1;
+						int savingPreference3Value = -1;
+						switch (temperatureNotation) {
+						case 0: // °C
+							savingPreference1Value = preference1Value;
+							savingPreference3Value = preference3Value;
+							break;
+						case 1: // °F
+							savingPreference1Value = Math.round(SettingsConvertor
+									.fahrenheitToCelsius(preference1Value));
+							savingPreference3Value = Math.round(SettingsConvertor
+									.fahrenheitToCelsius(preference3Value));
+							break;
+						default:
+							Log.e("TheWearDebug",
+									"No such temperature notation");
+						}
+
 						// Saves the changed preference values and closes the
 						// dialog
 						SharedPreferences.Editor editor = sharedPref.edit();
 						editor.putInt(getString(R.string.forecast_preference1),
-								preference1Value);
+								savingPreference1Value);
 						editor.putInt(getString(R.string.forecast_preference2),
 								preference2Value);
 						editor.putInt(getString(R.string.forecast_preference3),
-								preference3Value);
+								savingPreference3Value);
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
@@ -437,6 +527,9 @@ public class ForecastPreferencesFragment extends DialogFragment {
 									Log.d("TheWearDebug", "handled WeatherEnum");
 
 									boolean[] advice = weather_data.weathertype.show_imgs;
+									advice = Arrays.copyOf(advice,
+											advice.length + 1);
+									advice[advice.length - 1] = weather_data.sunglasses;
 
 									MergeImage myMergeImage = new MergeImage();
 									myBitmap[i] = myMergeImage
@@ -498,10 +591,24 @@ public class ForecastPreferencesFragment extends DialogFragment {
 			positiveButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					// °C or °F
+					switch (temperatureNotation) {
+					case 0: // °C, no conversion needed
+						preference1Value = defaultPreference1Value;
+						preference3Value = defaultPreference3Value;
+						break;
+					case 1: // °F, conversion needed.
+						preference1Value = SettingsConvertor
+								.celsiusToFahrenheit(defaultPreference1Value);
+						preference3Value = SettingsConvertor
+								.celsiusToFahrenheit(defaultPreference3Value);
+						break;
+					default:
+						Log.e("TheWearDebug", "No such temperature notation");
+					}
+
 					// Set preference values to default
-					preference1Value = defaultPreference1Value;
 					preference2Value = defaultPreference2Value;
-					preference3Value = defaultPreference3Value;
 					// set the EditText to the new value
 					String setPreference1Value = preference1Value + "";
 					String setPreference2Value = preference2Value + "";

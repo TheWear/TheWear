@@ -40,13 +40,35 @@
             android:id="@+id/radioButton1Setting1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settingsRadioButton1" />
+            android:text="@string/setting1RadioButton1" />
 
         <RadioButton
             android:id="@+id/radioButton2Setting1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settingsRadioButton2" />
+            android:text="@string/setting1RadioButton2" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/setting2RadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting1RadioGroup"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radioButton1Setting2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting2RadioButton1" />
+
+        <RadioButton
+            android:id="@+id/radioButton2Setting2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting2RadioButton2" />
     </RadioGroup>
 
 </RelativeLayout>

@@ -49,7 +49,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	private ArrayList<String[]> dataset = new ArrayList<String[]>();
 	private boolean isCancelled;
 	private Bitmap[] mergedImage = { null, null, null };
-	private String[] mouseOverInfo = { null, null, null };
 	private int progressCounter;
 	private String reason;
 	private String[] localDataset = null;
@@ -213,8 +212,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 						specificForecast(24, gridCoos, 2); // Total: 93/100
 						if (isCancelled == false) {
 							forecastInfo = new ForecastInfo(
-									locationInfo.address, mouseOverInfo,
-									mergedImage, dataset);
+									locationInfo.address, mergedImage, dataset);
 							progressCounter = progressCounter + 4;
 							publishProgress(progressCounter); // Total: 97/100
 
@@ -400,10 +398,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			advice = Arrays.copyOf(advice, advice.length + 1);
 			advice[advice.length - 1] = weather_data.sunglasses;
 
-			DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
-					localDataset);
-			mouseOverInfo[forecastNumber] = myDetailedForecastInformationManager
-					.getString();
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 15/23
 

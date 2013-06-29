@@ -41,6 +41,9 @@ public class SettingsFragment extends DialogFragment {
 	private ForecastTimeStruct forecastTimeStruct;
 	private TextView titleTextView;
 	private ViewPager mViewPager;
+	private int defaultTemperatureNotation;
+	private int temperatureNotationPreference;
+	private RadioGroup setting2RadioGroup;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -59,6 +62,14 @@ public class SettingsFragment extends DialogFragment {
 	 * 
 	 * * Set a negative button (Cancel button) to cancel a change of preferences
 	 * and to close the window
+	 * 
+	 * Current Settings:
+	 * 
+	 * Time notation: the user can choose between a time notation as 12-hours or
+	 * 24-hours notation.
+	 * 
+	 * Temperature notation: the user can choose between a temperature notation
+	 * as °C or °F
 	 */
 
 	@Override
@@ -80,6 +91,8 @@ public class SettingsFragment extends DialogFragment {
 		// Get default preference
 		final Resources res = getResources();
 		defaultTimeNotation = res.getInteger(R.integer.defaultTimeNotation);
+		defaultTemperatureNotation = res
+				.getInteger(R.integer.defaultTemperatureNotation);
 
 		// Get preference
 		sharedPref = getActivity().getSharedPreferences(
@@ -88,6 +101,11 @@ public class SettingsFragment extends DialogFragment {
 		timeNotationPreference = sharedPref.getInt(
 				getString(R.string.time_notation_preference),
 				defaultTimeNotation);
+		temperatureNotationPreference = sharedPref.getInt(
+				getString(R.string.temperature_notation_preference),
+				defaultTimeNotation);
+
+		// Setting 1
 
 		setting1RadioGroup = (RadioGroup) dialogView
 				.findViewById(R.id.setting1RadioGroup);
@@ -104,6 +122,23 @@ public class SettingsFragment extends DialogFragment {
 			Log.e("TheWearDebug", "No such time notation preference");
 		}
 
+		// Setting 2
+
+		setting2RadioGroup = (RadioGroup) dialogView
+				.findViewById(R.id.setting2RadioGroup);
+
+		// check the preferenced radio button
+		switch (temperatureNotationPreference) {
+		case 0:
+			setting2RadioGroup.check(R.id.radioButton1Setting2);
+			break;
+		case 1:
+			setting2RadioGroup.check(R.id.radioButton2Setting2);
+			break;
+		default: // ERROR
+			Log.e("TheWearDebug", "No such time notation preference");
+		}
+
 		builder.setPositiveButton(R.string.positive_button,
 				new DialogInterface.OnClickListener() {
 
@@ -112,6 +147,24 @@ public class SettingsFragment extends DialogFragment {
 						// Show progressBar
 						myProgressBar.setIndeterminate(true);
 						myProgressBar.setVisibility(0);
+
+						// Setting 2
+
+						// get checked button
+						switch (setting2RadioGroup.getCheckedRadioButtonId()) {
+						case R.id.radioButton1Setting2:
+							temperatureNotationPreference = 0;
+							Log.d("BUG", "temperatureNotationPreference = 0");
+							break;
+						case R.id.radioButton2Setting2:
+							temperatureNotationPreference = 1;
+							Log.d("BUG", "temperatureNotationPreference = 1");
+							break;
+						default:
+							Log.e("TheWearDebug", "No such RadioButton");
+						}
+
+						// Setting 1
 
 						// get checked button
 						switch (setting1RadioGroup.getCheckedRadioButtonId()) {
@@ -132,6 +185,9 @@ public class SettingsFragment extends DialogFragment {
 						editor.putInt(
 								getString(R.string.time_notation_preference),
 								timeNotationPreference);
+						editor.putInt(
+								getString(R.string.temperature_notation_preference),
+								temperatureNotationPreference);
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
@@ -193,12 +249,29 @@ public class SettingsFragment extends DialogFragment {
 				@Override
 				public void onClick(View v) {
 					// Set preference values to default
+
+					// Setting 1
+					timeNotationPreference = defaultTimeNotation;
 					switch (defaultTimeNotation) {
 					case 0:
 						setting1RadioGroup.check(R.id.radioButton1Setting1);
 						break;
 					case 1:
 						setting1RadioGroup.check(R.id.radioButton2Setting1);
+						break;
+					default: // ERROR
+						Log.e("TheWearDebug",
+								"No such time notation preference");
+					}
+
+					// Setting 1
+					temperatureNotationPreference = defaultTemperatureNotation;
+					switch (defaultTemperatureNotation) {
+					case 0:
+						setting2RadioGroup.check(R.id.radioButton1Setting2);
+						break;
+					case 1:
+						setting2RadioGroup.check(R.id.radioButton2Setting2);
 						break;
 					default: // ERROR
 						Log.e("TheWearDebug",

@@ -1,11 +1,14 @@
-package src.gui.thewearandroid;
+package io.github.thewear.thewearandroidGUI;
+
+import io.github.thewear.thewearandroidClientAPP.DetailedForecastInformationManager;
+import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
+import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
+import io.github.thewear.thewearandroidClientAPP.Forecaster;
 
 import java.util.concurrent.ExecutionException;
 
-import clientAPP.DetailedForecastInformationManager;
-import clientAPP.ForecastInfo;
-import clientAPP.ForecastTimeStruct;
-import clientAPP.Forecaster;
+import src.gui.thewearandroid.R;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

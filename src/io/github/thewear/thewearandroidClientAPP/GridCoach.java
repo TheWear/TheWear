@@ -1,4 +1,4 @@
-package clientAPP;
+package io.github.thewear.thewearandroidClientAPP;
 
 import java.io.BufferedReader;
 import java.io.IOException;

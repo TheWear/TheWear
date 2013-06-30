@@ -1,7 +1,8 @@
-package src.gui.thewearandroid;
+package io.github.thewear.thewearandroidGUI;
 
-import clientAPP.ForecastTimeStruct;
-import clientAPP.TimeHandler;
+import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
+import io.github.thewear.thewearandroidClientAPP.TimeHandler;
+import src.gui.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;

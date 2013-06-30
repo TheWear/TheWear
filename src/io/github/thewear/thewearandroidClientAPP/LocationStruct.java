@@ -1,4 +1,4 @@
-package clientAPP;
+package io.github.thewear.thewearandroidClientAPP;
 
 // Construct output for GridCoach
 public class LocationStruct {

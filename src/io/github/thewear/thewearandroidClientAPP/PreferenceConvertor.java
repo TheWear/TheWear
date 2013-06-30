@@ -1,4 +1,4 @@
-package clientAPP;
+package io.github.thewear.thewearandroidClientAPP;
 
 import android.content.Context;
 import android.content.res.Resources;

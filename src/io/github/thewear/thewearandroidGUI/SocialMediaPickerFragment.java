@@ -1,5 +1,6 @@
-package src.gui.thewearandroid;
+package io.github.thewear.thewearandroidGUI;
 
+import src.gui.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -1,13 +1,16 @@
-package src.gui.thewearandroid;
+package io.github.thewear.thewearandroidGUI;
+
+import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
+import io.github.thewear.thewearandroidClientAPP.MergeImage;
+import io.github.thewear.thewearandroidClientAPP.PreferenceConvertor;
+import io.github.thewear.thewearandroidClientAPP.SettingsConvertor;
+import io.github.thewear.thewearandroidClientAPP.WeatherEnumHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import clientAPP.ForecastInfo;
-import clientAPP.MergeImage;
-import clientAPP.PreferenceConvertor;
-import clientAPP.SettingsConvertor;
-import clientAPP.WeatherEnumHandler;
+import src.gui.thewearandroid.R;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;

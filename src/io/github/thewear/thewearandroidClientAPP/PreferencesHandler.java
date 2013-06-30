@@ -1,4 +1,4 @@
-package clientAPP;
+package io.github.thewear.thewearandroidClientAPP;
 
 import src.gui.thewearandroid.R;
 import android.content.Context;

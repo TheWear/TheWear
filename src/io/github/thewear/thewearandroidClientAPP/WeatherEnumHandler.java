@@ -1,7 +1,7 @@
-package clientAPP;
+package io.github.thewear.thewearandroidClientAPP;
 
+import io.github.thewear.thewearandroidClientAPP.PreferencesHandler;
 import android.content.Context;
-import clientAPP.PreferencesHandler;
 
 public class WeatherEnumHandler {
 

@@ -4,12 +4,12 @@ import android.content.Context;
 import clientAPP.PreferencesHandler;
 
 public class WeatherEnumHandler {
-	
+
 	/**
 	 * Class WeatherEnumHandler is determines which clothing is drawn, given the
 	 * weather conditions. It simply works with a series of if-statements.
 	 */
-	
+
 	public WeatherEnums weathertype = WeatherEnums.DEFAULT;
 	public boolean sunglasses = false;
 
@@ -21,6 +21,7 @@ public class WeatherEnumHandler {
 																// percentage
 		double wind = Double.parseDouble(weather_data[6]);// 10; // meter per
 															// second
+		int daylight = Integer.parseInt(weather_data[3]); // daylight in seconds
 
 		int[] preferencesArray = PreferencesHandler.getPreferences(context);
 		int minTemp = (int) (preferencesArray[0] + 273.15);
@@ -28,7 +29,11 @@ public class WeatherEnumHandler {
 		int maxTemp = (int) (preferencesArray[2] + 273.15);
 
 		if (clcover <= 80) {
-			sunglasses = true;
+			if (daylight > 3600) { // = daylight > 1h
+				sunglasses = true;
+			} else {
+				sunglasses = false;
+			}
 		} else {
 			sunglasses = false;
 		}
@@ -46,16 +51,14 @@ public class WeatherEnumHandler {
 		} else if (temp >= maxTemp) {
 			if (clcover <= 80) {
 				weathertype = WeatherEnums.WARMSUNNYWEATHER;
-			}
-			else{
-			weathertype = WeatherEnums.WARM;
+			} else {
+				weathertype = WeatherEnums.WARM;
 			}
 		} else if (temp <= minTemp) {
 			weathertype = WeatherEnums.COLD;
-		} else if (clcover <= 80){
+		} else if (clcover <= 80) {
 			weathertype = WeatherEnums.SUNNYWEATHER;
-		}		
-		else {
+		} else {
 			weathertype = WeatherEnums.DEFAULT;
 		}
 	}

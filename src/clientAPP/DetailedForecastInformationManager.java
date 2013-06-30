@@ -17,12 +17,12 @@ public class DetailedForecastInformationManager {
 	 * Cloudcover is converted to Sunshine [%] and Temperature to °Celsius;
 	 */
 
-	private String mouseOverStringFormat = "Temperature (%s) %s%n" + // TMP
-			"Maximum Temperature (%s)  %s%n" + // TMAX
-			"Minimum Temperature (%s)  %s%n" + // TMIN
-			"Precipitation (mm/6hours) %s%n" + // APCP
-			"Cloud cover %s%%%n" + // TCDC
-			"Windspeed (m/s) %s%n" + // sqrt(UGRD^2+VGRD^2)
+	private String mouseOverStringFormat = "Temperature (%s): %s%n" + // TMP
+			"Maximum Temperature (%s):  %s%n" + // TMAX
+			"Minimum Temperature (%s):  %s%n" + // TMIN
+			"Precipitation (mm/6hours): %s%n" + // APCP
+			"Cloud cover: %s%%%n" + // TCDC
+			"Windspeed (m/s): %s" + // sqrt(UGRD^2+VGRD^2)
 			"%s"; // WEASD
 	private String[] dataset;
 	private double attr1; // Temperature
@@ -41,7 +41,7 @@ public class DetailedForecastInformationManager {
 		attr3 = String.valueOf(Math.round(Double.parseDouble(dataset[4])));
 		attr4 = String.valueOf(Double.parseDouble(dataset[6]));
 		if (Double.parseDouble(dataset[7]) > 0) {
-			attr5 = "Snowdepth (cm) " + dataset[7];
+			attr5 = "\nSnowdepth (cm): " + dataset[7];
 		} else {
 			attr5 = "";
 		}

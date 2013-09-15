@@ -413,6 +413,7 @@ public class MainActivity extends Activity {
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO Implement sharing over Facebook
+		Log.i("TheWearDebug","Sharing over Facebook");
 	}
 
 	/**
@@ -425,6 +426,7 @@ public class MainActivity extends Activity {
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO implement sharing over Twitter
+		Log.i("TheWearDebug","Sharing over Twitter");
 	}
 
 	/**

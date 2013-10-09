@@ -488,11 +488,11 @@ public class MainActivity extends Activity {
 			myForecastInfo = myForecasterObject.get();
 		} catch (InterruptedException e) {
 			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
+			Log.e("TheWearDebug", "InterruptedException1");
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
+			Log.e("TheWearDebug", "ExecutionException2");
 			e.printStackTrace();
 		}
 		if (myForecastInfo == null) {
@@ -561,7 +561,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
+			Log.e("TheWearDebug", "ExecutionException3");
 			e.printStackTrace();
 		}
 		if (myForecastInfo == null) {
@@ -609,7 +609,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
+			Log.e("TheWearDebug", "ExecutionException4");
 			e.printStackTrace();
 		}
 		// Catch an empty myForecastInfo
@@ -641,7 +641,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException");
+			Log.e("TheWearDebug", "ExecutionException5");
 			e.printStackTrace();
 		}
 		// Catch an empty myForecastInfo
@@ -792,30 +792,35 @@ public class MainActivity extends Activity {
 			ImageView imageView = myImageViews[position];
 			Log.d("TheWearDebug", "Setting Image for position " + position);
 
-			ForecastInfo myForecastInfo = null;
-			try {
-				myForecastInfo = myForecasterObject.get();
-			} catch (InterruptedException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "InterruptedException");
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "ExecutionException");
-				e.printStackTrace();
-			}
-			Bitmap bitmap = null;
-			if (myForecastInfo != null) {
-				if (myForecastInfo.mergedImages[position] != null) {
-					bitmap = myForecastInfo.mergedImages[position];
-				} else {
-					Log.d("TheWearAndroid", "mergedImage[pos] == null");
-					bitmap = getImages(position);
-				}
-			} else {
-				Log.d("TheWearAndroid", "myForecastInfo == null");
-				bitmap = getImages(position);
-			}
+            Bitmap bitmap = null;
+            if (myForecasterObject != null){
+                ForecastInfo myForecastInfo = null;
+                try {
+                    myForecastInfo = myForecasterObject.get();
+                } catch (InterruptedException e) {
+                    // Auto-generated catch block
+                    Log.e("TheWearDebug", "InterruptedException");
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    // Auto-generated catch block
+                    Log.e("TheWearDebug", "ExecutionException6");
+                    e.printStackTrace();
+                }
+                if (myForecastInfo != null) {
+                    if (myForecastInfo.mergedImages[position] != null) {
+                        bitmap = myForecastInfo.mergedImages[position];
+                    } else {
+                        Log.d("TheWearAndroid", "mergedImage[pos] == null");
+                        bitmap = getImages(position);
+                    }
+                } else {
+                    Log.d("TheWearAndroid", "myForecastInfo == null");
+                    bitmap = getImages(position);
+                }
+            }else {
+                Log.d("TheWearAndroid", "myForecastObject == null");
+                bitmap = getImages(position);
+            }
 
 			// set offset from the edges
 			int padding = context.getResources().getDimensionPixelSize(

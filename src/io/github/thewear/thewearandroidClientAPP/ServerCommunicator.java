@@ -12,18 +12,16 @@ public class ServerCommunicator {
 	 * server. Gridpoint latitude & longitude and forecast specific.
 	 */
 
-	public String[] getWeatherData(int forecast, double lat, double lng) {
+	public String[][] getWeatherData(int forecast, double lat, double lng) {
 		Log.d("TheWearDebug", "Starting readFile()");
-		String forecastString = Integer.toString(forecast);
 		String latString = Double.toString(lat);
 		String lngString = Double.toString(lng);
-		String[] dataset = null;
+        String[][] dataset = {null,null,null};
 		URL serverFile;
 		HttpURLConnection conn;
 		try {
 			serverFile = new URL("http://www.swla.nl/getinfo.php?lat="
-					+ latString + "&lng=" + lngString + "&time="
-					+ forecastString);
+					+ latString + "&lng=" + lngString + "&time=all");
 			Log.d("TheWearDebug", "connecting with URL" + serverFile);
 			try {
 				conn = (HttpURLConnection) serverFile.openConnection();
@@ -38,9 +36,13 @@ public class ServerCommunicator {
 							sb.append(inputData + "\n");
 						}
 						String data = sb.toString();
-						dataset = data.split("\t");
+                        String[] alldataset = data.split(",");
+                        dataset[0] = alldataset[0].split("\t");
+                        dataset[1] = alldataset[1].split("\t");
+                        dataset[2] = alldataset[2].split("\t");
 						Log.d("TheWearDebug", "date of the dataset: "
-								+ dataset[0]);
+								+ dataset[0][0]);
+
 					} catch (IOException e) {
 						// TODO Add error message for IOException
 						Log.e("TheWearDebug", "IOException 1");

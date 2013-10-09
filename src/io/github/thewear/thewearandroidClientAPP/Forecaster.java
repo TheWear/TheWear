@@ -51,7 +51,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	private Bitmap[] mergedImage = { null, null, null };
 	private int progressCounter;
 	private String reason;
-	private String[] localDataset = null;
+	private String[][] localDataset = { null, null, null };
 	private ForecastTimeStruct myForecastTimeStruct;
 	private TextView titleTextView;
 	private ViewPager mViewPager;
@@ -254,7 +254,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	}
 
 	/**
-	 * ¨ onPostExecute contains all the code we want to have executed when the
+	 * ï¿½ onPostExecute contains all the code we want to have executed when the
 	 * background thread is finished: it closes the progressDialog, and either
 	 * shows an error message when the background thread encountered a
 	 * problem/an error, or updates the ImageViews with the forecast image the
@@ -359,15 +359,14 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * This method has NO access to the GUI
 	 */
 
-	public void specificForecast(int forecast, Double[] gridCoos,
-			int forecastNumber) {
-
+	public void specificForecast(int forecast, Double[] gridCoos,int forecastNumber) {
+        ServerCommunicator myServerCommunicator = new ServerCommunicator();
 		// Get Weather data from our server
-		ServerCommunicator myServerCommunicator = new ServerCommunicator();
-		localDataset = myServerCommunicator.getWeatherData(forecast,
-				gridCoos[0], gridCoos[1]);
-		progressCounter = progressCounter + 7;
-		publishProgress(progressCounter); // Total: 7/22
+		if (forecastNumber == 0){
+		    localDataset = myServerCommunicator.getWeatherData(forecast,gridCoos[0], gridCoos[1]);
+		    progressCounter = progressCounter + 7;
+		    publishProgress(progressCounter); // Total: 7/22
+        }
 		if (localDataset == null) {
 			isCancelled = true;
 			reason = "serverConnection";
@@ -380,16 +379,15 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			Log.d("TheWearDebug", "Got weather dataset from our server");
 
 			if (forecastNumber == 0) {
-				String firstForecastServerInformation = localDataset[0];
-				firstForecastEndTime = myServerCommunicator
-						.extractForecastRetrievedTime(firstForecastServerInformation);
+				String firstForecastServerInformation = localDataset[0][0];
+				firstForecastEndTime = myServerCommunicator.extractForecastRetrievedTime(firstForecastServerInformation);
 			}
 
-			dataset.add(forecastNumber, localDataset);
+			dataset.add(forecastNumber, localDataset[forecastNumber]);
 
 			WeatherEnumHandler weather_data;
 			weather_data = new WeatherEnumHandler();
-			weather_data.handleWeatherEnum(localDataset, applicationContext);
+			weather_data.handleWeatherEnum(localDataset[forecastNumber], applicationContext);
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 11/23
 			Log.d("TheWearDebug", "handled WeatherEnum");

@@ -482,62 +482,70 @@ public class MainActivity extends Activity {
 
 	public void showForecastInformation(int position) {
 		// Show the additional forecast information
-		ForecastInfo myForecastInfo = null;
 		Log.d("TheWearDebug", "Detailed Information clicked");
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException1");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException2");
-			e.printStackTrace();
-		}
-		if (myForecastInfo == null) {
-			Log.d("TheWearDebug", "No detailed weather information available");
-			Toast myToast = Toast.makeText(getApplicationContext(),
-					"No detailed weather information available",
-					Toast.LENGTH_SHORT);
-			myToast.setGravity(Gravity.CENTER, 0, 0);
-			myToast.show();
-		} else {
-			String[] dataset = myForecastInfo.dataset.get(position);
+        if (myForecasterObject != null){
+            ForecastInfo myForecastInfo = null;
+            try {
+                myForecastInfo = myForecasterObject.get();
+            } catch (InterruptedException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "InterruptedException1");
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "ExecutionException2");
+                e.printStackTrace();
+            }
+            if (myForecastInfo == null) {
+                Log.d("TheWearDebug", "No detailed weather information available");
+                Toast myToast = Toast.makeText(getApplicationContext(),
+                        "No detailed weather information available",
+                        Toast.LENGTH_SHORT);
+                myToast.setGravity(Gravity.CENTER, 0, 0);
+                myToast.show();
+            } else {
+                String[] dataset = myForecastInfo.dataset.get(position);
 
-			if (dataset != null) {
-				Log.d("TheWearDebug", "Weather information available");
+                if (dataset != null) {
+                    Log.d("TheWearDebug", "Weather information available");
 
-				DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
-						dataset);
-				SharedPreferences sharedPref = getSharedPreferences(
-						getString(R.string.TheWear_preference_key),
-						Context.MODE_PRIVATE);
-				String detailedInformation = myDetailedForecastInformationManager
-						.getString(sharedPref, getResources());
+                    DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
+                            dataset);
+                    SharedPreferences sharedPref = getSharedPreferences(
+                            getString(R.string.TheWear_preference_key),
+                            Context.MODE_PRIVATE);
+                    String detailedInformation = myDetailedForecastInformationManager
+                            .getString(sharedPref, getResources());
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage(detailedInformation).setTitle(
-						R.string.forecastInfo_title);
-				builder.setPositiveButton(R.string.positive_button,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// User clicked OK button
-							}
-						});
-				// Get the AlertDialog from create()
-				AlertDialog dialog = builder.create();
-				dialog.show();
-			} else {
-				Log.d("TheWearDebug",
-						"No detailed weather information available");
-				Toast myToast = Toast.makeText(getApplicationContext(),
-						"No detailed weather information available",
-						Toast.LENGTH_SHORT);
-				myToast.setGravity(Gravity.CENTER, 0, 0);
-				myToast.show();
-			}
-		}
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage(detailedInformation).setTitle(
+                            R.string.forecastInfo_title);
+                    builder.setPositiveButton(R.string.positive_button,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked OK button
+                                }
+                            });
+                    // Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    Log.d("TheWearDebug",
+                            "No detailed weather information available");
+                    Toast myToast = Toast.makeText(getApplicationContext(),
+                            "No detailed weather information available",
+                            Toast.LENGTH_SHORT);
+                    myToast.setGravity(Gravity.CENTER, 0, 0);
+                    myToast.show();
+                }
+            }
+        }else {
+            Log.d("TheWearAndroid", "myForecastObject == null");
+            Toast myToast = Toast.makeText(getApplicationContext(),
+                    "No forecast to share", Toast.LENGTH_SHORT);
+            myToast.setGravity(Gravity.CENTER, 0, 0);
+            myToast.show();
+        }
 	}
 
 	/**
@@ -552,39 +560,47 @@ public class MainActivity extends Activity {
 
 	public void showSocialMediaPicker(View v) {
 		// Get the Bitmap
-		ForecastInfo myForecastInfo = null;
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException3");
-			e.printStackTrace();
-		}
-		if (myForecastInfo == null) {
-			Log.d("TheWearDebug", "No Bitmap to share");
-			Toast myToast = Toast.makeText(getApplicationContext(),
-					"No forecast to share", Toast.LENGTH_SHORT);
-			myToast.setGravity(Gravity.CENTER, 0, 0);
-			myToast.show();
-		} else {
-			int tabNumber = mViewPager.getCurrentItem();
-			Bitmap currentBitmap = myForecastInfo.mergedImages[tabNumber];
-			if (currentBitmap != null) {
-				mySocialMediaPickerFragment = new SocialMediaPickerFragment();
-				mySocialMediaPickerFragment.show(getFragmentManager(),
-						"Preferences");
-			} else {
-				Log.d("TheWearDebug", "No Bitmap to share");
-				Toast myToast = Toast.makeText(getApplicationContext(),
-						"No forecast to share", Toast.LENGTH_SHORT);
-				myToast.setGravity(Gravity.CENTER, 0, 0);
-				myToast.show();
-			}
-		}
+        if (myForecasterObject != null){
+            ForecastInfo myForecastInfo = null;
+            try {
+                myForecastInfo = myForecasterObject.get();
+            } catch (InterruptedException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "InterruptedException");
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "ExecutionException3");
+                e.printStackTrace();
+            }
+            if (myForecastInfo == null) {
+                Log.d("TheWearDebug", "No Bitmap to share");
+                Toast myToast = Toast.makeText(getApplicationContext(),
+                        "No forecast to share", Toast.LENGTH_SHORT);
+                myToast.setGravity(Gravity.CENTER, 0, 0);
+                myToast.show();
+            } else {
+                int tabNumber = mViewPager.getCurrentItem();
+                Bitmap currentBitmap = myForecastInfo.mergedImages[tabNumber];
+                if (currentBitmap != null) {
+                    mySocialMediaPickerFragment = new SocialMediaPickerFragment();
+                    mySocialMediaPickerFragment.show(getFragmentManager(),
+                            "Preferences");
+                } else {
+                    Log.d("TheWearDebug", "No Bitmap to share");
+                    Toast myToast = Toast.makeText(getApplicationContext(),
+                            "No forecast to share", Toast.LENGTH_SHORT);
+                    myToast.setGravity(Gravity.CENTER, 0, 0);
+                    myToast.show();
+                }
+            }
+        }else {
+            Log.d("TheWearAndroid", "myForecastObject == null");
+            Toast myToast = Toast.makeText(getApplicationContext(),
+                    "No forecast to share", Toast.LENGTH_SHORT);
+            myToast.setGravity(Gravity.CENTER, 0, 0);
+            myToast.show();
+        }
 	}
 
 	/**
@@ -599,24 +615,28 @@ public class MainActivity extends Activity {
 
 	public void showForecastPreferences() {
 		// Show the Preferences Window
-		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'Preferences\' clicked");
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException4");
-			e.printStackTrace();
-		}
-		// Catch an empty myForecastInfo
-		ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-		myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
-				myForecastInfo, this);
-		myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
+        if (myForecasterObject != null){
+            ForecastInfo myForecastInfo = null;
+            Log.d("TheWearDebug", "\'Preferences\' clicked");
+            try {
+                myForecastInfo = myForecasterObject.get();
+            } catch (InterruptedException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "InterruptedException");
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "ExecutionException4");
+                e.printStackTrace();
+            }
+            // Catch an empty myForecastInfo
+            ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
+            myForecastPreferencesFragment.passNecessaryInformation(myImageViews,
+                    myForecastInfo, this);
+            myForecastPreferencesFragment.show(getFragmentManager(), "Preferences");
+        }else {
+            Log.d("TheWearAndroid", "myForecastObject == null");
+        }
 	}
 
 	/**
@@ -631,24 +651,28 @@ public class MainActivity extends Activity {
 
 	public void showLocationPreference() {
 		// Show the Preferences Window
-		ForecastInfo myForecastInfo = null;
-		Log.d("TheWearDebug", "\'Location Preferences\' clicked");
-		try {
-			myForecastInfo = myForecasterObject.get();
-		} catch (InterruptedException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "InterruptedException");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// Auto-generated catch block
-			Log.e("TheWearDebug", "ExecutionException5");
-			e.printStackTrace();
-		}
-		// Catch an empty myForecastInfo
-		RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
-		myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
-				myForecastInfo, this);
-		myRegionPreferencesFragment.show(getFragmentManager(), "Preferences");
+        if (myForecasterObject != null){
+            ForecastInfo myForecastInfo = null;
+            Log.d("TheWearDebug", "\'Location Preferences\' clicked");
+            try {
+                myForecastInfo = myForecasterObject.get();
+            } catch (InterruptedException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "InterruptedException");
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // Auto-generated catch block
+                Log.e("TheWearDebug", "ExecutionException5");
+                e.printStackTrace();
+            }
+            // Catch an empty myForecastInfo
+            RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
+            myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
+                    myForecastInfo, this);
+            myRegionPreferencesFragment.show(getFragmentManager(), "Preferences");
+        }else {
+            Log.d("TheWearAndroid", "myForecastObject == null");
+        }
 	}
 
 	/**

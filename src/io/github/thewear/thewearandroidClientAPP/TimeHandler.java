@@ -324,12 +324,12 @@ public class TimeHandler {
 					"No such time notation preference, can't change the title");
 		}
 		String[] titleString = new String[3];
-		titleString[0] = "now – " + to2CharString(hour[0]) + ":"
+		titleString[0] = "now - " + to2CharString(hour[0]) + ":"
 				+ to2CharString(minute[0]) + titleSuffix[0];
 		for (int i = 1; i <= 2; i++) {
 			titleString[i] = to2CharString(hour[(i - 1)]) + ":"
 					+ to2CharString(minute[(i - 1)]) + titleSuffix[(i - 1)]
-					+ " – " + to2CharString(hour[i]) + ":"
+					+ " - " + to2CharString(hour[i]) + ":"
 					+ to2CharString(minute[i]) + titleSuffix[i];
 		}
 		return titleString;

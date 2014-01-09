@@ -31,15 +31,23 @@ public class PreferenceConvertor {
 	private int adjustment;
 
 	public void initiatePreferenceConvertor(Context context, String preference,
-			int temperatureNotation) {
+			int notation, boolean additionalInformation, int additionalNumber) {
 		// Initiate the PreferenceConvertor: calculate the adjustment.
 		Resources res = context.getResources();
 
 		// Construct resources Path to get the resources
-		String maxPreference = preference + "_max";
+		String maxPreference;
+		String minPreference;
+		if (additionalInformation) {
+			additionalNumber++;
+			maxPreference = preference + "_max" + additionalNumber;
+			minPreference = preference + "_min" + additionalNumber;
+		} else {
+			maxPreference = preference + "_max";
+			minPreference = preference + "_min";
+		}
 		int maxPreferenceIdentifier = res.getIdentifier(maxPreference,
 				"integer", context.getPackageName());
-		String minPreference = preference + "_min";
 		int minPreferenceIdentifier = res.getIdentifier(minPreference,
 				"integer", context.getPackageName());
 		// If getIdentifier can't find an integer with that name, it returns the
@@ -50,18 +58,33 @@ public class PreferenceConvertor {
 		} else {
 			int prefMax = -1;
 			int pref = -1;
-			switch (temperatureNotation) {
-			case -1: // No Temperature, so we don't want to change anything.
-				prefMax = res.getInteger(maxPreferenceIdentifier);
-				pref = prefMax - (res.getInteger(minPreferenceIdentifier));
-				break;
+			switch (notation) {
 			case 0: // °C, no conversion needed
 				prefMax = res.getInteger(maxPreferenceIdentifier);
 				pref = prefMax - (res.getInteger(minPreferenceIdentifier));
 				break;
 			case 1: // °F, conversion needed.
-				prefMax = SettingsConvertor.celsiusToFahrenheit(res.getInteger(maxPreferenceIdentifier));
-				pref = prefMax - SettingsConvertor.celsiusToFahrenheit((res.getInteger(minPreferenceIdentifier)));
+				prefMax = SettingsConvertor.celsiusToFahrenheit(res
+						.getInteger(maxPreferenceIdentifier));
+				pref = prefMax
+						- SettingsConvertor.celsiusToFahrenheit((res
+								.getInteger(minPreferenceIdentifier)));
+				break;
+			case 2: // m/s, no conversion needed
+				prefMax = res.getInteger(maxPreferenceIdentifier);
+				pref = prefMax - (res.getInteger(minPreferenceIdentifier));
+				break;
+			case 3: // Beaufort, conversion needed
+				prefMax = SettingsConvertor.metersToBeaufort(res
+						.getInteger(maxPreferenceIdentifier));
+				pref = (int) (prefMax - SettingsConvertor.metersToBeaufort((res
+						.getInteger(minPreferenceIdentifier))));
+				break;
+			case 4: // Knots, conversion needed
+				prefMax = (int) SettingsConvertor.metersToKnots(res
+						.getInteger(maxPreferenceIdentifier));
+				pref = (int) (prefMax - SettingsConvertor.metersToKnots((res
+						.getInteger(minPreferenceIdentifier))));
 				break;
 			default:
 				Log.e("TheWearDebug", "No such temperature notation");

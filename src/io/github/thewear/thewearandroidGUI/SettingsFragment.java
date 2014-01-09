@@ -45,6 +45,9 @@ public class SettingsFragment extends DialogFragment {
 	private int defaultTemperatureNotation;
 	private int temperatureNotationPreference;
 	private RadioGroup setting2RadioGroup;
+	private int defaultWindSpeedNotation;
+	private int windSpeedNotationPreference;
+	private RadioGroup setting3RadioGroup;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -70,7 +73,10 @@ public class SettingsFragment extends DialogFragment {
 	 * 24-hours notation.
 	 * 
 	 * Temperature notation: the user can choose between a temperature notation
-	 * as °C or °F
+	 * as °C or °F.
+	 * 
+	 * Wind speed notation: the user can choose between a wind speed notation as
+	 * m/s, Beaufort or Knots.
 	 */
 
 	@Override
@@ -94,6 +100,7 @@ public class SettingsFragment extends DialogFragment {
 		defaultTimeNotation = res.getInteger(R.integer.defaultTimeNotation);
 		defaultTemperatureNotation = res
 				.getInteger(R.integer.defaultTemperatureNotation);
+		defaultWindSpeedNotation = res.getInteger(R.integer.defaultWindSpeedNotation);
 
 		// Get preference
 		sharedPref = getActivity().getSharedPreferences(
@@ -105,6 +112,9 @@ public class SettingsFragment extends DialogFragment {
 		temperatureNotationPreference = sharedPref.getInt(
 				getString(R.string.temperature_notation_preference),
 				defaultTimeNotation);
+		windSpeedNotationPreference = sharedPref.getInt(
+				getString(R.string.windspeed_notation_preference),
+				defaultWindSpeedNotation);
 
 		// Setting 1
 
@@ -140,6 +150,26 @@ public class SettingsFragment extends DialogFragment {
 			Log.e("TheWearDebug", "No such time notation preference");
 		}
 
+		// Setting 3
+
+		setting3RadioGroup = (RadioGroup) dialogView
+				.findViewById(R.id.setting3RadioGroup);
+
+		// check the preferenced radio button
+		switch (windSpeedNotationPreference) {
+		case 0:
+			setting3RadioGroup.check(R.id.radioButton1Setting3);
+			break;
+		case 1:
+			setting3RadioGroup.check(R.id.radioButton2Setting3);
+			break;
+		case 2:
+			setting3RadioGroup.check(R.id.radioButton3Setting3);
+			break;
+		default: // ERROR
+			Log.e("TheWearDebug", "No such time notation preference");
+		}
+
 		builder.setPositiveButton(R.string.positive_button,
 				new DialogInterface.OnClickListener() {
 
@@ -149,33 +179,46 @@ public class SettingsFragment extends DialogFragment {
 						myProgressBar.setIndeterminate(true);
 						myProgressBar.setVisibility(0);
 
-						// Setting 2
-
-						// get checked button
-						switch (setting2RadioGroup.getCheckedRadioButtonId()) {
-						case R.id.radioButton1Setting2:
-							temperatureNotationPreference = 0;
-							Log.d("BUG", "temperatureNotationPreference = 0");
-							break;
-						case R.id.radioButton2Setting2:
-							temperatureNotationPreference = 1;
-							Log.d("BUG", "temperatureNotationPreference = 1");
-							break;
-						default:
-							Log.e("TheWearDebug", "No such RadioButton");
-						}
-
 						// Setting 1
 
 						// get checked button
 						switch (setting1RadioGroup.getCheckedRadioButtonId()) {
 						case R.id.radioButton1Setting1:
 							timeNotationPreference = 0;
-							Log.d("BUG", "timeNotationPreference = 0");
 							break;
 						case R.id.radioButton2Setting1:
 							timeNotationPreference = 1;
-							Log.d("BUG", "timeNotationPreference = 1");
+							break;
+						default:
+							Log.e("TheWearDebug", "No such RadioButton");
+						}
+
+						// Setting 2
+
+						// get checked button
+						switch (setting2RadioGroup.getCheckedRadioButtonId()) {
+						case R.id.radioButton1Setting2:
+							temperatureNotationPreference = 0;
+							break;
+						case R.id.radioButton2Setting2:
+							temperatureNotationPreference = 1;
+							break;
+						default:
+							Log.e("TheWearDebug", "No such RadioButton");
+						}
+
+						// Setting 3
+
+						// get checked button
+						switch (setting3RadioGroup.getCheckedRadioButtonId()) {
+						case R.id.radioButton1Setting3:
+							windSpeedNotationPreference = 0;
+							break;
+						case R.id.radioButton2Setting3:
+							windSpeedNotationPreference = 1;
+							break;
+						case R.id.radioButton3Setting3:
+							windSpeedNotationPreference = 2;
 							break;
 						default:
 							Log.e("TheWearDebug", "No such RadioButton");
@@ -189,6 +232,9 @@ public class SettingsFragment extends DialogFragment {
 						editor.putInt(
 								getString(R.string.temperature_notation_preference),
 								temperatureNotationPreference);
+						editor.putInt(
+								getString(R.string.windspeed_notation_preference),
+								windSpeedNotationPreference);
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
@@ -265,7 +311,7 @@ public class SettingsFragment extends DialogFragment {
 								"No such time notation preference");
 					}
 
-					// Setting 1
+					// Setting 2
 					temperatureNotationPreference = defaultTemperatureNotation;
 					switch (defaultTemperatureNotation) {
 					case 0:
@@ -273,6 +319,23 @@ public class SettingsFragment extends DialogFragment {
 						break;
 					case 1:
 						setting2RadioGroup.check(R.id.radioButton2Setting2);
+						break;
+					default: // ERROR
+						Log.e("TheWearDebug",
+								"No such time notation preference");
+					}
+
+					// Setting 3
+					windSpeedNotationPreference = defaultWindSpeedNotation;
+					switch (windSpeedNotationPreference) {
+					case 0:
+						setting3RadioGroup.check(R.id.radioButton1Setting3);
+						break;
+					case 1:
+						setting3RadioGroup.check(R.id.radioButton2Setting3);
+						break;
+					case 2:
+						setting3RadioGroup.check(R.id.radioButton3Setting3);
 						break;
 					default: // ERROR
 						Log.e("TheWearDebug",

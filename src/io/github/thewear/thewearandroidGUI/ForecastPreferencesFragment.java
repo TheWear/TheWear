@@ -70,6 +70,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	private ProgressBar myProgressBar;
 	private Dialog myDialog;
 	private int temperatureNotation;
+	private int windSpeedNotation;
 	private int preference1_min;
 	private int preference1_max;
 	private int preference2_min;
@@ -125,7 +126,9 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		final Resources res = getResources();
 		final int defaultTemperatureNotation = res
 				.getInteger(R.integer.defaultTemperatureNotation);
-		Log.d("TheWearDebug", "Got default Vales");
+		final int defaultWindSpeedNotation = res
+				.getInteger(R.integer.defaultWindSpeedNotation);
+		Log.d("TheWearDebug", "Got default Values");
 
 		// Read the preference values from Shared Preferences
 		sharedPref = getActivity().getSharedPreferences(
@@ -143,7 +146,11 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		temperatureNotation = sharedPref.getInt(
 				getString(R.string.temperature_notation_preference),
 				defaultTemperatureNotation);
+		windSpeedNotation = sharedPref.getInt(
+				getString(R.string.windspeed_notation_preference),
+				defaultWindSpeedNotation);
 		Log.d("TheWearDebug", "Red the preference values");
+		Log.d("BUG","Preference2Value: " + preference2Value);
 
 		// Set dialog Title
 		builder.setTitle(R.string.preference_dialog_Title);
@@ -165,6 +172,22 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		default:
 			Log.e("TheWearDebug", "No such temperature notation");
 		}
+		// Set Preference Unit m/s, Beaufort or Knots
+		TextView Preference2UnitTextView = (TextView) dialogView
+				.findViewById(R.id.preference2_preferenceUnit);
+		switch (windSpeedNotation) {
+		case 0:
+			Preference2UnitTextView.setText(R.string.setting3RadioButton1);
+			break;
+		case 1:
+			Preference2UnitTextView.setText(R.string.setting3RadioButton2);
+			break;
+		case 2:
+			Preference2UnitTextView.setText(R.string.setting3RadioButton3);
+			break;
+		default:
+			Log.e("TheWearDebug", "No such Wind Speed notation");
+		}
 
 		// °C or °F
 		switch (temperatureNotation) {
@@ -180,6 +203,24 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		default:
 			Log.e("TheWearDebug", "No such temperature notation");
 		}
+
+		// m/s, Beaufort or Knots
+		switch (windSpeedNotation) {
+		case 0: // m/s, no conversion needed
+			// Nothing
+			break;
+		case 1: // Beaufort, conversion needed
+			preference2Value = SettingsConvertor
+					.metersToBeaufort(preference2Value);
+			break;
+		case 2: // Knots, conversion needed
+			preference2Value = (int) SettingsConvertor
+					.metersToKnots(preference2Value);
+			break;
+		default:
+			Log.e("TheWearDebug", "No such wind speed notation");
+		}
+		Log.d("BUG","new preference2Value: " + preference2Value);
 
 		// Initiate EditTexts and SeekBars
 		preference1EditText = (EditText) dialogView
@@ -197,15 +238,16 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		// Temperature
 		myPreference1Convertor = new PreferenceConvertor();
 		myPreference1Convertor.initiatePreferenceConvertor(getActivity(),
-				"preference1", temperatureNotation);
-		// Wind
+				"preference1", temperatureNotation, false, 0);
+		// Wind (windSpeedNotation + 2 because of switch in PreferenceConvertor)
 		myPreference2Convertor = new PreferenceConvertor();
-		myPreference2Convertor.initiatePreferenceConvertor(getActivity(),
-				"preference2", -1);
+		myPreference2Convertor
+				.initiatePreferenceConvertor(getActivity(), "preference2",
+						(windSpeedNotation + 2), true, windSpeedNotation);
 		// Temperature
 		myPreference3Convertor = new PreferenceConvertor();
 		myPreference3Convertor.initiatePreferenceConvertor(getActivity(),
-				"preference3", temperatureNotation);
+				"preference3", temperatureNotation, false, 0);
 		Log.d("TheWearDebug", "PreferenceConvertors initiated");
 
 		// Max. and Min of the preferences:
@@ -233,8 +275,22 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		default:
 			Log.e("TheWearDebug", "No such temperature notation");
 		}
-		preference2_max = res.getInteger(R.integer.preference2_max);
-		preference2_min = res.getInteger(R.integer.preference2_min);
+		switch (windSpeedNotation) {
+		case 0: // m/s, no conversion needed
+			preference2_max = res.getInteger(R.integer.preference2_max1);
+			preference2_min = res.getInteger(R.integer.preference2_min1);
+			break;
+		case 1: // Beaufort, conversion needed
+			preference2_max = res.getInteger(R.integer.preference2_max2);
+			preference2_min = res.getInteger(R.integer.preference2_min2);
+			break;
+		case 2: // Knots, conversion needed
+			preference2_max = (int) res.getInteger(R.integer.preference2_max3);
+			preference2_min = (int) res.getInteger(R.integer.preference2_min3);
+			break;
+		default:
+			Log.e("TheWearDebug", "No such wind speed notation");
+		}
 
 		// Set max of the SeekBars
 		int preference1SeekBarMax = preference1_max - preference1_min;
@@ -315,8 +371,10 @@ public class ForecastPreferencesFragment extends DialogFragment {
 							int progress, boolean fromUser) {
 						if (fromUser == true) {
 							// set the preference values
+							Log.d("BUG","changed preference2Value: " + progress);
 							preference2Value = myPreference2Convertor
 									.AdjustedToNormal(progress);
+							Log.d("BUG","adjusted changed preference2Value: " + progress);
 							String setPreference2Value = preference2Value + "";
 							preference2EditText.setText(setPreference2Value);
 						}
@@ -497,13 +555,35 @@ public class ForecastPreferencesFragment extends DialogFragment {
 									"No such temperature notation");
 						}
 
+						// Converting back to m/s for saving purposes if
+						// necessary
+						Log.d("BUG","new preference2Value for saving: " + preference2Value);
+						int savingPreference2Value = -1;
+						switch (windSpeedNotation) {
+						case 0:
+							savingPreference2Value = preference2Value;
+							break;
+						case 1:
+							savingPreference2Value = Math.round(SettingsConvertor
+									.beaufortToMeters(preference2Value));
+							break;
+						case 2:
+							savingPreference2Value = Math
+									.round(SettingsConvertor
+											.knotsToMeters(preference2Value));
+							break;
+						default:
+							Log.e("TheWearDebug", "No such wind speed notation");
+						}
+						Log.d("BUG","new savingPreference2Value: " + savingPreference2Value);
+
 						// Saves the changed preference values and closes the
 						// dialog
 						SharedPreferences.Editor editor = sharedPref.edit();
 						editor.putInt(getString(R.string.forecast_preference1),
 								savingPreference1Value);
 						editor.putInt(getString(R.string.forecast_preference2),
-								preference2Value);
+								savingPreference2Value);
 						editor.putInt(getString(R.string.forecast_preference3),
 								savingPreference3Value);
 						editor.commit();
@@ -590,8 +670,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		AlertDialog d = (AlertDialog) getDialog();
 		if (d != null) {
 			Log.d("TheWearDebug", "Custom onClickDialog set");
-			Button positiveButton = (Button) d.getButton(Dialog.BUTTON_NEUTRAL);
-			positiveButton.setOnClickListener(new View.OnClickListener() {
+			Button neutralButton = (Button) d.getButton(Dialog.BUTTON_NEUTRAL);
+			neutralButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					// °C or °F
@@ -610,8 +690,23 @@ public class ForecastPreferencesFragment extends DialogFragment {
 						Log.e("TheWearDebug", "No such temperature notation");
 					}
 
-					// Set preference values to default
-					preference2Value = defaultPreference2Value;
+					// m/s, Beaufort or Knots
+					switch (windSpeedNotation) {
+					case 0: // m/s, no conversion needed
+						preference2Value = defaultPreference2Value;
+						break;
+					case 1: // Beaufort, conversion needed.
+						preference2Value = SettingsConvertor
+								.metersToBeaufort(defaultPreference2Value);
+						break;
+					case 2: // Knots, conversion needed.
+						preference2Value = (int) SettingsConvertor
+								.metersToKnots(defaultPreference2Value);
+						break;
+					default:
+						Log.e("TheWearDebug", "No such wind speed notation");
+					}
+
 					// set the EditText to the new value
 					String setPreference1Value = preference1Value + "";
 					String setPreference2Value = preference2Value + "";

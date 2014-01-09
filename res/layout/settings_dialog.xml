@@ -49,11 +49,20 @@
             android:text="@string/setting1RadioButton2" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting1RadioGroup"
+        android:layout_centerHorizontal="true"
+        android:text="@string/setting2"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <RadioGroup
         android:id="@+id/setting2RadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/setting1RadioGroup"
+        android:layout_below="@+id/textView2"
         android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
@@ -69,6 +78,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setting2RadioButton2" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting2RadioGroup"
+        android:layout_centerHorizontal="true"
+        android:text="@string/setting3"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RadioGroup
+        android:id="@+id/setting3RadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radioButton1Setting3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting3RadioButton1" />
+
+        <RadioButton
+            android:id="@+id/radioButton2Setting3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting3RadioButton2" />
+
+        <RadioButton
+            android:id="@+id/radioButton3Setting3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting3RadioButton3" />
     </RadioGroup>
 
 </RelativeLayout>

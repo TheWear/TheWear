@@ -7,7 +7,7 @@
     <string name="action_about">About TheWear</string>
     <string name="action_regionPreference">Region Preference</string>
     <string name="about_text">TheWear Development Version.\nFor debuging and testing purposes only.</string>
-    <string name="title_section1">0 - 6 hours</string>
+    <string name="title_section1">0  6 hours</string>
     <string name="title_section2">6 - 12 hours</string>
     <string name="title_section3">12 - 18 hours</string>
     <string name="button1">Forecast</string>
@@ -21,12 +21,12 @@
     <string name="preference_dialog_Title">Weather Preferences</string>
     <string name="preference1_imageView_descr">Temperature Preference</string>
     <string name="preference1">Cold Threshold</string>
-    <string name="preference1_defaultValue">4</string>
+    <string name="preference1_defaultValue">7</string> <!-- 6.688 -->
     <string name="preference1_Unit">°C</string>
     <string name="preference2_imageView_descr">Wind strength Preference</string>
     <string name="preference2">Wind Threshold</string>
     <string name="preference2_defaultValue">6</string>
-    <string name="preference2_Unit">Beaufort</string>
+    <string name="preference2_Unit">m/s</string>
     <string name="preference3_imageView_descr">Temperature Preference</string>
     <string name="preference3">Hot Threshold</string>
     <string name="preference3_defaultValue">25</string>
@@ -44,6 +44,7 @@
     <string name="region_preference">TheWear.Preferences.Region</string>
     <string name="time_notation_preference">TheWear.Preferences.TimeNotation</string>
     <string name="temperature_notation_preference">TheWear.Preferences.TemperatureNotation</string>
+    <string name="windspeed_notation_preference">TheWear.Preferences.WindSpeedNotation</string>
     <string name="default_region">nl</string>
     <string name="region_preference_dialog_Title">Region Preferences</string>
     <string name="social_media_dialog_Title">Share</string>
@@ -52,11 +53,16 @@
     <string name="options">Options</string>
     <string name="largeText">Large Text</string>
     <string name="setting1">Time Notation</string>
+    <string name="setting2">Temperature</string>
+    <string name="setting3">Wind Speed</string>
     <string name="settingsDialogTitle">Settings</string>
     <string name="setting1RadioButton1">12-hours</string>
     <string name="setting1RadioButton2">24-hours</string>
     <string name="setting2RadioButton1">°C</string>
     <string name="setting2RadioButton2">°F</string>
+    <string name="setting3RadioButton1">m/s</string>
+    <string name="setting3RadioButton2">Beaufort</string>
+    <string name="setting3RadioButton3">Knots</string>
 
     <string-array name="optionsMenuList">
         <item>ForecastPreferences</item>

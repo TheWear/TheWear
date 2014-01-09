@@ -29,9 +29,10 @@ public class SettingsFragment extends DialogFragment {
 	 * 
 	 * The preferred settings are stored in SharedPreferences.
 	 * 
-	 * Current available settings:
-	 * 
-	 * time notation setting: 12-hours or 24-hours notation.
+	 * Current Available Settings:
+	 * Time notation;
+	 * Temperature notation;
+	 * Wind speed notation.
 	 */
 
 	private ProgressBar myProgressBar;

@@ -101,6 +101,9 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	 * and to close the window
 	 * 
 	 * The temperatures are shown as °C or °F according to the user preference.
+	 * 
+	 * The Wind Speed is shown in m/s, Beaufort or Knots according to the user
+	 * preference.
 	 */
 
 	@Override

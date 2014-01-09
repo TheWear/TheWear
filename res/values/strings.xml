@@ -7,7 +7,7 @@
     <string name="action_about">About TheWear</string>
     <string name="action_regionPreference">Region Preference</string>
     <string name="about_text">TheWear Development Version.\nFor debuging and testing purposes only.</string>
-    <string name="title_section1">0  6 hours</string>
+    <string name="title_section1">0 - 6 hours</string>
     <string name="title_section2">6 - 12 hours</string>
     <string name="title_section3">12 - 18 hours</string>
     <string name="button1">Forecast</string>

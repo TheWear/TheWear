@@ -1,68 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="testVersion">v0.001</string>
-    <string name="app_name">TheWear</string>
-    <string name="action_preferences">Preferences</string>
-    <string name="action_about">About TheWear</string>
-    <string name="action_regionPreference">Region Preference</string>
-    <string name="about_text">TheWear Development Version.\nFor debuging and testing purposes only.</string>
-    <string name="title_section1">0 - 6 hours</string>
-    <string name="title_section2">6 - 12 hours</string>
-    <string name="title_section3">12 - 18 hours</string>
-    <string name="button1">Forecast</string>
-    <string name="forecastDescription">Forecast Detailed Info?</string>
-    <string name="previous">Previous Day</string>
-    <string name="next">Next Day</string>
-    <string name="appDescription">TheWear gives you a clothing advise based on a real weather forecast.</string>
-    <string name="EditTextHint">Location</string>
-    <string name="TheWear_preference_key">TheWear.Preferences</string>
-    <string name="location_preference">TheWear.Preferences.Location</string>
-    <string name="preference_dialog_Title">Weather Preferences</string>
-    <string name="preference1_imageView_descr">Temperature Preference</string>
-    <string name="preference1">Cold Threshold</string>
-    <string name="preference1_defaultValue">7</string> <!-- 6.688 -->
-    <string name="preference1_Unit">°C</string>
-    <string name="preference2_imageView_descr">Wind strength Preference</string>
-    <string name="preference2">Wind Threshold</string>
-    <string name="preference2_defaultValue">6</string>
-    <string name="preference2_Unit">m/s</string>
-    <string name="preference3_imageView_descr">Temperature Preference</string>
-    <string name="preference3">Hot Threshold</string>
-    <string name="preference3_defaultValue">25</string>
-    <string name="preference3_Unit">°C</string>
+    <string name="action_preferences">Voorkeuren</string>
+    <string name="action_about">Over TheWear</string>
+    <string name="action_regionPreference">Regiovoorkeur</string>
+    <string name="about_text">TheWear Development Version.\nAlleen te gebruiken voor testen en debuggen.</string>
+    <string name="title_section1">0 - 6 uur</string>
+    <string name="title_section2">6 - 12 uur</string>
+    <string name="title_section3">12 - 18 uur</string>
+    <string name="button1">Weerbericht</string>
+    <string name="forecastDescription">gedetailleerd weerbericht?</string>
+    <string name="previous">Gisteren</string>
+    <string name="next">Morgen</string>
+    <string name="appDescription">TheWear geeft een kledingsadvies aan de hand van het weerbericht</string>
+    <string name="EditTextHint">Locatie</string>
+    <string name="preference_dialog_Title">Weersvoorkeuren</string>
+    <string name="preference1_imageView_descr">Temperatuurvoorkeur</string>
+    <string name="preference1">Koudedrempel</string>
+    <string name="preference2_imageView_descr">Windsterkte voorkeur</string>
+    <string name="preference2">Winddrempel</string>
+    <string name="preference3_imageView_descr">Temperatuurvoorkeur</string>
+    <string name="preference3">Warmtedrempel</string>
     <string name="positive_button">OK</string>
-    <string name="neutral_button">Default</string>
+    <string name="neutral_button">Standaardwaarden</string>
     <string name="negative_button">Cancel</string>
-    <string name="closeDialog">Close</string>
-    <string name="settingsButton">Settings</string>
-    <string name="aboutButton">Additional forecast information</string>
-    <string name="forecastInfo_title">The Weather</string>
-    <string name="forecast_preference1">TheWear.Preferences.Preference1</string>
-    <string name="forecast_preference2">TheWear.Preferences.Preference2</string>
-    <string name="forecast_preference3">TheWear.Preferences.Preference3</string>
-    <string name="region_preference">TheWear.Preferences.Region</string>
-    <string name="time_notation_preference">TheWear.Preferences.TimeNotation</string>
-    <string name="temperature_notation_preference">TheWear.Preferences.TemperatureNotation</string>
-    <string name="windspeed_notation_preference">TheWear.Preferences.WindSpeedNotation</string>
+    <string name="closeDialog">Sluiten</string>
+    <string name="forecastInfo_title">Het weer</string>
     <string name="default_region">nl</string>
-    <string name="region_preference_dialog_Title">Region Preferences</string>
-    <string name="social_media_dialog_Title">Share</string>
+    <string name="region_preference_dialog_Title">Regiovoorkeur</string>
+    <string name="social_media_dialog_Title">Delen</string>
     <string name="facebookButton">Facebook Button</string>
-    <string name="shareButton">Button that opens the share dialog</string>
-    <string name="options">Options</string>
+    <string name="shareButton">Button die het deel-venster opent</string>
+    <string name="options">Opties</string>
     <string name="largeText">Large Text</string>
-    <string name="setting1">Time Notation</string>
-    <string name="setting2">Temperature</string>
-    <string name="setting3">Wind Speed</string>
-    <string name="settingsDialogTitle">Settings</string>
-    <string name="setting1RadioButton1">12-hours</string>
-    <string name="setting1RadioButton2">24-hours</string>
+    <string name="setting1">Tijdsnotatie</string>
+    <string name="setting2">Temperatuur</string>
+    <string name="setting3">Windsnelheid</string>
+    <string name="settingsDialogTitle">Instellingen</string>
+    <string name="setting1RadioButton1">12-uurs</string>
+    <string name="setting1RadioButton2">24-uurs</string>
     <string name="setting2RadioButton1">°C</string>
     <string name="setting2RadioButton2">°F</string>
     <string name="setting3RadioButton1">m/s</string>
     <string name="setting3RadioButton2">Beaufort</string>
-    <string name="setting3RadioButton3">Knots</string>
+    <string name="setting3RadioButton3">Knopen</string>
 
     <string-array name="optionsMenuList">
         <item>ForecastPreferences</item>
@@ -71,282 +52,7 @@
         <item>About TheWear</item>
     </string-array>
 
-    <string name="sunGlassesPathname">sunglasses_2</string>
-    <string-array name="pathnames">
-        <item>base</item>
-        <item>left_arm_down</item>
-        <item>right_arm_down</item>
-        <item>left_arm_up</item>
-        <item>right_arm_up</item>
-        <item>hat</item>
-        <item>mittens</item>
-        <item>rain_boots</item>
-        <item>rain_coat</item>
-        <item>rain_hat</item>
-        <item>scarf</item>
-        <item>short_pants</item>
-        <item>umbrella</item>
-    </string-array>
-
     <!-- This list is also posted on our drive, related to the countries -->
-    <string-array name="ccTLDCodes">
-        <item>com</item>
-        <item>af</item>
-        <item>ax</item>
-        <item>al</item>
-        <item>dz</item>
-        <item>as</item>
-        <item>ad</item>
-        <item>ao</item>
-        <item>ai</item>
-        <item>aq</item>
-        <item>ag</item>
-        <item>ar</item>
-        <item>am</item>
-        <item>aw</item>
-        <item>ac</item>
-        <item>asia</item>
-        <item>au</item>
-        <item>at</item>
-        <item>az</item>
-        <item>bs</item>
-        <item>bh</item>
-        <item>bd</item>
-        <item>bb</item>
-        <item>by</item>
-        <item>be</item>
-        <item>bz</item>
-        <item>bj</item>
-        <item>bm</item>
-        <item>bt</item>
-        <item>bo</item>
-        <item>ba</item>
-        <item>bw</item>
-        <item>bv</item>
-        <item>br</item>
-        <item>io</item>
-        <item>vg</item>
-        <item>bn</item>
-        <item>bg</item>
-        <item>bf</item>
-        <item>bi</item>
-        <item>kh</item>
-        <item>cm</item>
-        <item>ca</item>
-        <item>cv</item>
-        <item>ky</item>
-        <item>cf</item>
-        <item>td</item>
-        <item>cl</item>
-        <item>cx</item>
-        <item>cc</item>
-        <item>co</item>
-        <item>km</item>
-        <item>ck</item>
-        <item>cr</item>
-        <item>ci</item>
-        <item>hr</item>
-        <item>cu</item>
-        <item>cy</item>
-        <item>cz</item>
-        <item>cs</item>
-        <item>kp</item>
-        <item>cd</item>
-        <item>dk</item>
-        <item>dj</item>
-        <item>dm</item>
-        <item>do</item>
-        <item>dd</item>
-        <item>tl</item>
-        <item>tp</item>
-        <item>ec</item>
-        <item>eg</item>
-        <item>sv</item>
-        <item>gq</item>
-        <item>er</item>
-        <item>ee</item>
-        <item>et</item>
-        <item>eu</item>
-        <item>fk</item>
-        <item>fo</item>
-        <item>fm</item>
-        <item>fj</item>
-        <item>fi</item>
-        <item>fr</item>
-        <item>gf</item>
-        <item>pf</item>
-        <item>tf</item>
-        <item>ga</item>
-        <item>ge</item>
-        <item>de</item>
-        <item>gh</item>
-        <item>gi</item>
-        <item>gr</item>
-        <item>gl</item>
-        <item>gd</item>
-        <item>gp</item>
-        <item>gu</item>
-        <item>gt</item>
-        <item>gg</item>
-        <item>gn</item>
-        <item>gw</item>
-        <item>gy</item>
-        <item>ht</item>
-        <item>hm</item>
-        <item>hn</item>
-        <item>hk</item>
-        <item>hu</item>
-        <item>is</item>
-        <item>in</item>
-        <item>id</item>
-        <item>ir</item>
-        <item>iq</item>
-        <item>ie</item>
-        <item>im</item>
-        <item>il</item>
-        <item>it</item>
-        <item>jm</item>
-        <item>jp</item>
-        <item>je</item>
-        <item>jo</item>
-        <item>kz</item>
-        <item>ke</item>
-        <item>ki</item>
-        <item>kw</item>
-        <item>kg</item>
-        <item>la</item>
-        <item>lv</item>
-        <item>lb</item>
-        <item>ls</item>
-        <item>lr</item>
-        <item>ly</item>
-        <item>li</item>
-        <item>lt</item>
-        <item>lu</item>
-        <item>mo</item>
-        <item>mk</item>
-        <item>mg</item>
-        <item>mw</item>
-        <item>my</item>
-        <item>mv</item>
-        <item>ml</item>
-        <item>mt</item>
-        <item>mh</item>
-        <item>mq</item>
-        <item>mr</item>
-        <item>mu</item>
-        <item>yt</item>
-        <item>mx</item>
-        <item>md</item>
-        <item>mc</item>
-        <item>mn</item>
-        <item>me</item>
-        <item>ms</item>
-        <item>ma</item>
-        <item>mz</item>
-        <item>mm</item>
-        <item>na</item>
-        <item>nr</item>
-        <item>np</item>
-        <item>an</item>
-        <item>nl</item>
-        <item>nc</item>
-        <item>nz</item>
-        <item>ni</item>
-        <item>ne</item>
-        <item>ng</item>
-        <item>nu</item>
-        <item>nf</item>
-        <item>mp</item>
-        <item>no</item>
-        <item>om</item>
-        <item>pk</item>
-        <item>pw</item>
-        <item>ps</item>
-        <item>pa</item>
-        <item>pg</item>
-        <item>py</item>
-        <item>cn</item>
-        <item>pe</item>
-        <item>ph</item>
-        <item>pn</item>
-        <item>pl</item>
-        <item>pt</item>
-        <item>pr</item>
-        <item>qa</item>
-        <item>kr</item>
-        <item>cg</item>
-        <item>re</item>
-        <item>ro</item>
-        <item>ru</item>
-        <item>rw</item>
-        <item>sh</item>
-        <item>kn</item>
-        <item>lc</item>
-        <item>vc</item>
-        <item>pm</item>
-        <item>ws</item>
-        <item>sm</item>
-        <item>st</item>
-        <item>sa</item>
-        <item>sn</item>
-        <item>rs</item>
-        <item>sc</item>
-        <item>yu</item>
-        <item>sl</item>
-        <item>sg</item>
-        <item>sx</item>
-        <item>sk</item>
-        <item>si</item>
-        <item>sb</item>
-        <item>so</item>
-        <item>za</item>
-        <item>gs</item>
-        <item>ss</item>
-        <item>su</item>
-        <item>es</item>
-        <item>lk</item>
-        <item>sd</item>
-        <item>sr</item>
-        <item>sj</item>
-        <item>sz</item>
-        <item>se</item>
-        <item>ch</item>
-        <item>sy</item>
-        <item>tw</item>
-        <item>tj</item>
-        <item>tz</item>
-        <item>th</item>
-        <item>gm</item>
-        <item>tg</item>
-        <item>tk</item>
-        <item>to</item>
-        <item>tt</item>
-        <item>tn</item>
-        <item>tr</item>
-        <item>tm</item>
-        <item>tc</item>
-        <item>tv</item>
-        <item>ug</item>
-        <item>ua</item>
-        <item>ae</item>
-        <item>gb</item>
-        <item>uk</item>
-        <item>us</item>
-        <item>vi</item>
-        <item>uy</item>
-        <item>uz</item>
-        <item>vu</item>
-        <item>va</item>
-        <item>ve</item>
-        <item>vn</item>
-        <item>wf</item>
-        <item>eh</item>
-        <item>ye</item>
-        <item>zm</item>
-        <item>zw</item>
-    </string-array>
-
     <string-array name="ccTLDCountries">
         <item>International</item>
         <item>Afghanistan</item>

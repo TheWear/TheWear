@@ -83,6 +83,8 @@ public class MainActivity extends Activity {
 		final EditText locationField = (EditText) findViewById(R.id.editText1);
 		locationField.clearFocus();
 
+		// TODO Add a check if there is a hardware keyboard?
+		
 		// Show and hide keyboard when focused/unfocused:
 		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		locationField
@@ -739,6 +741,8 @@ public class MainActivity extends Activity {
 
 		// TODO Get the images centered. This might be solved by adding images
 		// with the right dimensions in the corresponding drawable-folders.
+		
+		// TODO Change so only 1 view gets instantiated withouth a forecast
 
 		// Set the Images to be used for the swipe
 		private int[] mImages = new int[] { R.drawable.today, R.drawable.today,

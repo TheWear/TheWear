@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
 						Toast myToast = Toast
 								.makeText(
 										getApplicationContext(),
-										"Please Enter Location and press Play for the Forecast",
+										R.string.firstTimeStartupMessage,
 										Toast.LENGTH_SHORT);
 						myToast.setGravity(Gravity.CENTER, 0, 0);
 						myToast.show();
@@ -278,7 +278,7 @@ public class MainActivity extends Activity {
 			Log.d("TheWearDebug", "startLocation == null");
 			// A toast shown only on the first startup
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					"Enter Location and press Play for the Forecast",
+					R.string.firstTimeStartupMessage,
 					Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
@@ -382,7 +382,7 @@ public class MainActivity extends Activity {
 		// check for empty location field and display Toast if so.
 		if (userLocation.equals("")) {
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					"Please Enter Location and press Play for the Forecast",
+					R.string.firstTimeStartupMessage,
 					Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
@@ -526,7 +526,7 @@ public class MainActivity extends Activity {
 				Log.d("TheWearDebug",
 						"No detailed weather information available");
 				Toast myToast = Toast.makeText(getApplicationContext(),
-						"No detailed weather information available",
+						R.string.noForecastDetailedInfo,
 						Toast.LENGTH_SHORT);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
@@ -547,7 +547,7 @@ public class MainActivity extends Activity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					builder.setMessage(detailedInformation).setTitle(
 							R.string.forecastInfo_title);
-					builder.setPositiveButton(R.string.positive_button,
+					builder.setPositiveButton(R.string.dialogButtonClose,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
@@ -562,7 +562,7 @@ public class MainActivity extends Activity {
 							"No detailed weather information available");
 					Toast myToast = Toast.makeText(getApplicationContext(),
 							"No detailed weather information available",
-							Toast.LENGTH_SHORT);
+							Toast.LENGTH_LONG);
 					myToast.setGravity(Gravity.CENTER, 0, 0);
 					myToast.show();
 				}
@@ -570,7 +570,7 @@ public class MainActivity extends Activity {
 		} else {
 			Log.d("TheWearAndroid", "myForecastObject == null");
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					"No forecast to share", Toast.LENGTH_SHORT);
+					R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}

@@ -66,7 +66,10 @@
     <string name="startupDialogContent">Retrieve Forecast?</string>
     <string name="dialogButtonYes">Yes</string>
     <string name="dialogButtonNo">No</string>
+    <string name="dialogButtonClose">Close</string>
     <string name="noForecast">No forecast to share</string>
+    <string name="noForecastDetailedInfo">No detailed weather information available</string>
+    <string name="firstTimeStartupMessage">Please Enter Location and press Play for the Forecast</string>
 
     <string-array name="optionsMenuList">
         <item>ForecastPreferences</item>

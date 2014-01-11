@@ -63,6 +63,10 @@
     <string name="setting3RadioButton1">m/s</string>
     <string name="setting3RadioButton2">Beaufort</string>
     <string name="setting3RadioButton3">Knots</string>
+    <string name="startupDialogContent">Retrieve Forecast?</string>
+    <string name="dialogButtonYes">Yes</string>
+    <string name="dialogButtonNo">No</string>
+    <string name="noForecast">No forecast to share</string>
 
     <string-array name="optionsMenuList">
         <item>ForecastPreferences</item>

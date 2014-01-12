@@ -36,7 +36,6 @@
     <string name="negative_button">Cancel</string>
     <string name="closeDialog">Close</string>
     <string name="settingsButton">Settings</string>
-    <string name="aboutButton">Additional forecast information</string>
     <string name="forecastInfo_title">The Weather</string>
     <string name="forecast_preference1">TheWear.Preferences.Preference1</string>
     <string name="forecast_preference2">TheWear.Preferences.Preference2</string>
@@ -51,7 +50,6 @@
     <string name="facebookButton">Facebook Button</string>
     <string name="shareButton">Button that opens the share dialog</string>
     <string name="options">Options</string>
-    <string name="largeText">Large Text</string>
     <string name="setting1">Time Notation</string>
     <string name="setting2">Temperature</string>
     <string name="setting3">Wind Speed</string>
@@ -72,8 +70,8 @@
     <string name="firstTimeStartupMessage">Please Enter Location and press Play for the Forecast</string>
 
     <string-array name="optionsMenuList">
-        <item>ForecastPreferences</item>
-        <item>RegionPreferences</item>
+        <item>Forecast Preferences</item>
+        <item>Region Preferences</item>
         <item>Settings</item>
         <item>About TheWear</item>
     </string-array>

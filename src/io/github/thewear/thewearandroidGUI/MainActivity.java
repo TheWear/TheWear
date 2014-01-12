@@ -119,7 +119,7 @@ public class MainActivity extends Activity {
 					if (userLocation.equals("")) {
 						Toast myToast = Toast.makeText(getApplicationContext(),
 								R.string.firstTimeStartupMessage,
-								Toast.LENGTH_SHORT);
+								Toast.LENGTH_LONG);
 						myToast.setGravity(Gravity.CENTER, 0, 0);
 						myToast.show();
 					} else {
@@ -374,7 +374,7 @@ public class MainActivity extends Activity {
 		// check for empty location field and display Toast if so.
 		if (userLocation.equals("")) {
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					R.string.firstTimeStartupMessage, Toast.LENGTH_SHORT);
+					R.string.firstTimeStartupMessage, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		} else {
@@ -551,8 +551,7 @@ public class MainActivity extends Activity {
 					Log.d("TheWearDebug",
 							"No detailed weather information available");
 					Toast myToast = Toast.makeText(getApplicationContext(),
-							"No detailed weather information available",
-							Toast.LENGTH_LONG);
+							R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 					myToast.setGravity(Gravity.CENTER, 0, 0);
 					myToast.show();
 				}
@@ -615,7 +614,7 @@ public class MainActivity extends Activity {
 		} else {
 			Log.d("TheWearAndroid", "myForecastObject == null");
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					"No forecast to share", Toast.LENGTH_SHORT);
+					R.string.noForecast, Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}

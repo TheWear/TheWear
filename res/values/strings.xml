@@ -63,8 +63,8 @@
     <string name="setting3RadioButton3">Knots</string>
 
     <string-array name="optionsMenuList">
-        <item>ForecastPreferences</item>
-        <item>RegionPreferences</item>
+        <item>Forecast Preferences</item>
+        <item>Region Preferences</item>
         <item>Settings</item>
         <item>About TheWear</item>
     </string-array>

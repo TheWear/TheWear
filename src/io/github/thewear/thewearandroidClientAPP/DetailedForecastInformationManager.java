@@ -17,13 +17,13 @@ public class DetailedForecastInformationManager {
 	 * Cloudcover is converted to Sunshine [%] and Temperature to °Celsius;
 	 */
 
-	private String mouseOverStringFormat = "Temperature (%s): %s%n" + // TMP
-			"Maximum Temperature (%s):  %s%n" + // TMAX
-			"Minimum Temperature (%s):  %s%n" + // TMIN
-			"Precipitation (mm/6hours): %s%n" + // APCP
-			"Cloud cover: %s%%%n" + // TCDC
-			"Windspeed (%s): %s" + // sqrt(UGRD^2+VGRD^2)
-			"%s"; // WEASD
+	// private String mouseOverStringFormat = "Temperature (%s): %s%n" + // TMP
+	// "Maximum Temperature (%s):  %s%n" + // TMAX
+	// "Minimum Temperature (%s):  %s%n" + // TMIN
+	// "Precipitation (mm/6hours): %s%n" + // APCP
+	// "Cloud cover: %s%%%n" + // TCDC
+	// "Windspeed (%s): %s" + // sqrt(UGRD^2+VGRD^2)
+	// "%s"; // WEASD
 	private String[] dataset;
 	private double attr1; // Temperature
 	private String attr2; // Precipitation
@@ -41,7 +41,7 @@ public class DetailedForecastInformationManager {
 		attr3 = String.valueOf(Math.round(Double.parseDouble(dataset[4])));
 		attr4 = Double.parseDouble(dataset[6]);
 		if (Double.parseDouble(dataset[7]) > 0) {
-			attr5 = "\nSnowdepth (cm): " + dataset[7];
+			attr5 = dataset[7];
 		} else {
 			attr5 = "";
 		}
@@ -62,6 +62,17 @@ public class DetailedForecastInformationManager {
 	 */
 
 	public String getString(SharedPreferences sharedPref, Resources res) {
+		String[] mouseOverStringStrings = res
+				.getStringArray(R.array.mouseOverStringStrings);
+		String mouseOverStringFormat = mouseOverStringStrings[0]
+				+ ": (%s): %s%n" // TMP
+				+ mouseOverStringStrings[1] + ": (%s):  %s%n" // TMAX
+				+ mouseOverStringStrings[2] + ": (%s):  %s%n" // TMIN
+				+ mouseOverStringStrings[3] + ": %s%n" // APCP
+				+ mouseOverStringStrings[4] + ": %s%%%n" // TCDC
+				+ mouseOverStringStrings[5] + ": (%s): %s" // sqrt(UGRD^2+VGRD^2)
+				+ "%s"; // WEASD
+		String attr5WithText = "\n" + mouseOverStringStrings[6] + ": " + attr5; // WEASD
 		int defaultTemperatureNotation = res
 				.getInteger(R.integer.defaultTemperatureNotation);
 		int temperatureNotation = sharedPref.getInt(
@@ -120,7 +131,7 @@ public class DetailedForecastInformationManager {
 		String mouseOverString = String.format(mouseOverStringFormat, tempUnit,
 				convertedAttr1, tempUnit, convertedAttr6, tempUnit,
 				convertedAttr7, attr2, attr3, windSpeedUnit, convertedAttr4,
-				attr5);
+				attr5WithText);
 		return mouseOverString;
 	}
 }

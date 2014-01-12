@@ -67,6 +67,16 @@
         <item>Over TheWear</item>
     </string-array>
 
+    <string-array name="mouseOverStringStrings">
+		<item>Temperatuur</item> <!-- TMP  -->
+		<item>Maximumtemperatuur</item> <!-- TMAX  -->
+		<item>Minimumtemperatuur</item> <!-- TMIN  -->
+		<item>Neerslag (mm/6uur)</item> <!-- APCP  -->
+		<item>Bedekkingsgraad</item> <!-- TCDC  -->
+		<item>Windsnelheid</item> <!-- sqrt(UGRD^2+VGRD^2)  -->
+		<item>Sneeuwdikte (cm)"</item> <!-- WEASD -->
+	</string-array>
+
     <!-- This list is also posted on our drive, related to the countries -->
     <string-array name="ccTLDCountries">
         <item>Afghanistan</item>

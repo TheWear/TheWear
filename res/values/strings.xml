@@ -79,6 +79,16 @@
         <item>About TheWear</item>
     </string-array>
 
+    <string-array name="mouseOverStringStrings">
+		<item>Temperature</item> <!-- TMP  -->
+		<item>Maximum Temperature</item> <!-- TMAX  -->
+		<item>Minimum Temperature</item> <!-- TMIN  -->
+		<item>Precipitation (mm/6hours)</item> <!-- APCP  -->
+		<item>Cloud cover:</item> <!-- TCDC  -->
+		<item>Windspeed</item> <!-- sqrt(UGRD^2+VGRD^2)  -->
+		<item>Snowdepth (cm)"</item> <!-- WEASD -->
+	</string-array>
+
     <string name="sunGlassesPathname">sunglasses_2</string>
 
     <string-array name="pathnames">

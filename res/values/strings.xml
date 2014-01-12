@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- If you have a string that should be translated, please add these to corresponding translated files!
+    All files that don't have to be translated should only be added to this file. -->
+
     <string name="testVersion">v0.001</string>
     <string name="app_name">TheWear</string>
     <string name="action_preferences">Preferences</string>
@@ -77,6 +80,7 @@
     </string-array>
 
     <string name="sunGlassesPathname">sunglasses_2</string>
+
     <string-array name="pathnames">
         <item>base</item>
         <item>left_arm_down</item>
@@ -351,7 +355,6 @@
         <item>zm</item>
         <item>zw</item>
     </string-array>
-
     <string-array name="ccTLDCountries">
         <item>International</item>
         <item>Afghanistan</item>

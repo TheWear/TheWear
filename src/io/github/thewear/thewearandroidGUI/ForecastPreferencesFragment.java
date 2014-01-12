@@ -77,6 +77,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 	private int preference2_max;
 	private int preference3_min;
 	private int preference3_max;
+	private boolean forecastInfo = false;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -153,7 +154,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 				getString(R.string.windspeed_notation_preference),
 				defaultWindSpeedNotation);
 		Log.d("TheWearDebug", "Red the preference values");
-		Log.d("BUG","Preference2Value: " + preference2Value);
+		Log.d("BUG", "Preference2Value: " + preference2Value);
 
 		// Set dialog Title
 		builder.setTitle(R.string.preference_dialog_Title);
@@ -223,7 +224,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		default:
 			Log.e("TheWearDebug", "No such wind speed notation");
 		}
-		Log.d("BUG","new preference2Value: " + preference2Value);
+		Log.d("BUG", "new preference2Value: " + preference2Value);
 
 		// Initiate EditTexts and SeekBars
 		preference1EditText = (EditText) dialogView
@@ -374,10 +375,12 @@ public class ForecastPreferencesFragment extends DialogFragment {
 							int progress, boolean fromUser) {
 						if (fromUser == true) {
 							// set the preference values
-							Log.d("BUG","changed preference2Value: " + progress);
+							Log.d("BUG", "changed preference2Value: "
+									+ progress);
 							preference2Value = myPreference2Convertor
 									.AdjustedToNormal(progress);
-							Log.d("BUG","adjusted changed preference2Value: " + progress);
+							Log.d("BUG", "adjusted changed preference2Value: "
+									+ progress);
 							String setPreference2Value = preference2Value + "";
 							preference2EditText.setText(setPreference2Value);
 						}
@@ -560,7 +563,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 
 						// Converting back to m/s for saving purposes if
 						// necessary
-						Log.d("BUG","new preference2Value for saving: " + preference2Value);
+						Log.d("BUG", "new preference2Value for saving: "
+								+ preference2Value);
 						int savingPreference2Value = -1;
 						switch (windSpeedNotation) {
 						case 0:
@@ -578,7 +582,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 						default:
 							Log.e("TheWearDebug", "No such wind speed notation");
 						}
-						Log.d("BUG","new savingPreference2Value: " + savingPreference2Value);
+						Log.d("BUG", "new savingPreference2Value: "
+								+ savingPreference2Value);
 
 						// Saves the changed preference values and closes the
 						// dialog
@@ -592,36 +597,44 @@ public class ForecastPreferencesFragment extends DialogFragment {
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
-						// Set the new Bitmaps in the ImageViews
-						if (myForecastInfo == null) {
-							Log.d("TheWearDebug",
-									"No Dataset available, so the forecast image isn't changed.");
-						} else {
-							ArrayList<String[]> datasets = myForecastInfo.dataset;
-							if (datasets == null) {
+						// Check if there is a forecast to change
+						if (forecastInfo == true) {
+
+							// Set the new Bitmaps in the ImageViews
+							if (myForecastInfo == null) {
 								Log.d("TheWearDebug",
 										"No Dataset available, so the forecast image isn't changed.");
 							} else {
-								// Recreate the Bitmaps and set them into the
-								// imageViews
-								Bitmap[] myBitmap = { null, null, null };
-								for (int i = 0; i <= 2; i++) {
-									WeatherEnumHandler weather_data;
-									weather_data = new WeatherEnumHandler();
-									weather_data.handleWeatherEnum(
-											datasets.get(i), applicationContext);
-									Log.d("TheWearDebug", "handled WeatherEnum");
+								ArrayList<String[]> datasets = myForecastInfo.dataset;
+								if (datasets == null) {
+									Log.d("TheWearDebug",
+											"No Dataset available, so the forecast image isn't changed.");
+								} else {
+									// Recreate the Bitmaps and set them into
+									// the
+									// imageViews
+									Bitmap[] myBitmap = { null, null, null };
+									for (int i = 0; i <= 2; i++) {
+										WeatherEnumHandler weather_data;
+										weather_data = new WeatherEnumHandler();
+										weather_data.handleWeatherEnum(
+												datasets.get(i),
+												applicationContext);
+										Log.d("TheWearDebug",
+												"handled WeatherEnum");
 
-									boolean[] advice = weather_data.weathertype.show_imgs;
-									advice = Arrays.copyOf(advice,
-											advice.length + 1);
-									advice[advice.length - 1] = weather_data.sunglasses;
+										boolean[] advice = weather_data.weathertype.show_imgs;
+										advice = Arrays.copyOf(advice,
+												advice.length + 1);
+										advice[advice.length - 1] = weather_data.sunglasses;
 
-									MergeImage myMergeImage = new MergeImage();
-									myBitmap[i] = myMergeImage
-											.MergeForecastImage(advice,
-													applicationContext);
-									myImageViews[i].setImageBitmap(myBitmap[i]);
+										MergeImage myMergeImage = new MergeImage();
+										myBitmap[i] = myMergeImage
+												.MergeForecastImage(advice,
+														applicationContext);
+										myImageViews[i]
+												.setImageBitmap(myBitmap[i]);
+									}
 								}
 							}
 						}
@@ -746,5 +759,6 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		this.myImageViews = myImageViews;
 		this.myForecastInfo = myForecastInfo;
 		this.applicationContext = applicationContext;
+		forecastInfo = true;
 	}
 }

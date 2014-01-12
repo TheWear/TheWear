@@ -49,6 +49,7 @@ public class RegionPreferencesFragment extends DialogFragment {
 	private Dialog myDialog;
 	private String[] ccTLDCodes;
 	private Spinner spinner;
+	private boolean forecastInfo = false;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -85,7 +86,7 @@ public class RegionPreferencesFragment extends DialogFragment {
 		Log.d("TheWearDebug", "Region preference Dialog Created");
 
 		// Set dialog Title
-				builder.setTitle(R.string.region_preference_dialog_Title);
+		builder.setTitle(R.string.region_preference_dialog_Title);
 
 		// Get default Preference Values
 		defaultRegion = getString(R.string.default_region);
@@ -160,35 +161,44 @@ public class RegionPreferencesFragment extends DialogFragment {
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
-						// Set the new Bitmaps in the ImageViews
-						if (myForecastInfo == null) {
-							Log.d("TheWearDebug",
-									"No Dataset available, so the forecast image isn't changed.");
-						} else {
-							ArrayList<String[]> datasets = myForecastInfo.dataset;
-							if (datasets == null) {
+						// Check if there is a forecast to change
+						if (forecastInfo == true) {
+
+							// Set the new Bitmaps in the ImageViews
+							if (myForecastInfo == null) {
 								Log.d("TheWearDebug",
 										"No Dataset available, so the forecast image isn't changed.");
 							} else {
-								// Recreate the Bitmaps and set them into the
-								// imageViews
-								Bitmap[] myBitmap = { null, null, null };
-								for (int i = 0; i <= 2; i++) {
-									WeatherEnumHandler weather_data;
-									weather_data = new WeatherEnumHandler();
-									weather_data.handleWeatherEnum(
-											datasets.get(i), applicationContext);
-									Log.d("TheWearDebug", "handled WeatherEnum");
+								ArrayList<String[]> datasets = myForecastInfo.dataset;
+								if (datasets == null) {
+									Log.d("TheWearDebug",
+											"No Dataset available, so the forecast image isn't changed.");
+								} else {
+									// Recreate the Bitmaps and set them into
+									// the
+									// imageViews
+									Bitmap[] myBitmap = { null, null, null };
+									for (int i = 0; i <= 2; i++) {
+										WeatherEnumHandler weather_data;
+										weather_data = new WeatherEnumHandler();
+										weather_data.handleWeatherEnum(
+												datasets.get(i),
+												applicationContext);
+										Log.d("TheWearDebug",
+												"handled WeatherEnum");
 
-									boolean[] advice = weather_data.weathertype.show_imgs;
-									advice = Arrays.copyOf(advice, advice.length + 1);
-									advice[advice.length - 1] = weather_data.sunglasses;
+										boolean[] advice = weather_data.weathertype.show_imgs;
+										advice = Arrays.copyOf(advice,
+												advice.length + 1);
+										advice[advice.length - 1] = weather_data.sunglasses;
 
-									MergeImage myMergeImage = new MergeImage();
-									myBitmap[i] = myMergeImage
-											.MergeForecastImage(advice,
-													applicationContext);
-									myImageViews[i].setImageBitmap(myBitmap[i]);
+										MergeImage myMergeImage = new MergeImage();
+										myBitmap[i] = myMergeImage
+												.MergeForecastImage(advice,
+														applicationContext);
+										myImageViews[i]
+												.setImageBitmap(myBitmap[i]);
+									}
 								}
 							}
 						}
@@ -282,6 +292,16 @@ public class RegionPreferencesFragment extends DialogFragment {
 			ForecastInfo myForecastInfo, Context applicationContext) {
 		this.myImageViews = myImageViews;
 		this.myForecastInfo = myForecastInfo;
+		this.applicationContext = applicationContext;
+		forecastInfo = true;
+	}
+
+	/**
+	 * passApplicationContext passApplicationContext() is used set the
+	 * applicationContext used to create the drop down menu.
+	 */
+
+	public void passApplicationContext(Context applicationContext) {
 		this.applicationContext = applicationContext;
 	}
 }

@@ -117,11 +117,9 @@ public class MainActivity extends Activity {
 
 					// check for empty location field and display Toast if so.
 					if (userLocation.equals("")) {
-						Toast myToast = Toast
-								.makeText(
-										getApplicationContext(),
-										R.string.firstTimeStartupMessage,
-										Toast.LENGTH_SHORT);
+						Toast myToast = Toast.makeText(getApplicationContext(),
+								R.string.firstTimeStartupMessage,
+								Toast.LENGTH_SHORT);
 						myToast.setGravity(Gravity.CENTER, 0, 0);
 						myToast.show();
 					} else {
@@ -243,9 +241,7 @@ public class MainActivity extends Activity {
 			// information. (Additional use: delay downloading the forecast so
 			// the App loads faster)
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			Log.e("BUG", "AlertDialog builder: " + builder);
 			builder.setMessage(R.string.startupDialogContent);
-			Log.d("BUG", "Message Set");
 			builder.setPositiveButton(R.string.dialogButtonYes,
 					new DialogInterface.OnClickListener() {
 
@@ -256,7 +252,6 @@ public class MainActivity extends Activity {
 
 						}
 					});
-			Log.d("BUG", "Positive Button Set");
 			builder.setNegativeButton(R.string.dialogButtonNo,
 					new DialogInterface.OnClickListener() {
 
@@ -268,18 +263,15 @@ public class MainActivity extends Activity {
 
 						}
 					});
-			Log.d("BUG", "Negative Button Set");
 
 			AlertDialog dialog = builder.create();
-			Log.e("BUG", "Dialog Created. Dialog: " + dialog);
 			dialog.show();
 
 		} else {
 			Log.d("TheWearDebug", "startLocation == null");
 			// A toast shown only on the first startup
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					R.string.firstTimeStartupMessage,
-					Toast.LENGTH_LONG);
+					R.string.firstTimeStartupMessage, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}
@@ -382,8 +374,7 @@ public class MainActivity extends Activity {
 		// check for empty location field and display Toast if so.
 		if (userLocation.equals("")) {
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					R.string.firstTimeStartupMessage,
-					Toast.LENGTH_SHORT);
+					R.string.firstTimeStartupMessage, Toast.LENGTH_SHORT);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		} else {
@@ -526,8 +517,7 @@ public class MainActivity extends Activity {
 				Log.d("TheWearDebug",
 						"No detailed weather information available");
 				Toast myToast = Toast.makeText(getApplicationContext(),
-						R.string.noForecastDetailedInfo,
-						Toast.LENGTH_SHORT);
+						R.string.noForecastDetailedInfo, Toast.LENGTH_SHORT);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else {
@@ -657,14 +647,17 @@ public class MainActivity extends Activity {
 				Log.e("TheWearDebug", "ExecutionException4");
 				e.printStackTrace();
 			}
-			// Catch an empty myForecastInfo
 			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
 			myForecastPreferencesFragment.passNecessaryInformation(
 					myImageViews, myForecastInfo, this);
 			myForecastPreferencesFragment.show(getFragmentManager(),
 					"Preferences");
 		} else {
+			// Catch an empty myForecastInfo and show dialog
 			Log.d("TheWearAndroid", "myForecastObject == null");
+			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
+			myForecastPreferencesFragment.show(getFragmentManager(),
+					"Preferences");
 		}
 	}
 
@@ -701,7 +694,12 @@ public class MainActivity extends Activity {
 			myRegionPreferencesFragment.show(getFragmentManager(),
 					"Preferences");
 		} else {
+			// Catch an empty myForecastInfo and show dialog
 			Log.d("TheWearAndroid", "myForecastObject == null");
+			RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
+			myRegionPreferencesFragment.passApplicationContext(this);
+			myRegionPreferencesFragment.show(getFragmentManager(),
+					"Preferences");
 		}
 	}
 

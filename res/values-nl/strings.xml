@@ -59,6 +59,10 @@
     <string name="noForecast">Geen Weerbericht om te delen.</string>
     <string name="noForecastDetailedInfo">Geen gedetailleerd weerbericht beschikbaar.</string>
     <string name="firstTimeStartupMessage">Gelieve een locatie in te voeren en op play te drukkken voor het weerbericht.</string>
+    <string name="now">nu</string>
+	<string name="am">am</string>
+    <string name="pm">pm</string>
+    <string name="hour">h</string>
 
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>

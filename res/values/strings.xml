@@ -71,6 +71,10 @@
     <string name="noForecast">No forecast to share</string>
     <string name="noForecastDetailedInfo">No detailed weather information available</string>
     <string name="firstTimeStartupMessage">Please Enter Location and press Play for the Forecast</string>
+    <string name="now">now</string>
+    <string name="am">am</string>
+    <string name="pm">pm</string>
+    <string name="hour">h</string>
 
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>

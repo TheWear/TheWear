@@ -245,7 +245,7 @@ public class SettingsFragment extends DialogFragment {
 						String[] titleString = TimeHandler
 								.constructTitleStrings(forecastTimeHour,
 										forecastTimeMinute,
-										timeNotationPreference);
+										timeNotationPreference, res);
 						forecastTimeStruct.setForecastTimeString(titleString);
 						// Set the new time title
 						int tab = mViewPager.getCurrentItem();

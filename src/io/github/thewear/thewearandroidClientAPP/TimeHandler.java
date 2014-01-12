@@ -207,7 +207,7 @@ public class TimeHandler {
 				res.getString(R.string.time_notation_preference),
 				res.getInteger(R.integer.defaultTimeNotation));
 		String[] titleString = constructTitleStrings(forecastTimeHour,
-				forecastTimeMinute, timeNotationPreference);
+				forecastTimeMinute, timeNotationPreference, res);
 		return titleString;
 	}
 
@@ -236,12 +236,12 @@ public class TimeHandler {
 	 * getAmPm() is a static method.
 	 */
 
-	public static String getAmPm(int hour) {
+	public static String getAmPm(int hour, Resources res) {
 		String amPm = null;
 		if (hour < 12) {
-			amPm = "am";
+			amPm = res.getString(R.string.am);
 		} else {
-			amPm = "pm";
+			amPm = res.getString(R.string.pm);
 		}
 		return amPm;
 	}
@@ -304,19 +304,20 @@ public class TimeHandler {
 	 */
 
 	public static String[] constructTitleStrings(int[] hour, int[] minute,
-			int timeNotationPreference) {
+			int timeNotationPreference, Resources res) {
+		String now = res.getString(R.string.now);
 		String[] titleSuffix = { null, null, null };
 		switch (timeNotationPreference) {
 		case 0: // 12-hours notation
 			// Convert time to 12-hours notation
 			for (int i = 0; i <= 2; i++) {
-				titleSuffix[i] = getAmPm(hour[i]);
+				titleSuffix[i] = getAmPm(hour[i], res);
 				hour[i] = to12HourClock(hour[i]);
 			}
 			break;
 		case 1: // 24-hours notation
 			for (int i = 0; i <= 2; i++) {
-				titleSuffix[i] = "h";
+				titleSuffix[i] = res.getString(R.string.hour);
 			}
 			break;
 		default: // ERROR
@@ -324,7 +325,7 @@ public class TimeHandler {
 					"No such time notation preference, can't change the title");
 		}
 		String[] titleString = new String[3];
-		titleString[0] = "now - " + to2CharString(hour[0]) + ":"
+		titleString[0] = now + " - " + to2CharString(hour[0]) + ":"
 				+ to2CharString(minute[0]) + titleSuffix[0];
 		for (int i = 1; i <= 2; i++) {
 			titleString[i] = to2CharString(hour[(i - 1)]) + ":"

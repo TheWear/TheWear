@@ -75,6 +75,11 @@
     <string name="am">am</string>
     <string name="pm">pm</string>
     <string name="hour">h</string>
+    <string name="forecastProgressDialogTitle">Retrieving Forecast</string>
+    <string name="noInternetConnection">Cannot connect to the Internet</string>
+    <string name="noServerConnection">Cannot connect to TheWear server</string>
+    <string name="connectionError">An unknown error occurred while retrieving the forecast from TheWear server</string>
+    <string name="locationUnknown">Location unknown. Please enter a new location</string>
 
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>
@@ -92,6 +97,19 @@
 		<item>Windspeed</item> <!-- sqrt(UGRD^2+VGRD^2)  -->
 		<item>Snowdepth (cm)"</item> <!-- WEASD -->
 	</string-array>
+
+    <string-array name="weatherTypeStrings">
+        <item>strange weather</item>
+		<item>light rain</item>
+		<item>heavy rain</item>
+		<item>snow</item>
+		<item>cold</item>
+		<item>cold and wind</item>
+		<item>slightly uninteresting weather</item>
+		<item>storm and rain</item>
+		<item>warm weather</item>
+		<item>light rain and warm weather</item>
+    </string-array>
 
     <string name="sunGlassesPathname">sunglasses_2</string>
 

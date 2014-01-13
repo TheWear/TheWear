@@ -17,13 +17,6 @@ public class DetailedForecastInformationManager {
 	 * Cloudcover is converted to Sunshine [%] and Temperature to °Celsius;
 	 */
 
-	// private String mouseOverStringFormat = "Temperature (%s): %s%n" + // TMP
-	// "Maximum Temperature (%s):  %s%n" + // TMAX
-	// "Minimum Temperature (%s):  %s%n" + // TMIN
-	// "Precipitation (mm/6hours): %s%n" + // APCP
-	// "Cloud cover: %s%%%n" + // TCDC
-	// "Windspeed (%s): %s" + // sqrt(UGRD^2+VGRD^2)
-	// "%s"; // WEASD
 	private String[] dataset;
 	private double attr1; // Temperature
 	private String attr2; // Precipitation

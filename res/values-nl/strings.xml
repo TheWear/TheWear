@@ -63,6 +63,11 @@
 	<string name="am">am</string>
     <string name="pm">pm</string>
     <string name="hour">h</string>
+    <string name="forecastProgressDialogTitle">Ophalen weerbericht</string>
+    <string name="noInternetConnection">Kan geen verbinding maken met het internet</string>
+    <string name="noServerConnection">Kan geen verbinding maken met de server van TheWear</string>
+    <string name="connectionError">Er is een onbekende fout opgetreden tijdens het ophalen van het weerbericht van de server van TheWear</string>
+    <string name="locationUnknown">Onbekende locatie. Gelieve een nieuwe locatie in te voeren.</string>
 
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>
@@ -80,6 +85,19 @@
 		<item>Windsnelheid</item> <!-- sqrt(UGRD^2+VGRD^2)  -->
 		<item>Sneeuwdikte (cm)"</item> <!-- WEASD -->
 	</string-array>
+
+    <string-array name="weatherTypeStrings">
+        <item>Raar weer</item>
+		<item>Lichte regen</item>
+		<item>Harde regen</item>
+		<item>Sneew</item>
+		<item>Koud weer</item>
+		<item>Koud en wind</item>
+		<item>Licht oninteressant weer</item>
+		<item>Storm en regen</item>
+		<item>Warm weer</item>
+		<item>Lichte regen en warm weer</item>
+    </string-array>
 
     <!-- This list is also posted on our drive, related to the countries -->
     <string-array name="ccTLDCountries">

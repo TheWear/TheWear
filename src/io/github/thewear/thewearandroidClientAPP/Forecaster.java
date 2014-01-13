@@ -91,8 +91,10 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	protected void onPreExecute() {
 		Log.d("TheWearDebug", "onPreExecute of Forecaster AsyncTask Started");
 		// Show a ProgressDialog while the Forecast AsyncTask runs
+		Resources res = applicationContext.getResources();
 		myProgressDialog = new ProgressDialog(applicationContext);
-		myProgressDialog.setTitle("Retrieving Forecast");
+		myProgressDialog.setTitle(res
+				.getString(R.string.forecastProgressDialogTitle));
 		myProgressDialog.setIndeterminate(false);
 		myProgressDialog.setMax(100);
 		myProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -271,29 +273,30 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			Log.d("TheWearDebug", "Forecaster AsyncTask is Canceled");
 			// Close the ProgressDialog
 			myProgressDialog.dismiss();
+			Resources res = applicationContext.getResources();
 
 			// Show Toast to explain error
 			if (reason == "internetConnection") {
 				Log.i("TheWearDebug",
 						"Forecaster canceled. Reason: internetConnection");
 				Toast myToast = Toast.makeText(applicationContext,
-						"Cannot connect to the Internet", Toast.LENGTH_LONG);
+						res.getString(R.string.noInternetConnection),
+						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "serverConnection") {
 				Log.i("TheWearDebug",
 						"Forecaster canceled. Reason: serverConnection");
 				Toast myToast = Toast.makeText(applicationContext,
-						"Cannot connect to TheWear server", Toast.LENGTH_LONG);
+						res.getString(R.string.noServerConnection),
+						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "server") {
 				Log.i("TheWearDebug", "Forecaster canceled. Reason: server");
-				Toast myToast = Toast
-						.makeText(
-								applicationContext,
-								"An error occured while retrieving the forecast from TheWear server",
-								Toast.LENGTH_LONG);
+				Toast myToast = Toast.makeText(applicationContext,
+						res.getString(R.string.connectionError),
+						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "unknownLocation") {
@@ -302,7 +305,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				locationField.setText("");
 				locationField.clearFocus();
 				Toast myToast = Toast.makeText(applicationContext,
-						"Location unknown. Please enter a new location",
+						res.getString(R.string.locationUnknown),
 						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
@@ -359,14 +362,16 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * This method has NO access to the GUI
 	 */
 
-	public void specificForecast(int forecast, Double[] gridCoos,int forecastNumber) {
-        ServerCommunicator myServerCommunicator = new ServerCommunicator();
+	public void specificForecast(int forecast, Double[] gridCoos,
+			int forecastNumber) {
+		ServerCommunicator myServerCommunicator = new ServerCommunicator();
 		// Get Weather data from our server
-		if (forecastNumber == 0){
-		    localDataset = myServerCommunicator.getWeatherData(forecast,gridCoos[0], gridCoos[1]);
-		    progressCounter = progressCounter + 7;
-		    publishProgress(progressCounter); // Total: 7/22
-        }
+		if (forecastNumber == 0) {
+			localDataset = myServerCommunicator.getWeatherData(forecast,
+					gridCoos[0], gridCoos[1]);
+			progressCounter = progressCounter + 7;
+			publishProgress(progressCounter); // Total: 7/22
+		}
 		if (localDataset == null) {
 			isCancelled = true;
 			reason = "serverConnection";
@@ -380,14 +385,16 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 			if (forecastNumber == 0) {
 				String firstForecastServerInformation = localDataset[0][0];
-				firstForecastEndTime = myServerCommunicator.extractForecastRetrievedTime(firstForecastServerInformation);
+				firstForecastEndTime = myServerCommunicator
+						.extractForecastRetrievedTime(firstForecastServerInformation);
 			}
 
 			dataset.add(forecastNumber, localDataset[forecastNumber]);
 
 			WeatherEnumHandler weather_data;
 			weather_data = new WeatherEnumHandler();
-			weather_data.handleWeatherEnum(localDataset[forecastNumber], applicationContext);
+			weather_data.handleWeatherEnum(localDataset[forecastNumber],
+					applicationContext);
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 11/23
 			Log.d("TheWearDebug", "handled WeatherEnum");

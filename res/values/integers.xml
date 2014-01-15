@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <integer name="preference1_max">20</integer>
     <integer name="preference1_min">0</integer>
     <integer name="preference2_max1">35</integer>
@@ -13,4 +14,5 @@
     <integer name="defaultTimeNotation">1</integer>
     <integer name="defaultTemperatureNotation">0</integer>
     <integer name="defaultWindSpeedNotation">0</integer>
+
 </resources>

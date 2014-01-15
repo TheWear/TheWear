@@ -47,6 +47,7 @@
     <string name="time_notation_preference">TheWear.Preferences.TimeNotation</string>
     <string name="temperature_notation_preference">TheWear.Preferences.TemperatureNotation</string>
     <string name="windspeed_notation_preference">TheWear.Preferences.WindSpeedNotation</string>
+    <string name="autoRegionDetection_preference">TheWear.Preferences.AutoRegionDetection</string>
     <string name="default_region">nl</string>
     <string name="region_preference_dialog_Title">Region Preferences</string>
     <string name="social_media_dialog_Title">Share</string>

@@ -7,6 +7,7 @@ import src.gui.thewearandroid.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -143,16 +144,42 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		progressCounter = progressCounter + 4;
 		publishProgress(progressCounter); // Total: 4/100
 
-		// Get the region preference from the SharedPreferences
-		// Get default Preference Values
 		Resources res = applicationContext.getResources();
-		String defaultRegion = res.getString(R.string.default_region);
-		// Read the preference values from Shared Preferences
 		SharedPreferences sharedPref = applicationContext.getSharedPreferences(
 				applicationContext.getString(R.string.TheWear_preference_key),
 				Context.MODE_PRIVATE);
-		String regionPreference = sharedPref.getString(
-				res.getString(R.string.region_preference), defaultRegion);
+		String regionPreference;
+		// Get default autoRegionDetection
+		Boolean defaultAutoRegionDetection = res
+				.getBoolean(R.bool.defaultAutoRegionDetection);
+		// Read the autoRegionDetection value from SharedPreferences
+		boolean autoRegionDetection = sharedPref.getBoolean(
+				res.getString(R.string.autoRegionDetection_preference),
+				defaultAutoRegionDetection);
+
+		// Check if te user wants auto detection of their region
+		if (autoRegionDetection == true) {
+			// get MCC (Mobile Country Code)
+			Configuration config = res.getConfiguration();
+			int mcc = config.mcc;
+			Log.d("TheWearDebug", "mcc = " + mcc);
+			// get MMC codes List and Index of the MCC of the user
+			Log.d("TheWearDebug", "MCCList.get().size: " + MCCList.get().size());
+			int mccIndex = MCCList.get().indexOf(mcc);
+			// get region code List (ccTLDCodes)
+			Log.d("TheWearDebug", "mccIndex = " + mccIndex);
+
+			// Check if the MCC of te user is known
+			if (mccIndex != -1) {
+				// get MCC codes and index of user MCC
+				String[] ccTLDCodes = res.getStringArray(R.array.ccTLDCodes);
+				regionPreference = ccTLDCodes[mccIndex];
+			} else {
+				regionPreference = getRegionSharedPreference(res, sharedPref);
+			}
+		} else {
+			regionPreference = getRegionSharedPreference(res, sharedPref);
+		}
 
 		// Construct URL for call to google maps
 		String strUrl = myGridCoach.PlaceToURL(regionPreference);
@@ -412,5 +439,20 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			progressCounter = progressCounter + 7;
 			publishProgress(progressCounter); // Total: 22/22
 		}
+	}
+
+	/**
+	 * getRegionSharedPreference(Resources res, SharedPreference sharedPref)
+	 * returns the region preference from the SharedPreferences
+	 */
+
+	public String getRegionSharedPreference(Resources res,
+			SharedPreferences sharedPref) {
+		// Get default Preference Values
+		String defaultRegion = res.getString(R.string.default_region);
+		// Read the preference values from SharedPreferences
+		String regionPreference = sharedPref.getString(
+				res.getString(R.string.region_preference), defaultRegion);
+		return regionPreference;
 	}
 }

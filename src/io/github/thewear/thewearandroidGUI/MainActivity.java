@@ -162,6 +162,8 @@ public class MainActivity extends Activity {
 		myImageViews[1] = new ImageView(this);
 		myImageViews[2] = new ImageView(this);
 
+		// TODO make button background invisible depending on API version?
+
 		// Set OnPageChangeListener to make buttons unClickable when they are
 		// not used, and Clickable again when they can be used.
 		// The listener also changes the title (day) when swiping.
@@ -237,6 +239,10 @@ public class MainActivity extends Activity {
 		if (startLocation != null) {
 			Log.d("TheWearDebug", "startLocation != null");
 
+			// Set Location in the location field
+			EditText locationField = (EditText) findViewById(R.id.editText1);
+			locationField.setText(startLocation);
+			
 			// Dialog to ask user if they want to (re)download the forecast
 			// information. (Additional use: delay downloading the forecast so
 			// the App loads faster)
@@ -257,9 +263,7 @@ public class MainActivity extends Activity {
 
 						@Override
 						public void onClick(DialogInterface dialog, int id) {
-							// Set Location in the location field
-							EditText locationField = (EditText) findViewById(R.id.editText1);
-							locationField.setText(startLocation);
+							// nothing
 
 						}
 					});

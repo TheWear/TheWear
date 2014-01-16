@@ -330,7 +330,7 @@ public class MainActivity extends Activity {
 	 */
 
 	public boolean goToLocationPreference(MenuItem menu) {
-		showLocationPreference();
+		// TODO add locations history thingy
 		return true;
 	}
 
@@ -467,7 +467,7 @@ public class MainActivity extends Activity {
 
 	public void showMenuItem2() {
 		myMenuFragment.dismiss();
-		showLocationPreference();
+		// TODO add locations history thingy
 	}
 
 	/**
@@ -627,7 +627,8 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * 
+	 * showRegionPreferenceInfo(View v) shows a dialog displaying information
+	 * about the region preference
 	 */
 
 	public void showRegionPreferenceInfo(View v) {
@@ -681,48 +682,6 @@ public class MainActivity extends Activity {
 			Log.d("TheWearAndroid", "myForecastObject == null");
 			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
 			myForecastPreferencesFragment.show(getFragmentManager(),
-					"Preferences");
-		}
-	}
-
-	/**
-	 * showLocationPreferences() shows the region preference menu (the
-	 * RegionPreferencesFragment) when called.
-	 * 
-	 * This method tries to retrieve the dataset of the last forecast, and
-	 * passes it to the setter method of the ForecastPreferencesFragment(),
-	 * together with the ImageViews that should be changed, and the
-	 * applicationContext.
-	 */
-
-	public void showLocationPreference() {
-		// Show the Preferences Window
-		if (myForecasterObject != null) {
-			ForecastInfo myForecastInfo = null;
-			Log.d("TheWearDebug", "\'Location Preferences\' clicked");
-			try {
-				myForecastInfo = myForecasterObject.get();
-			} catch (InterruptedException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "InterruptedException");
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "ExecutionException5");
-				e.printStackTrace();
-			}
-			// Catch an empty myForecastInfo
-			RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
-			myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
-					myForecastInfo, this);
-			myRegionPreferencesFragment.show(getFragmentManager(),
-					"Preferences");
-		} else {
-			// Catch an empty myForecastInfo and show dialog
-			Log.d("TheWearAndroid", "myForecastObject == null");
-			RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
-			myRegionPreferencesFragment.passApplicationContext(this);
-			myRegionPreferencesFragment.show(getFragmentManager(),
 					"Preferences");
 		}
 	}

@@ -242,7 +242,7 @@ public class MainActivity extends Activity {
 			// Set Location in the location field
 			EditText locationField = (EditText) findViewById(R.id.editText1);
 			locationField.setText(startLocation);
-			
+
 			// Dialog to ask user if they want to (re)download the forecast
 			// information. (Additional use: delay downloading the forecast so
 			// the App loads faster)
@@ -330,7 +330,7 @@ public class MainActivity extends Activity {
 	 */
 
 	public boolean goToLocationPreference(MenuItem menu) {
-		showLocationPreference();
+		// TODO add locations history thingy
 		return true;
 	}
 
@@ -467,7 +467,7 @@ public class MainActivity extends Activity {
 
 	public void showMenuItem2() {
 		myMenuFragment.dismiss();
-		showLocationPreference();
+		// TODO add locations history thingy
 	}
 
 	/**
@@ -530,6 +530,7 @@ public class MainActivity extends Activity {
 				if (dataset != null) {
 					Log.d("TheWearDebug", "Weather information available");
 
+					// Make the detailed forecast information string
 					DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
 							dataset);
 					SharedPreferences sharedPref = getSharedPreferences(
@@ -538,6 +539,7 @@ public class MainActivity extends Activity {
 					String detailedInformation = myDetailedForecastInformationManager
 							.getString(sharedPref, getResources());
 
+					// Make dialog that shows the detailed forecast information
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					builder.setMessage(detailedInformation).setTitle(
 							R.string.forecastInfo_title);
@@ -545,7 +547,7 @@ public class MainActivity extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									// User clicked OK button
+									// User clicked Close button
 								}
 							});
 					// Get the AlertDialog from create()
@@ -625,6 +627,26 @@ public class MainActivity extends Activity {
 	}
 
 	/**
+	 * showRegionPreferenceInfo(View v) shows a dialog displaying information
+	 * about the region preference
+	 */
+
+	public void showRegionPreferenceInfo(View v) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.regionPreferenceInformation).setTitle(
+				R.string.regionPreferenceInformationTitle);
+		builder.setPositiveButton(R.string.dialogButtonClose,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User clicked Close button
+					}
+				});
+		// Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+
+	/**
 	 * showForecastPreferences() shows the preferences menu (the
 	 * ForecastPreferencesFragment) when called.
 	 * 
@@ -665,48 +687,6 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * showLocationPreferences() shows the region preference menu (the
-	 * RegionPreferencesFragment) when called.
-	 * 
-	 * This method tries to retrieve the dataset of the last forecast, and
-	 * passes it to the setter method of the ForecastPreferencesFragment(),
-	 * together with the ImageViews that should be changed, and the
-	 * applicationContext.
-	 */
-
-	public void showLocationPreference() {
-		// Show the Preferences Window
-		if (myForecasterObject != null) {
-			ForecastInfo myForecastInfo = null;
-			Log.d("TheWearDebug", "\'Location Preferences\' clicked");
-			try {
-				myForecastInfo = myForecasterObject.get();
-			} catch (InterruptedException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "InterruptedException");
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "ExecutionException5");
-				e.printStackTrace();
-			}
-			// Catch an empty myForecastInfo
-			RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
-			myRegionPreferencesFragment.passNecessaryInformation(myImageViews,
-					myForecastInfo, this);
-			myRegionPreferencesFragment.show(getFragmentManager(),
-					"Preferences");
-		} else {
-			// Catch an empty myForecastInfo and show dialog
-			Log.d("TheWearAndroid", "myForecastObject == null");
-			RegionPreferencesFragment myRegionPreferencesFragment = new RegionPreferencesFragment();
-			myRegionPreferencesFragment.passApplicationContext(this);
-			myRegionPreferencesFragment.show(getFragmentManager(),
-					"Preferences");
-		}
-	}
-
-	/**
 	 * showSettings() shows the settings menu (the SettingsFragment) when
 	 * called.
 	 */
@@ -715,7 +695,7 @@ public class MainActivity extends Activity {
 		Log.d("TheWearDebug", "Settings");
 		SettingsFragment mySettingsFragment = new SettingsFragment();
 		mySettingsFragment.passNecessaryInformation(myForecastTimeStruct,
-				titleTextView, mViewPager);
+				titleTextView, mViewPager, this);
 		mySettingsFragment.show(getFragmentManager(), "Settings");
 	}
 

@@ -11,5 +11,8 @@
     <dimen name="padding_bottom_large">8dp</dimen>
     <dimen name="titleBaselineOffset">150dp</dimen>
     <dimen name="PreferencesNumberEditTextWidth">48dp</dimen>
+    <dimen name="settingsDialogMargin">8dp</dimen>
+    <dimen name="settingsDialogMainMargin">10dp</dimen>
+    <dimen name="settingsDialogHorizontalSpacer">64dp</dimen>
 
 </resources>

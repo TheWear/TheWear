@@ -3,12 +3,12 @@
 	together display a dialog in which the user can chose their preferred settings.
 	This file contains the basic layout of the dialog.
 -->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/settingsDialogMainMargin"
     android:gravity="center_horizontal"
+    android:layout_centerInParent="true"
     android:orientation="vertical" >
 
     <ProgressBar
@@ -63,8 +63,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -94,8 +94,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
-        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -116,5 +116,67 @@
             android:layout_height="wrap_content"
             android:text="@string/setting3RadioButton3" />
     </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/autoRegionToggleLineairLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting3RadioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/autoRegionToggleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/autoRegionToggleTextViewText"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ToggleButton
+            android:id="@+id/autoRegionToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/settingsDialogMainMargin"
+            android:textOff="@string/off"
+            android:textOn="@string/on" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/RegionTextViewLineairLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autoRegionToggleLineairLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/RegionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/regionTextViewText"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageButton
+            android:id="@+id/RegionInfoImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/settingsDialogHorizontalSpacer"
+            android:contentDescription="@string/regionInfoButtonDescription"
+            android:onClick="showRegionPreferenceInfo"
+            android:src="@drawable/action_help" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RegionTextViewLineairLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
+        android:spinnerMode="dialog" />
 
 </RelativeLayout>

@@ -350,16 +350,19 @@ public class SettingsFragment extends DialogFragment {
 						// Change the time title
 						int[] forecastTimeHour = forecastTimeStruct.forecastTimeHour;
 						int[] forecastTimeMinute = forecastTimeStruct.forecastTimeMinute;
-						String[] titleString = TimeHandler
-								.constructTitleStrings(forecastTimeHour,
-										forecastTimeMinute,
-										timeNotationPreference, res);
-						forecastTimeStruct.setForecastTimeString(titleString);
-						// Set the new time title
-						int tab = mViewPager.getCurrentItem();
-						titleTextView
-								.setText(forecastTimeStruct.forecastTimeString[tab]);
-						Log.d("TheWearDebug", "Changed time title");
+						if (forecastTimeHour[0] != -1) {
+							String[] titleString = TimeHandler
+									.constructTitleStrings(forecastTimeHour,
+											forecastTimeMinute,
+											timeNotationPreference, res);
+							forecastTimeStruct
+									.setForecastTimeString(titleString);
+							// Set the new time title
+							int tab = mViewPager.getCurrentItem();
+							titleTextView
+									.setText(forecastTimeStruct.forecastTimeString[tab]);
+							Log.d("TheWearDebug", "Changed time title");
+						}
 					}
 				})
 				.setNeutralButton(R.string.neutral_button,

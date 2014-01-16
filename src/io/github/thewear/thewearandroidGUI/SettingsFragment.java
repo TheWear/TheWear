@@ -15,9 +15,13 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class SettingsFragment extends DialogFragment {
@@ -29,10 +33,8 @@ public class SettingsFragment extends DialogFragment {
 	 * 
 	 * The preferred settings are stored in SharedPreferences.
 	 * 
-	 * Current Available Settings:
-	 * Time notation;
-	 * Temperature notation;
-	 * Wind speed notation.
+	 * Current Available Settings: Time notation; Temperature notation; Wind
+	 * speed notation, Automatic region detection, Region preference.
 	 */
 
 	private ProgressBar myProgressBar;
@@ -49,6 +51,14 @@ public class SettingsFragment extends DialogFragment {
 	private int defaultWindSpeedNotation;
 	private int windSpeedNotationPreference;
 	private RadioGroup setting3RadioGroup;
+	private String defaultRegion;
+	private String regionPreference;
+	private String[] ccTLDCodes;
+	private Spinner spinner;
+	private Context applicationContext;
+	private boolean autoRegionDetectionPreference;
+	private boolean defaultAutoRegionDetection;
+	private CompoundButton toggleButton;
 
 	/**
 	 * onCreateDialog executes all the code we want to have executed when the
@@ -78,6 +88,12 @@ public class SettingsFragment extends DialogFragment {
 	 * 
 	 * Wind speed notation: the user can choose between a wind speed notation as
 	 * m/s, Beaufort or Knots.
+	 * 
+	 * automatic Region Detection: The user can choose to use automatic Region
+	 * Detection
+	 * 
+	 * Region Preference: The user can choose their preferred region to use as
+	 * forecast reference point.
 	 */
 
 	@Override
@@ -101,7 +117,8 @@ public class SettingsFragment extends DialogFragment {
 		defaultTimeNotation = res.getInteger(R.integer.defaultTimeNotation);
 		defaultTemperatureNotation = res
 				.getInteger(R.integer.defaultTemperatureNotation);
-		defaultWindSpeedNotation = res.getInteger(R.integer.defaultWindSpeedNotation);
+		defaultWindSpeedNotation = res
+				.getInteger(R.integer.defaultWindSpeedNotation);
 
 		// Get preference
 		sharedPref = getActivity().getSharedPreferences(
@@ -171,6 +188,92 @@ public class SettingsFragment extends DialogFragment {
 			Log.e("TheWearDebug", "No such time notation preference");
 		}
 
+		// Region Preference
+
+		// Auto Region Detection
+
+		// Get default autoRegionDetection
+		defaultAutoRegionDetection = res
+				.getBoolean(R.bool.defaultAutoRegionDetection);
+		// Read the autoRegionDetection value from SharedPreferences
+		autoRegionDetectionPreference = sharedPref.getBoolean(
+				res.getString(R.string.autoRegionDetection_preference),
+				defaultAutoRegionDetection);
+
+		// Set CompoundButton state according to autoRegionDetection preference
+		// CompoundButton can be a Switch or a ToggleButton
+		toggleButton = (CompoundButton) dialogView
+				.findViewById(R.id.autoRegionToggle);
+		toggleButton.setChecked(autoRegionDetectionPreference);
+
+		// Set OnClickListener for autoRegionDetection
+		toggleButton
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							autoRegionDetectionPreference = true;
+						} else {
+							autoRegionDetectionPreference = false;
+						}
+					}
+				});
+
+		// Region List
+
+		// Get default Region Preference
+		defaultRegion = getString(R.string.default_region);
+
+		// Read the region preference from Shared Preferences
+		regionPreference = sharedPref.getString(
+				getString(R.string.region_preference), defaultRegion);
+
+		// Set Spinner
+		spinner = (Spinner) dialogView.findViewById(R.id.spinner1);
+		// Create an ArrayAdapter using the string array and a default spinner
+		// layout
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				applicationContext, R.array.ccTLDCountries,
+				android.R.layout.simple_spinner_item);
+		// Specify the layout to use when the list of choices appears
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		spinner.setAdapter(adapter);
+
+		// set the preferred item in the spinner
+		ccTLDCodes = res.getStringArray(R.array.ccTLDCodes);
+		int preferencePosition = -1;
+		for (int i = 0; i < ccTLDCodes.length; i++) {
+			int equalLocationPreference = ccTLDCodes[i].trim().compareTo(
+					regionPreference.trim());
+			if (equalLocationPreference == 0) {
+				preferencePosition = i;
+				break;
+			}
+		}
+		if (preferencePosition == -1) {
+			Log.e("TheWearDebug", "No PreferencePosition");
+		} else {
+			spinner.setSelection(preferencePosition);
+		}
+
+		// Set listener for the Spinner
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v,
+					int position, long id) {
+				regionPreference = ccTLDCodes[parent.getSelectedItemPosition()];
+				Log.d("TheWearDebug", "regionPreference clicked: "
+						+ regionPreference);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Nothing Happens
+			}
+		});
+
 		builder.setPositiveButton(R.string.positive_button,
 				new DialogInterface.OnClickListener() {
 
@@ -236,6 +339,11 @@ public class SettingsFragment extends DialogFragment {
 						editor.putInt(
 								getString(R.string.windspeed_notation_preference),
 								windSpeedNotationPreference);
+						editor.putString(getString(R.string.region_preference),
+								regionPreference);
+						editor.putBoolean(
+								getString(R.string.autoRegionDetection_preference),
+								autoRegionDetectionPreference);
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
 
@@ -342,8 +450,33 @@ public class SettingsFragment extends DialogFragment {
 						Log.e("TheWearDebug",
 								"No such time notation preference");
 					}
-
 					Log.d("TheWearDebug", "Settings preferences set to default");
+
+					// Set automatic region detection to default
+					autoRegionDetectionPreference = defaultAutoRegionDetection;
+					toggleButton.setChecked(autoRegionDetectionPreference);
+
+					// Set region preference to default
+					regionPreference = defaultRegion;
+					// set the preferred region in the spinner
+					Resources res = getResources();
+					ccTLDCodes = res.getStringArray(R.array.ccTLDCodes);
+					int preferencePosition = -1;
+					for (int i = 0; i < ccTLDCodes.length; i++) {
+						int equalLocationPreference = ccTLDCodes[i].trim()
+								.compareTo(regionPreference.trim());
+						if (equalLocationPreference == 0) {
+							preferencePosition = i;
+							break;
+						}
+					}
+					if (preferencePosition == -1) {
+						Log.e("TheWearDebug", "No PreferencePosition");
+					} else {
+						spinner.setSelection(preferencePosition);
+					}
+
+					Log.d("TheWearDebug", "Region preference set to default");
 				}
 			});
 		} else {
@@ -355,13 +488,15 @@ public class SettingsFragment extends DialogFragment {
 	 * passNecessaryInformation() is used to set the necessary parameters.
 	 * 
 	 * Input: ForecastTimeStruct forecastTimeStruct, TextView titleTextView,
-	 * ViewPager mViewPager
+	 * ViewPager mViewPager, Context applicationContext
 	 */
 
 	public void passNecessaryInformation(ForecastTimeStruct forecastTimeStruct,
-			TextView titleTextView, ViewPager mViewPager) {
+			TextView titleTextView, ViewPager mViewPager,
+			Context applicationContext) {
 		this.forecastTimeStruct = forecastTimeStruct;
 		this.titleTextView = titleTextView;
 		this.mViewPager = mViewPager;
+		this.applicationContext = applicationContext;
 	}
 }

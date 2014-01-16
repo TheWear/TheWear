@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- If you have a string that should be translated, please add these to corresponding translated files!
-    All files that don't have to be translated should only be added to this file. -->
+    <!--
+    If you have a string that should be translated, please add these to corresponding translated files!
+    All files that don't have to be translated should only be added to this file.
+    -->
 
     <string name="testVersion">v0.001</string>
     <string name="app_name">TheWear</string>
@@ -24,7 +26,8 @@
     <string name="preference_dialog_Title">Weather Preferences</string>
     <string name="preference1_imageView_descr">Temperature Preference</string>
     <string name="preference1">Cold Threshold</string>
-    <string name="preference1_defaultValue">7</string> <!-- 6.688 -->
+    <string name="preference1_defaultValue">7</string>
+    <!-- 6.688 -->
     <string name="preference1_Unit">°C</string>
     <string name="preference2_imageView_descr">Wind strength Preference</string>
     <string name="preference2">Wind Threshold</string>
@@ -81,6 +84,13 @@
     <string name="noServerConnection">Cannot connect to TheWear server</string>
     <string name="connectionError">An unknown error occurred while retrieving the forecast from TheWear server</string>
     <string name="locationUnknown">Location unknown. Please enter a new location</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="autoRegionToggleTextViewText">Automatic Region\nDetection</string>
+    <string name="regionInfoButtonDescription">CLick to for more information</string>
+    <string name="regionTextViewText">Region Preference:</string>
+    <string name="regionPreferenceInformationTitle">Region Preference</string>
+    <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
 
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>
@@ -88,28 +98,33 @@
         <item>Settings</item>
         <item>About TheWear</item>
     </string-array>
-
     <string-array name="mouseOverStringStrings">
-		<item>Temperature</item> <!-- TMP  -->
-		<item>Maximum Temperature</item> <!-- TMAX  -->
-		<item>Minimum Temperature</item> <!-- TMIN  -->
-		<item>Precipitation (mm/6hours)</item> <!-- APCP  -->
-		<item>Cloud cover:</item> <!-- TCDC  -->
-		<item>Windspeed</item> <!-- sqrt(UGRD^2+VGRD^2)  -->
-		<item>Snowdepth (cm)"</item> <!-- WEASD -->
-	</string-array>
-
+        <item>Temperature</item>
+        <!-- TMP -->
+        <item>Maximum Temperature</item>
+        <!-- TMAX -->
+        <item>Minimum Temperature</item>
+        <!-- TMIN -->
+        <item>Precipitation (mm/6hours)</item>
+        <!-- APCP -->
+        <item>Cloud cover:</item>
+        <!-- TCDC -->
+        <item>Windspeed</item>
+        <!-- sqrt(UGRD^2+VGRD^2) -->
+        <item>Snowdepth (cm)"</item>
+        <!-- WEASD -->
+    </string-array>
     <string-array name="weatherTypeStrings">
         <item>strange weather</item>
-		<item>light rain</item>
-		<item>heavy rain</item>
-		<item>snow</item>
-		<item>cold</item>
-		<item>cold and wind</item>
-		<item>slightly uninteresting weather</item>
-		<item>storm and rain</item>
-		<item>warm weather</item>
-		<item>light rain and warm weather</item>
+        <item>light rain</item>
+        <item>heavy rain</item>
+        <item>snow</item>
+        <item>cold</item>
+        <item>cold and wind</item>
+        <item>slightly uninteresting weather</item>
+        <item>storm and rain</item>
+        <item>warm weather</item>
+        <item>light rain and warm weather</item>
     </string-array>
 
     <string name="sunGlassesPathname">sunglasses_2</string>
@@ -147,7 +162,6 @@
         <item>am</item>
         <item>aw</item>
         <item>ac</item>
-        <item>asia</item>
         <item>au</item>
         <item>at</item>
         <item>az</item>
@@ -200,7 +214,6 @@
         <item>do</item>
         <item>dd</item>
         <item>tl</item>
-        <item>tp</item>
         <item>ec</item>
         <item>eg</item>
         <item>sv</item>
@@ -290,8 +303,8 @@
         <item>na</item>
         <item>nr</item>
         <item>np</item>
-        <item>an</item>
         <item>nl</item>
+        <item>an</item>
         <item>nc</item>
         <item>nz</item>
         <item>ni</item>
@@ -304,7 +317,6 @@
         <item>om</item>
         <item>pk</item>
         <item>pw</item>
-        <item>ps</item>
         <item>pa</item>
         <item>pg</item>
         <item>py</item>
@@ -386,8 +398,10 @@
         <item>eh</item>
         <item>ye</item>
         <item>zm</item>
+        <item>ps</item>
         <item>zw</item>
     </string-array>
+
     <string-array name="ccTLDCountries">
         <item>International</item>
         <item>Afghanistan</item>
@@ -404,7 +418,6 @@
         <item>Armenia</item>
         <item>Aruba</item>
         <item>Ascension Island</item>
-        <item>Asia</item>
         <item>Australia</item>
         <item>Austria</item>
         <item>Azerbaijan</item>
@@ -456,7 +469,6 @@
         <item>Dominica</item>
         <item>Dominican Republic</item>
         <item>East Germany</item>
-        <item>East Timor</item>
         <item>East Timor</item>
         <item>Ecuador</item>
         <item>Egypt</item>
@@ -547,8 +559,8 @@
         <item>Namibia</item>
         <item>Nauru</item>
         <item>Nepal</item>
-        <item>Netherlands Antilles</item>
         <item>Netherlands</item>
+        <item>Netherlands Antilles</item>
         <item>New Caledonia</item>
         <item>New Zealand</item>
         <item>Nicaragua</item>
@@ -561,7 +573,6 @@
         <item>Oman</item>
         <item>Pakistan</item>
         <item>Palau</item>
-        <item>Palestine</item>
         <item>Panama</item>
         <item>Papua New Guinea</item>
         <item>Paraguay</item>
@@ -643,6 +654,7 @@
         <item>Western Sahara</item>
         <item>Yemen</item>
         <item>Zambia</item>
+        <item>Palestine</item>
         <item>Zimbabwe</item>
     </string-array>
 

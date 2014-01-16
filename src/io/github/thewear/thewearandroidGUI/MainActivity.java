@@ -242,7 +242,7 @@ public class MainActivity extends Activity {
 			// Set Location in the location field
 			EditText locationField = (EditText) findViewById(R.id.editText1);
 			locationField.setText(startLocation);
-			
+
 			// Dialog to ask user if they want to (re)download the forecast
 			// information. (Additional use: delay downloading the forecast so
 			// the App loads faster)
@@ -530,6 +530,7 @@ public class MainActivity extends Activity {
 				if (dataset != null) {
 					Log.d("TheWearDebug", "Weather information available");
 
+					// Make the detailed forecast information string
 					DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
 							dataset);
 					SharedPreferences sharedPref = getSharedPreferences(
@@ -538,6 +539,7 @@ public class MainActivity extends Activity {
 					String detailedInformation = myDetailedForecastInformationManager
 							.getString(sharedPref, getResources());
 
+					// Make dialog that shows the detailed forecast information
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					builder.setMessage(detailedInformation).setTitle(
 							R.string.forecastInfo_title);
@@ -545,7 +547,7 @@ public class MainActivity extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-									// User clicked OK button
+									// User clicked Close button
 								}
 							});
 					// Get the AlertDialog from create()
@@ -622,6 +624,25 @@ public class MainActivity extends Activity {
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public void showRegionPreferenceInfo(View v) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.regionPreferenceInformation).setTitle(
+				R.string.regionPreferenceInformationTitle);
+		builder.setPositiveButton(R.string.dialogButtonClose,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User clicked Close button
+					}
+				});
+		// Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	/**
@@ -715,7 +736,7 @@ public class MainActivity extends Activity {
 		Log.d("TheWearDebug", "Settings");
 		SettingsFragment mySettingsFragment = new SettingsFragment();
 		mySettingsFragment.passNecessaryInformation(myForecastTimeStruct,
-				titleTextView, mViewPager);
+				titleTextView, mViewPager, this);
 		mySettingsFragment.show(getFragmentManager(), "Settings");
 	}
 

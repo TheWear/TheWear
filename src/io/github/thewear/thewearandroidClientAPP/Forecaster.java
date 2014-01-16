@@ -150,7 +150,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				Context.MODE_PRIVATE);
 		String regionPreference;
 		// Get default autoRegionDetection
-		Boolean defaultAutoRegionDetection = res
+		boolean defaultAutoRegionDetection = res
 				.getBoolean(R.bool.defaultAutoRegionDetection);
 		// Read the autoRegionDetection value from SharedPreferences
 		boolean autoRegionDetection = sharedPref.getBoolean(

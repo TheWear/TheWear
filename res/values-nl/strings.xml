@@ -3,6 +3,7 @@
 
     <!-- DON'T FORGET TO ADD ALL STRINGS TO THE DEFAULT RESOURCES!!! -->
 
+
     <!--
     This file is for dutch strings only. All strings added to this file have to be added to the
     default strings file in the values directory. strings that don't have to be translated should only
@@ -60,7 +61,7 @@
     <string name="noForecastDetailedInfo">Geen gedetailleerd weerbericht beschikbaar.</string>
     <string name="firstTimeStartupMessage">Gelieve een locatie in te voeren en op play te drukkken voor het weerbericht.</string>
     <string name="now">nu</string>
-	<string name="am">am</string>
+    <string name="am">am</string>
     <string name="pm">pm</string>
     <string name="hour">h</string>
     <string name="forecastProgressDialogTitle">Ophalen weerbericht</string>
@@ -68,6 +69,13 @@
     <string name="noServerConnection">Kan geen verbinding maken met de server van TheWear</string>
     <string name="connectionError">Er is een onbekende fout opgetreden tijdens het ophalen van het weerbericht van de server van TheWear</string>
     <string name="locationUnknown">Onbekende locatie. Gelieve een nieuwe locatie in te voeren.</string>
+    <string name="on">Aan</string>
+    <string name="off">Uit</string>
+    <string name="autoRegionToggleTextViewText">Automatische regio\ndetectie</string>
+    <string name="regionInfoButtonDescription">Klik voor meer informatie</string>
+    <string name="regionTextViewText">RegioVoorkeur:</string>
+    <string name="regionPreferenceInformationTitle">Regiovoorkeur</string>
+    <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
 
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>
@@ -75,32 +83,287 @@
         <item>Instellingen</item>
         <item>Over TheWear</item>
     </string-array>
-
     <string-array name="mouseOverStringStrings">
-		<item>Temperatuur</item> <!-- TMP  -->
-		<item>Maximumtemperatuur</item> <!-- TMAX  -->
-		<item>Minimumtemperatuur</item> <!-- TMIN  -->
-		<item>Neerslag (mm/6uur)</item> <!-- APCP  -->
-		<item>Bedekkingsgraad</item> <!-- TCDC  -->
-		<item>Windsnelheid</item> <!-- sqrt(UGRD^2+VGRD^2)  -->
-		<item>Sneeuwdikte (cm)"</item> <!-- WEASD -->
-	</string-array>
-
+        <item>Temperatuur</item> <!-- TMP -->
+        <item>Maximumtemperatuur</item> <!-- TMAX -->
+        <item>Minimumtemperatuur</item> <!-- TMIN -->
+        <item>Neerslag (mm/6uur)</item> <!-- APCP -->
+        <item>Bedekkingsgraad</item> <!-- TCDC -->
+        <item>Windsnelheid</item> <!-- sqrt(UGRD^2+VGRD^2) -->
+        <item>Sneeuwdikte (cm)"</item> <!-- WEASD -->
+    </string-array>
     <string-array name="weatherTypeStrings">
         <item>Raar weer</item>
-		<item>Lichte regen</item>
-		<item>Harde regen</item>
-		<item>Sneew</item>
-		<item>Koud weer</item>
-		<item>Koud en wind</item>
-		<item>Licht oninteressant weer</item>
-		<item>Storm en regen</item>
-		<item>Warm weer</item>
-		<item>Lichte regen en warm weer</item>
+        <item>Lichte regen</item>
+        <item>Harde regen</item>
+        <item>Sneew</item>
+        <item>Koud weer</item>
+        <item>Koud en wind</item>
+        <item>Licht oninteressant weer</item>
+        <item>Storm en regen</item>
+        <item>Warm weer</item>
+        <item>Lichte regen en warm weer</item>
     </string-array>
 
     <!-- This list is also posted on our drive, related to the countries -->
+    <string-array name="ccTLDCodes">
+        <item>com</item>
+        <item>af</item>
+        <item>ax</item>
+        <item>al</item>
+        <item>dz</item>
+        <item>as</item>
+        <item>ad</item>
+        <item>ao</item>
+        <item>ai</item>
+        <item>aq</item>
+        <item>ag</item>
+        <item>ar</item>
+        <item>am</item>
+        <item>aw</item>
+        <item>ac</item>
+        <item>au</item>
+        <item>az</item>
+        <item>bs</item>
+        <item>bh</item>
+        <item>bd</item>
+        <item>bb</item>
+        <item>be</item>
+        <item>bz</item>
+        <item>bj</item>
+        <item>bm</item>
+        <item>bt</item>
+        <item>bi</item>
+        <item>bo</item>
+        <item>ba</item>
+        <item>bw</item>
+        <item>bv</item>
+        <item>br</item>
+        <item>io</item>
+        <item>vg</item>
+        <item>bn</item>
+        <item>bg</item>
+        <item>bf</item>
+        <item>kh</item>
+        <item>ca</item>
+        <item>cv</item>
+        <item>ky</item>
+        <item>cf</item>
+        <item>cl</item>
+        <item>cx</item>
+        <item>cc</item>
+        <item>co</item>
+        <item>km</item>
+        <item>ck</item>
+        <item>cr</item>
+        <item>cu</item>
+        <item>cy</item>
+        <item>cd</item>
+        <item>kp</item>
+        <item>dk</item>
+        <item>dj</item>
+        <item>dm</item>
+        <item>do</item>
+        <item>de</item>
+        <item>ec</item>
+        <item>eg</item>
+        <item>sv</item>
+        <item>gq</item>
+        <item>er</item>
+        <item>ee</item>
+        <item>et</item>
+        <item>eu</item>
+        <item>fo</item>
+        <item>fk</item>
+        <item>fm</item>
+        <item>fj</item>
+        <item>ph</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>tf</item>
+        <item>gf</item>
+        <item>pf</item>
+        <item>ga</item>
+        <item>gm</item>
+        <item>ge</item>
+        <item>gh</item>
+        <item>gi</item>
+        <item>gd</item>
+        <item>gr</item>
+        <item>gl</item>
+        <item>gp</item>
+        <item>gu</item>
+        <item>gt</item>
+        <item>gg</item>
+        <item>gn</item>
+        <item>gw</item>
+        <item>gy</item>
+        <item>ht</item>
+        <item>hm</item>
+        <item>hn</item>
+        <item>hk</item>
+        <item>hu</item>
+        <item>ie</item>
+        <item>is</item>
+        <item>in</item>
+        <item>id</item>
+        <item>iq</item>
+        <item>ir</item>
+        <item>il</item>
+        <item>it</item>
+        <item>ci</item>
+        <item>jm</item>
+        <item>jp</item>
+        <item>ye</item>
+        <item>je</item>
+        <item>jo</item>
+        <item>cm</item>
+        <item>qa</item>
+        <item>kz</item>
+        <item>ke</item>
+        <item>kg</item>
+        <item>ki</item>
+        <item>kw</item>
+        <item>hr</item>
+        <item>la</item>
+        <item>ls</item>
+        <item>lv</item>
+        <item>lb</item>
+        <item>lr</item>
+        <item>ly</item>
+        <item>li</item>
+        <item>lt</item>
+        <item>lu</item>
+        <item>mo</item>
+        <item>mk</item>
+        <item>mg</item>
+        <item>mw</item>
+        <item>mv</item>
+        <item>my</item>
+        <item>ml</item>
+        <item>mt</item>
+        <item>im</item>
+        <item>ma</item>
+        <item>mh</item>
+        <item>mq</item>
+        <item>mr</item>
+        <item>mu</item>
+        <item>yt</item>
+        <item>mx</item>
+        <item>md</item>
+        <item>mc</item>
+        <item>mn</item>
+        <item>me</item>
+        <item>ms</item>
+        <item>mz</item>
+        <item>mm</item>
+        <item>na</item>
+        <item>nr</item>
+        <item>nl</item>
+        <item>an</item>
+        <item>np</item>
+        <item>ni</item>
+        <item>nc</item>
+        <item>nz</item>
+        <item>ne</item>
+        <item>ng</item>
+        <item>nu</item>
+        <item>mp</item>
+        <item>no</item>
+        <item>nf</item>
+        <item>ug</item>
+        <item>ua</item>
+        <item>uz</item>
+        <item>om</item>
+        <item>dd</item>
+        <item>at</item>
+        <item>tl</item>
+        <item>pk</item>
+        <item>pw</item>
+        <item>ps</item>
+        <item>pa</item>
+        <item>pg</item>
+        <item>py</item>
+        <item>pe</item>
+        <item>pn</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>pr</item>
+        <item>cg</item>
+        <item>kr</item>
+        <item>re</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>rw</item>
+        <item>kn</item>
+        <item>lc</item>
+        <item>vc</item>
+        <item>pm</item>
+        <item>ws</item>
+        <item>sm</item>
+        <item>st</item>
+        <item>sa</item>
+        <item>sn</item>
+        <item>rs</item>
+        <item>sc</item>
+        <item>yu</item>
+        <item>sl</item>
+        <item>sg</item>
+        <item>sx</item>
+        <item>sh</item>
+        <item>si</item>
+        <item>sk</item>
+        <item>sd</item>
+        <item>sb</item>
+        <item>so</item>
+        <item>su</item>
+        <item>es</item>
+        <item>lk</item>
+        <item>sr</item>
+        <item>sj</item>
+        <item>sz</item>
+        <item>sy</item>
+        <item>tj</item>
+        <item>tw</item>
+        <item>tz</item>
+        <item>th</item>
+        <item>tg</item>
+        <item>tk</item>
+        <item>to</item>
+        <item>tt</item>
+        <item>td</item>
+        <item>cz</item>
+        <item>cs</item>
+        <item>tn</item>
+        <item>tr</item>
+        <item>tm</item>
+        <item>tc</item>
+        <item>tv</item>
+        <item>uy</item>
+        <item>vu</item>
+        <item>va</item>
+        <item>ve</item>
+        <item>gb</item>
+        <item>uk</item>
+        <item>ae</item>
+        <item>us</item>
+        <item>vi</item>
+        <item>vn</item>
+        <item>cn</item>
+        <item>wf</item>
+        <item>eh</item>
+        <item>by</item>
+        <item>zm</item>
+        <item>zw</item>
+        <item>za</item>
+        <item>gs</item>
+        <item>ss</item>
+        <item>se</item>
+        <item>ch</item>
+    </string-array>
+
     <string-array name="ccTLDCountries">
+        <item>Internationaal</item>
         <item>Afghanistan</item>
         <item>Åland</item>
         <item>Albanië</item>
@@ -116,18 +379,17 @@
         <item>Aruba</item>
         <item>Ascension</item>
         <item>Australië</item>
-        <item>Oostenrijk</item>
         <item>Azerbeidzjan</item>
         <item>Bahamas</item>
         <item>Bahrein</item>
         <item>Bangladesh</item>
         <item>Barbados</item>
-        <item>Wit-Rusland</item>
         <item>België</item>
         <item>Belize</item>
         <item>Benin</item>
         <item>Bermuda</item>
         <item>Bhutan</item>
+        <item>Boeroendi</item>
         <item>Bolivia</item>
         <item>Bosnië en Herzegovina</item>
         <item>Botswana</item>
@@ -138,95 +400,91 @@
         <item>Brunei</item>
         <item>bulgarije</item>
         <item>Burkina Faso</item>
-        <item>Boeroendi</item>
         <item>Cambodja</item>
-        <item>Kameroen</item>
         <item>Canada</item>
         <item>Cape Verde</item>
         <item>Cayman Islands</item>
         <item>Centraal-Afrikaanse Republiek</item>
-        <item>Tsjaad</item>
         <item>Chili</item>
         <item>Christmas Island</item>
-        <item>Cocos (Keeling )</item>
+        <item>Cocos (Keeling)</item>
         <item>Colombia</item>
         <item>Comoren</item>
-        <item>Cook eilanden</item>
+        <item>Cook Eilanden</item>
         <item>Costa Rica</item>
-        <item>Ivoorkust</item>
-        <item>Kroatië</item>
         <item>Cuba</item>
         <item>Cyprus</item>
-        <item>Tsjechische Republiek</item>
-        <item>Tsjecho-Slowakije</item>
-        <item>Democratische Volksrepubliek Korea</item>
         <item>Democratische Republiek Congo</item>
+        <item>Democratische Volksrepubliek Korea</item>
         <item>Denemarken</item>
         <item>Djibouti</item>
         <item>Dominica</item>
         <item>Dominicaanse Republiek</item>
-        <item>Oost-Duitsland</item>
-        <item>Oost- Timor</item>
-        <item>Oost- Timor</item>
+        <item>Duitsland</item>
         <item>Ecuador</item>
         <item>Egypte</item>
         <item>El Salvador</item>
-        <item>Equatoriaal- Guinea</item>
+        <item>Equatoriaal-Guinea</item>
         <item>Eritrea</item>
         <item>Estland</item>
         <item>Ethiopië</item>
         <item>Europese Unie</item>
-        <item>Falkland eilanden</item>
         <item>Faeröer</item>
+        <item>Falkland eilanden</item>
         <item>Federale Staten van Micronesia</item>
         <item>Fiji</item>
+        <item>Filippijnen</item>
         <item>Finland</item>
         <item>Frankrijk</item>
-        <item>Frans -Guyana</item>
-        <item>Frans -Polynesië</item>
         <item>Franse Zuidelijke en Antarctische gebieden</item>
+        <item>Frans-Guyana</item>
+        <item>Frans-Polynesië</item>
         <item>Gabon</item>
+        <item>Gambia</item>
         <item>Georgië</item>
-        <item>Duitsland</item>
         <item>Ghana</item>
         <item>Gibraltar</item>
+        <item>Grenada</item>
         <item>Griekenland</item>
         <item>Groenland</item>
-        <item>Grenada</item>
         <item>Guadeloupe</item>
         <item>Guam</item>
         <item>Guatemala</item>
         <item>Guernsey</item>
         <item>Guinea</item>
-        <item>Guinee - Bissau</item>
+        <item>Guinee-Bissau</item>
         <item>Guyana</item>
         <item>Haïti</item>
-        <item>Heard en McDonald eilanden</item>
+        <item>Heard en McDonald Eilanden</item>
         <item>Honduras</item>
         <item>Hong Kong</item>
         <item>Hongarije</item>
+        <item>Ierland</item>
         <item>IJsland</item>
         <item>Indië</item>
         <item>Indonesië</item>
-        <item>Iran</item>
         <item>Irak</item>
-        <item>Ierland</item>
-        <item>Isle of Man</item>
+        <item>Iran</item>
         <item>Israël</item>
         <item>Italië</item>
+        <item>Ivoorkust</item>
         <item>Jamaica</item>
         <item>Japan</item>
+        <item>Jemen</item>
         <item>Jersey</item>
         <item>Jordanië</item>
+        <item>Kameroen</item>
+        <item>Katar</item>
         <item>Kazachstan</item>
         <item>Kenia</item>
+        <item>Kirgizië</item>
         <item>Kiribati</item>
         <item>Koeweit</item>
-        <item>Kirgizië</item>
+        <item>Kroatië</item>
         <item>Laos</item>
+        <item>Lesotho</item>
         <item>Letland</item>
         <item>Libanon</item>
-        <item>Lesotho</item>
         <item>Liberia</item>
         <item>Libië</item>
         <item>Liechtenstein</item>
@@ -236,10 +494,12 @@
         <item>Macedonië</item>
         <item>Madagascar</item>
         <item>Malawi</item>
-        <item>Maleisië</item>
         <item>Maldiven</item>
+        <item>Maleisië</item>
         <item>Mali</item>
         <item>Malta</item>
+        <item>Man Eiland</item>
+        <item>Marokko</item>
         <item>Marshall Eilanden</item>
         <item>Martinique</item>
         <item>Mauritanië</item>
@@ -251,48 +511,50 @@
         <item>Mongolië</item>
         <item>Montenegro</item>
         <item>Montserrat</item>
-        <item>Marokko</item>
         <item>Mozambique</item>
         <item>Myanmar</item>
         <item>Namibië</item>
         <item>Nauru</item>
-        <item>Nepal</item>
-        <item>Nederlandse Antillen</item>
         <item>Nederland</item>
+        <item>Nederlandse Antillen</item>
+        <item>Nepal</item>
+        <item>Nicaragua</item>
         <item>nieuw-Caledonië</item>
         <item>nieuw-Zeeland</item>
-        <item>Nicaragua</item>
         <item>Niger</item>
         <item>Nigeria</item>
         <item>Niue</item>
-        <item>Norfolk Island</item>
         <item>Noordelijke Marianen</item>
         <item>Noorwegen</item>
+        <item>Norfolk Island</item>
+        <item>Oeganda</item>
+        <item>Oekraïne</item>
+        <item>Oezbekistan</item>
         <item>Oman</item>
+        <item>Oost-Duitsland</item>
+        <item>Oostenrijk</item>
+        <item>Oost-Timor</item>
         <item>Pakistan</item>
         <item>Palau</item>
+        <item>Palestina</item>
         <item>Panama</item>
-        <item>Papoea-Nieuw- Guinea</item>
+        <item>Papoea-Nieuw-Guinea</item>
         <item>Paraguay</item>
-        <item>Republiek van het volk van China</item>
         <item>Peru</item>
-        <item>Filippijnen</item>
-        <item>Pitcairn Islands</item>
+        <item>Pitcairneilanden</item>
         <item>Polen</item>
         <item>Portugal</item>
         <item>Puerto Rico</item>
-        <item>Katar</item>
-        <item>Republiek Korea</item>
         <item>Republiek Congo</item>
+        <item>Republiek Korea</item>
         <item>reunion</item>
         <item>Roemenië</item>
         <item>Rusland</item>
         <item>Rwanda</item>
-        <item>Sint-Helena</item>
         <item>Saint Kitts en Nevis</item>
         <item>Saint Lucia</item>
         <item>Saint Vincent en de Grenadines</item>
-        <item>Saint - Pierre en Miquelon</item>
+        <item>Saint-Pierre en Miquelon</item>
         <item>Samoa</item>
         <item>San Marino</item>
         <item>São Tome en Príncipe</item>
@@ -304,56 +566,56 @@
         <item>Sierra Leone</item>
         <item>Singapore</item>
         <item>Sint Maarten</item>
-        <item>Slowakije</item>
+        <item>Sint-Helena</item>
         <item>Slovenië</item>
+        <item>Slowakije</item>
+        <item>Soedan</item>
         <item>Solomon Islands</item>
         <item>Somalië</item>
-        <item>Zuid -Afrika</item>
-        <item>Zuid-Georgië en de Zuidelijke Sandwicheilanden</item>
-        <item>Zuid-Soedan</item>
         <item>Sovjet Unie</item>
         <item>Spanje</item>
         <item>Sri Lanka</item>
-        <item>Palestina</item>
-        <item>Soedan</item>
         <item>Suriname</item>
         <item>Svalbard en Jan Mayen Eilanden</item>
         <item>Swaziland</item>
-        <item>Zweden</item>
-        <item>Zwitserland</item>
         <item>Syrië</item>
-        <item>Taiwan</item>
         <item>Tadzjikistan</item>
+        <item>Taiwan</item>
         <item>Tanzania</item>
         <item>Thailand</item>
-        <item>Gambia</item>
         <item>Togo</item>
         <item>Tokelau</item>
         <item>Tonga</item>
         <item>Trinidad en Tobago</item>
+        <item>Tsjaad</item>
+        <item>Tsjechische Republiek</item>
+        <item>Tsjecho-Slowakije</item>
         <item>Tunesië</item>
         <item>Turkije</item>
         <item>Turkmenistan</item>
         <item>Turks-en Caicoseilanden</item>
         <item>Tuvalu</item>
-        <item>Oeganda</item>
-        <item>Oekraïne</item>
-        <item>Verenigde Arabische Emiraten</item>
-        <item>Verenigd Koninkrijk</item>
-        <item>Verenigd Koninkrijk</item>
-        <item>Verenigde Staten van Amerika</item>
-        <item>Verenigde Staten Virgin Islands</item>
         <item>Uruguay</item>
-        <item>Oezbekistan</item>
         <item>Vanuatu</item>
         <item>Vaticaanstad</item>
         <item>Venezuela</item>
+        <item>Verenigd Koninkrijk</item>
+        <item>Verenigd Koninkrijk</item>
+        <item>Verenigde Arabische Emiraten</item>
+        <item>Verenigde Staten van Amerika</item>
+        <item>Verenigde Staten Virgin Islands</item>
         <item>Vietnam</item>
+        <item>Volksrepubliek China</item>
         <item>Wallis en Futuna</item>
         <item>Westelijke Sahara</item>
-        <item>Jemen</item>
+        <item>Wit-Rusland</item>
         <item>Zambia</item>
         <item>Zimbabwe</item>
+        <item>Zuid-Afrika</item>
+        <item>Zuid-Georgië en de Zuidelijke Sandwicheilanden</item>
+        <item>Zuid-Soedan</item>
+        <item>Zweden</item>
+        <item>Zwitserland</item>
     </string-array>
 
 </resources>

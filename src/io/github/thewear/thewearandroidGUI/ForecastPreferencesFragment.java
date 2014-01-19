@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import src.gui.thewearandroid.R;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -20,11 +19,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,7 +31,6 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 public class ForecastPreferencesFragment extends DialogFragment {
 
@@ -358,14 +356,15 @@ public class ForecastPreferencesFragment extends DialogFragment {
 
 					@Override
 					public void onStartTrackingTouch(SeekBar seekBar) {
-
+						// Auto-generated method stub
 					}
 
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
-
+						// Auto-generated method stub
 					}
 				});
+
 		// SeekBar Preference 2
 		preference2SeekBar
 				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -388,14 +387,15 @@ public class ForecastPreferencesFragment extends DialogFragment {
 
 					@Override
 					public void onStartTrackingTouch(SeekBar seekBar) {
-
+						// Auto-generated method stub
 					}
 
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
-
+						// Auto-generated method stub
 					}
 				});
+
 		// SeekBar Preference 3
 		preference3SeekBar
 				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -414,125 +414,137 @@ public class ForecastPreferencesFragment extends DialogFragment {
 
 					@Override
 					public void onStartTrackingTouch(SeekBar seekBar) {
-
+						// Auto-generated method stub
 					}
 
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
-
+						// Auto-generated method stub
 					}
 				});
 
-		preference1EditText
-				.setOnEditorActionListener(new OnEditorActionListener() {
+		// Listener for preference 1 EditText
+		preference1EditText.addTextChangedListener(new TextWatcher() {
 
-					@Override
-					public boolean onEditorAction(TextView editedTextView,
-							int actionId, KeyEvent keyEvent) {
-						boolean handled = false;
-						if (actionId == EditorInfo.IME_ACTION_SEND) {
-							String submittedPreference = editedTextView
-									.getText().toString();
-							int parsedIntPreference = Integer
-									.parseInt(submittedPreference);
-							// Correct too high and too low values
-							if (parsedIntPreference > preference1_max) {
-								parsedIntPreference = preference1_max;
-								String parsedStringPrefrence = parsedIntPreference
-										+ "";
-								editedTextView.setText(parsedStringPrefrence);
-							} else if (parsedIntPreference < preference1_min) {
-								parsedIntPreference = preference1_min;
-								String parsedStringPrefrence = parsedIntPreference
-										+ "";
-								editedTextView.setText(parsedStringPrefrence);
-							}
-							int adjustedparsedIntPreference = myPreference1Convertor
-									.NormalToAdjusted(parsedIntPreference);
-							preference1SeekBar
-									.setProgress(adjustedparsedIntPreference);
-
-							preference1Value = parsedIntPreference;
-
-							handled = true;
-						}
-						return handled;
+			@Override
+			public void afterTextChanged(Editable s) {
+				String submittedPreference = preference1EditText.getText()
+						.toString().trim();
+				if (!submittedPreference.equals("")) {
+					int parsedIntPreference = Integer
+							.parseInt(submittedPreference);
+					// Correct too high and too low values
+					if (parsedIntPreference > preference1_max) {
+						parsedIntPreference = preference1_max;
+						String parsedStringPrefrence = parsedIntPreference + "";
+						preference1EditText.setText(parsedStringPrefrence);
+					} else if (parsedIntPreference < preference1_min) {
+						parsedIntPreference = preference1_min;
+						String parsedStringPrefrence = parsedIntPreference + "";
+						preference1EditText.setText(parsedStringPrefrence);
 					}
-				});
+					int adjustedparsedIntPreference = myPreference1Convertor
+							.NormalToAdjusted(parsedIntPreference);
+					preference1SeekBar.setProgress(adjustedparsedIntPreference);
+					preference1Value = parsedIntPreference;
+				}
+			}
 
-		preference2EditText
-				.setOnEditorActionListener(new OnEditorActionListener() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// Auto-generated method stub
+			}
 
-					@Override
-					public boolean onEditorAction(TextView editedTextView,
-							int actionId, KeyEvent keyEvent) {
-						boolean handled = false;
-						if (actionId == EditorInfo.IME_ACTION_SEND) {
-							String submittedPreference = editedTextView
-									.getText().toString();
-							int parsedIntPreference = Integer
-									.parseInt(submittedPreference);
-							// Correct too high and too low values
-							if (parsedIntPreference > preference2_max) {
-								parsedIntPreference = preference2_max;
-								String parsedStringPrefrence = parsedIntPreference
-										+ "";
-								editedTextView.setText(parsedStringPrefrence);
-							} else if (parsedIntPreference < preference2_min) {
-								parsedIntPreference = preference2_min;
-								String parsedStringPrefrence = parsedIntPreference
-										+ "";
-								editedTextView.setText(parsedStringPrefrence);
-							}
-							int adjustedparsedIntPreference = myPreference2Convertor
-									.NormalToAdjusted(parsedIntPreference);
-							preference2SeekBar
-									.setProgress(adjustedparsedIntPreference);
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// Auto-generated method stub
+			}
 
-							preference2Value = parsedIntPreference;
+		});
 
-							handled = true;
-						}
-						return handled;
+		// Listener for preference 2 EditText
+		preference2EditText.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				String submittedPreference = preference2EditText.getText()
+						.toString().trim();
+				if (!submittedPreference.equals("")) {
+					int parsedIntPreference = Integer
+							.parseInt(submittedPreference);
+					// Correct too high and too low values
+					if (parsedIntPreference > preference2_max) {
+						parsedIntPreference = preference2_max;
+						String parsedStringPrefrence = parsedIntPreference + "";
+						preference2EditText.setText(parsedStringPrefrence);
+					} else if (parsedIntPreference < preference2_min) {
+						parsedIntPreference = preference2_min;
+						String parsedStringPrefrence = parsedIntPreference + "";
+						preference2EditText.setText(parsedStringPrefrence);
 					}
-				});
+					int adjustedparsedIntPreference = myPreference2Convertor
+							.NormalToAdjusted(parsedIntPreference);
+					preference2SeekBar.setProgress(adjustedparsedIntPreference);
+					preference2Value = parsedIntPreference;
+				}
+			}
 
-		preference3EditText
-				.setOnEditorActionListener(new OnEditorActionListener() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// Auto-generated method stub
+			}
 
-					@Override
-					public boolean onEditorAction(TextView editedTextView,
-							int actionId, KeyEvent keyEvent) {
-						boolean handled = false;
-						if (actionId == EditorInfo.IME_ACTION_SEND) {
-							String submittedPreference = editedTextView
-									.getText().toString();
-							int parsedIntPreference = Integer
-									.parseInt(submittedPreference);
-							// Correct too high and too low values
-							if (parsedIntPreference > preference3_max) {
-								parsedIntPreference = preference3_max;
-								String parsedStringPrefrence = parsedIntPreference
-										+ "";
-								editedTextView.setText(parsedStringPrefrence);
-							} else if (parsedIntPreference < preference3_min) {
-								parsedIntPreference = preference3_min;
-								String parsedStringPrefrence = parsedIntPreference
-										+ "";
-								editedTextView.setText(parsedStringPrefrence);
-							}
-							int adjustedparsedIntPreference = myPreference3Convertor
-									.NormalToAdjusted(parsedIntPreference);
-							preference3SeekBar
-									.setProgress(adjustedparsedIntPreference);
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// Auto-generated method stub
+			}
 
-							preference3Value = parsedIntPreference;
+		});
 
-							handled = true;
-						}
-						return handled;
+		// Listener for preference 3 EditText
+		preference3EditText.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				String submittedPreference = preference3EditText.getText()
+						.toString().trim();
+				if (!submittedPreference.equals("")) {
+					int parsedIntPreference = Integer
+							.parseInt(submittedPreference);
+					// Correct too high and too low values
+					if (parsedIntPreference > preference3_max) {
+						parsedIntPreference = preference3_max;
+						String parsedStringPrefrence = parsedIntPreference + "";
+						preference3EditText.setText(parsedStringPrefrence);
+					} else if (parsedIntPreference < preference3_min) {
+						parsedIntPreference = preference3_min;
+						String parsedStringPrefrence = parsedIntPreference + "";
+						preference3EditText.setText(parsedStringPrefrence);
 					}
-				});
+					int adjustedparsedIntPreference = myPreference3Convertor
+							.NormalToAdjusted(parsedIntPreference);
+					preference3SeekBar.setProgress(adjustedparsedIntPreference);
+					preference3Value = parsedIntPreference;
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// Auto-generated method stub
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// Auto-generated method stub
+			}
+
+		});
 
 		// Add action Buttons
 		builder.setPositiveButton(R.string.positive_button,

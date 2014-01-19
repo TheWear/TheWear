@@ -1,5 +1,8 @@
 package io.github.thewear.thewearandroidClientAPP;
 
+import io.github.thewear.thewearandroidGUI.MainActivity;
+import io.github.thewear.thewearandroidGUI.MainActivity.ImagePagerAdapter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,6 +60,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	private TextView titleTextView;
 	private ViewPager mViewPager;
 	private int firstForecastEndTime;
+	private ImagePagerAdapter imagePagerAdapter;
+	private MainActivity mainActivity;
+	private boolean[] imageViewAddedToImagePagerAdapter;
 
 	/**
 	 * Constructor for the Forecaster AsyncTask to be able to import the
@@ -64,12 +70,16 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * this Class, and can be used to show a ProgressDialog.
 	 * 
 	 * Parameters for this constructor: Context context, EditText editText,
-	 * ImageView[] imageViews, TextView titleTextView, ViewPager mViewPager
+	 * ImageView[] imageViews, TextView titleTextView, ViewPager mViewPager,
+	 * ImagePagerAdapter imagePagerAdapter, MainActivity mainActivity, boolean[]
+	 * imageViewAddedToImagePagerAdapter
 	 */
 
 	public Forecaster(Context context, EditText editText,
 			ImageView[] imageViews, ForecastTimeStruct myForecastTimeStruct,
-			TextView titleTextView, ViewPager mViewPager) {
+			TextView titleTextView, ViewPager mViewPager,
+			ImagePagerAdapter imagePagerAdapter, MainActivity mainActivity,
+			boolean[] imageViewAddedToImagePagerAdapter) {
 		// can take other parameters if needed
 		this.applicationContext = context;
 		this.locationField = editText;
@@ -77,6 +87,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		this.myForecastTimeStruct = myForecastTimeStruct;
 		this.titleTextView = titleTextView;
 		this.mViewPager = mViewPager;
+		this.imagePagerAdapter = imagePagerAdapter;
+		this.mainActivity = mainActivity;
+		this.imageViewAddedToImagePagerAdapter = imageViewAddedToImagePagerAdapter;
 	}
 
 	// Log.d("TheWearDebug","");
@@ -172,8 +185,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			// Check if the MCC of te user is known
 			if (mccIndex != -1) {
 				// get MCC codes and index of user MCC
-				String[] ccTLDCodes = res.getStringArray(R.array.ccTLDCodes);
-				regionPreference = ccTLDCodes[mccIndex];
+				regionPreference = MCCList.ccTLDForMcc[mccIndex];
 			} else {
 				regionPreference = getRegionSharedPreference(res, sharedPref);
 			}
@@ -286,8 +298,10 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	 * � onPostExecute contains all the code we want to have executed when the
 	 * background thread is finished: it closes the progressDialog, and either
 	 * shows an error message when the background thread encountered a
-	 * problem/an error, or updates the ImageViews with the forecast image the
-	 * EditText with the full location, and the EditText with the time title.
+	 * problem/an error, or updates the ImageViews with the forecast image if
+	 * the imageViews are already set or, if not, set the imageViews too,
+	 * updates the EditText with the full location, and the EditText with the
+	 * time title.
 	 * 
 	 * This method has access to the GUI
 	 */
@@ -349,18 +363,59 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			locationField.setText(forecastInfo.address);
 			locationField.clearFocus();
 
-			// set the new Images
+			// TODO GoTo
+
+			// Set onClickListeners for the imageViews
+
+			// set images
 			for (int position = 0; position <= 2; position++) {
-				Log.d("TheWearAndroid",
-						"Setting new forecastImage for position " + position);
-				if (myImageViews[position] == null) {
-					Log.i("TheWearDebug", "myImageViews == null");
-				}
-				if (mergedImage[position] == null) {
+				// Check if images are available
+				Log.i("TheWearDebug", "FOR loop for position " + position);
+				if (mergedImage[position].equals(null)) {
+					// No Images to show; this shouldn't be called
 					Log.i("TheWearDebug", "mergedImage == null");
+
+				} else {
+					// Images present
+					Log.d("TheWearDebug", "Images Present for position "
+							+ position);
+
+					// Check if ImageViews are fully set
+					if (imageViewAddedToImagePagerAdapter[position] == false) {
+						// ImageView not yet Set
+						Log.i("TheWearDebug", "myImageViews == null");
+						// Create new imageViews in the imagePagerAdapter
+						ImageView myImageView = myImageViews[position];
+						// make imageView
+						ImageView imageView = mainActivity.setImageView(
+								myImageView, mergedImage[position]);
+						// Add new imageView to the imagePagerAdapter for swipe
+						imagePagerAdapter.addView(imageView, position);
+						// Set imageView onClickListener for the imageView
+						imageView = mainActivity.setImageViewOnClickListener(
+								imageView, position);
+						// Set imageView onClickListener for the imageView for
+						// first position imageView if imageView 2 is set
+						if (position == 1) {
+							imageView = mainActivity
+									.setImageViewOnClickListener(
+											myImageViews[0], 0);
+							// Set imageViewStatus initiated
+							imageViewAddedToImagePagerAdapter[position] = true;
+						}
+					} else {
+						// ImageView set
+						Log.i("TheWearDebug",
+								"Setting new forecastImage for position "
+										+ position);
+						// set the new Images
+						myImageViews[position]
+								.setImageBitmap(mergedImage[position]);
+					}
 				}
-				myImageViews[position].setImageBitmap(mergedImage[position]);
 			}
+			// Reset adapter to apply changes
+			//imagePagerAdapter.notifyDataSetChanged();
 
 			// Set new title for current tab:
 			int tab = mViewPager.getCurrentItem();

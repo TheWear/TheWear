@@ -14,9 +14,7 @@
     <string name="action_about">Over TheWear</string>
     <string name="action_regionPreference">Regiovoorkeur</string>
     <string name="about_text">TheWear Development Version.\nAlleen te gebruiken voor testen en debuggen.</string>
-    <string name="title_section1">0 - 6 uur</string>
-    <string name="title_section2">6 - 12 uur</string>
-    <string name="title_section3">12 - 18 uur</string>
+    <string name="title">Welkom!</string>
     <string name="button1">Weerbericht</string>
     <string name="forecastDescription">gedetailleerd weerbericht?</string>
     <string name="previous">Gisteren</string>

@@ -13,6 +13,28 @@ public class MCCList {
 	 * the get() method is used to retrieve those mcc's as list.
 	 */
 
+	public final static String[] ccTLDForMcc = { "gr", "nl", "be", "fr", "mc",
+			"ad", "es", "hu", "ba", "hr", "rs", "it", "va", "ro", "ch", "cz",
+			"sk", "at", "gb", "gb", "dk", "se", "no", "fi", "lt", "lv", "ee",
+			"ru", "ua", "by", "md", "pl", "de", "gi", "pt", "lu", "ie", "is",
+			"al", "mt", "cy", "ge", "am", "bg", "tr", "fo", "ge", "gl", "sm",
+			"si", "mk", "li", "me", "ca", "pm", "us", "us", "us", "us", "pr",
+			"mx", "tc", "gp", "bb", "ag", "ky", "vg", "bm", "gd", "ms", "kn",
+			"lc", "vc", "an", "aw", "bs", "ai", "dm", "cu", "do", "ht", "tt",
+			"tc", "az", "kz", "bt", "in", "in", "pk", "af", "lk", "mm", "lb",
+			"jo", "sy", "iq", "kw", "sa", "ye", "om", "ae", "il", "bh", "qa",
+			"mn", "np", "ir", "uz", "tj", "kg", "tm", "jp", "kr", "vn", "hk",
+			"mo", "kh", "la", "cn", "tw", "kp", "bd", "mv", "my", "au", "id",
+			"tl", "ph", "th", "sg", "bn", "nz", "nr", "pg", "to", "sb", "vu",
+			"fj", "as", "ki", "nc", "pf", "ck", "ws", "fm", "mh", "pw", "tv",
+			"nu", "eg", "dz", "ma", "tn", "ly", "gm", "sn", "mr", "ml", "gn",
+			"ci", "bf", "ne", "tg", "bj", "mu", "lr", "sl", "gh", "ng", "td",
+			"cf", "cm", "cv", "st", "gq", "ga", "cg", "cd", "ao", "gw", "sc",
+			"sd", "rw", "et", "so", "dj", "ke", "tz", "ug", "bi", "mz", "zm",
+			"mg", "re", "zw", "na", "mw", "ls", "bw", "sz", "km", "za", "er",
+			"ss", "bz", "gt", "sv", "hn", "ni", "cr", "pa", "pe", "ar", "br",
+			"cl", "co", "ve", "bo", "gy", "ec", "py", "sr", "uy", "com" };
+
 	private final static int[] mccArray = { 202, 204, 206, 208, 212, 213, 214,
 			216, 218, 219, 220, 222, 225, 226, 228, 230, 231, 232, 234, 235,
 			238, 240, 242, 244, 246, 247, 248, 250, 255, 257, 259, 260, 262,

@@ -400,9 +400,9 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 							imageView = mainActivity
 									.setImageViewOnClickListener(
 											myImageViews[0], 0);
-							// Set imageViewStatus initiated
-							imageViewAddedToImagePagerAdapter[position] = true;
 						}
+						// Set imageViewStatus initiated
+						imageViewAddedToImagePagerAdapter[position] = true;
 					} else {
 						// ImageView set
 						Log.i("TheWearDebug",

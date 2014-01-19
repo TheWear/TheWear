@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 
 	private ViewPager mViewPager;
 	private ImageView[] myImageViews = { null, null, null };
-	private boolean[] imageViewAddedToImagePagerAdapter = {false, false, false};
+	private boolean[] imageViewAddedToImagePagerAdapter = { false, false, false };
 	private Forecaster myForecasterObject;
 	private SocialMediaPickerFragment mySocialMediaPickerFragment;
 	private MenuFragment myMenuFragment;
@@ -53,6 +53,8 @@ public class MainActivity extends Activity {
 	private TextView titleTextView;
 	private String startLocation;
 	private ImagePagerAdapter imagePagerAdapter;
+	private ImageButton goForwardButton;
+	private ImageButton goBackButton;
 
 	/**
 	 * onCreate of the GUI contains all the code we want to have executed on
@@ -70,8 +72,6 @@ public class MainActivity extends Activity {
 	 * onClickListener for a changed view to make the correlated buttons
 	 * clickable non-clickable when necessary, and to dynamically change the
 	 * title (moment for the forecast) to the applicable one;
-	 * 
-	 * 
 	 */
 
 	@Override
@@ -133,14 +133,15 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		final ImageButton goForwardButton = (ImageButton) findViewById(R.id.button_forward);
-		final ImageButton goBackButton = (ImageButton) findViewById(R.id.button_back);
+		goForwardButton = (ImageButton) findViewById(R.id.button_forward);
+		goBackButton = (ImageButton) findViewById(R.id.button_back);
 
-		// Making the goBackButton unClickable and invisible on App startup (you
-		// start with
-		// the first Forecast)
+		// Making the goBackButton and goForwardButton unClickable and invisible
+		// on App startup (you start with the first Forecast)
 		goBackButton.setClickable(false);
 		goBackButton.setVisibility(View.INVISIBLE);
+		goForwardButton.setClickable(false);
+		goForwardButton.setVisibility(View.INVISIBLE);
 
 		// Initiate ImageViews for use in the Forecaster
 		myImageViews[0] = new ImageView(this);
@@ -175,50 +176,6 @@ public class MainActivity extends Activity {
 		titleTextView.setText(myForecastTimeStruct.forecastTimeString[0]);
 
 		// TODO make button background invisible depending on API version?
-
-		// Set OnPageChangeListener to make buttons unClickable when they are
-		// not used, and Clickable again when they can be used.
-		// The listener also changes the title (day) when swiping.
-		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						Log.d("TheWearDebug",
-								"SimpleOnPageChangeListener triggered");
-						if (position == 0) {
-							// Forecast 1: Set the goBackButton unClickable and
-							// invisible
-							goBackButton.setClickable(false);
-							goBackButton.setVisibility(View.INVISIBLE);
-							Log.d("TheWearDebug", "goBackButton unClickable");
-							titleTextView
-									.setText(myForecastTimeStruct.forecastTimeString[0]);
-						} else if (position == 1) {
-							// Forecast 2: Set the goBackButton & the
-							// goForwardButton Clickable and visible
-							goBackButton.setClickable(true);
-							goBackButton.setVisibility(View.VISIBLE);
-							Log.d("TheWearDebug", "goBackButton Clickable");
-							goForwardButton.setClickable(true);
-							goForwardButton.setVisibility(View.VISIBLE);
-							Log.d("TheWearDebug", "goForwardButton Clickable");
-							titleTextView
-									.setText(myForecastTimeStruct.forecastTimeString[1]);
-						} else if (position == 2) {
-							// Forecast 3: Set the goForwardButton unClickable
-							// and invisible
-							goForwardButton.setClickable(false);
-							goForwardButton.setVisibility(View.INVISIBLE);
-							Log.d("TheWearDebug", "Forecast 3");
-							titleTextView
-									.setText(myForecastTimeStruct.forecastTimeString[2]);
-						} else {
-							// Should not happen
-							Log.e("TheWearDebug",
-									"ERROR: Forecast selected that doesn't exist");
-						}
-					}
-				});
 
 		Log.i("TheWearDebug", "onCreate() finished");
 	} // End onCreate
@@ -820,7 +777,8 @@ public class MainActivity extends Activity {
 		// Call the Forecaster AsyncTask
 		myForecasterObject = new Forecaster(this, locationField, myImageViews,
 				myForecastTimeStruct, titleTextView, mViewPager,
-				imagePagerAdapter, this, imageViewAddedToImagePagerAdapter);
+				imagePagerAdapter, this, imageViewAddedToImagePagerAdapter,
+				goForwardButton, goBackButton);
 		myForecasterObject.execute(userLocation);
 		Log.d("TheWearDebug", "Finished the Forecast AsyncTask");
 	}

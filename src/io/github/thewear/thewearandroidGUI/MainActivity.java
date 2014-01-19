@@ -5,6 +5,7 @@ import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
 import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
 import io.github.thewear.thewearandroidClientAPP.Forecaster;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import src.gui.thewearandroid.R;
@@ -15,9 +16,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -46,12 +45,16 @@ public class MainActivity extends Activity {
 
 	private ViewPager mViewPager;
 	private ImageView[] myImageViews = { null, null, null };
+	private boolean[] imageViewAddedToImagePagerAdapter = { false, false, false };
 	private Forecaster myForecasterObject;
 	private SocialMediaPickerFragment mySocialMediaPickerFragment;
 	private MenuFragment myMenuFragment;
 	private ForecastTimeStruct myForecastTimeStruct;
 	private TextView titleTextView;
 	private String startLocation;
+	private ImagePagerAdapter imagePagerAdapter;
+	private ImageButton goForwardButton;
+	private ImageButton goBackButton;
 
 	/**
 	 * onCreate of the GUI contains all the code we want to have executed on
@@ -69,8 +72,6 @@ public class MainActivity extends Activity {
 	 * onClickListener for a changed view to make the correlated buttons
 	 * clickable non-clickable when necessary, and to dynamically change the
 	 * title (moment for the forecast) to the applicable one;
-	 * 
-	 * 
 	 */
 
 	@Override
@@ -132,81 +133,49 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		final ImageButton goForwardButton = (ImageButton) findViewById(R.id.button_forward);
-		final ImageButton goBackButton = (ImageButton) findViewById(R.id.button_back);
+		goForwardButton = (ImageButton) findViewById(R.id.button_forward);
+		goBackButton = (ImageButton) findViewById(R.id.button_back);
 
-		// Making the goBackButton unClickable and invisible on App startup (you
-		// start with
-		// the first Forecast)
+		// Making the goBackButton and goForwardButton unClickable and invisible
+		// on App startup (you start with the first Forecast)
 		goBackButton.setClickable(false);
 		goBackButton.setVisibility(View.INVISIBLE);
-
-		// Set ViewPager to be able to swipe the Images
-		mViewPager = (ViewPager) findViewById(R.id.viewPager);
-		ImagePagerAdapter adapter = new ImagePagerAdapter();
-		mViewPager.setAdapter(adapter);
-
-		titleTextView = (TextView) findViewById(R.id.textView1);
-		// Set the TextView for startup
-		final String tab1 = getString(R.string.title_section1);
-		final String tab2 = getString(R.string.title_section2);
-		final String tab3 = getString(R.string.title_section3);
-		String[] tabTitles = { tab1, tab2, tab3 };
-		// Save a temporary title until the one corresponding with the forecast
-		// is saved.
-		myForecastTimeStruct = new ForecastTimeStruct(tabTitles);
-		titleTextView.setText(myForecastTimeStruct.forecastTimeString[0]);
+		goForwardButton.setClickable(false);
+		goForwardButton.setVisibility(View.INVISIBLE);
 
 		// Initiate ImageViews for use in the Forecaster
 		myImageViews[0] = new ImageView(this);
 		myImageViews[1] = new ImageView(this);
 		myImageViews[2] = new ImageView(this);
 
-		// TODO make button background invisible depending on API version?
+		// Set ViewPager to be able to swipe the Images
+		mViewPager = (ViewPager) findViewById(R.id.viewPager);
+		imagePagerAdapter = new ImagePagerAdapter();
+		mViewPager.setAdapter(imagePagerAdapter);
+		// Add first Image to the ViewPager
+		int position = 0;
+		Resources res = getResources();
+		// TODO change the default images to a default one instead of the random
+		// ones I choose
+		Drawable drawable = res.getDrawable(R.drawable.ic_launcher);
+		ImageView myImageView = myImageViews[position];
+		ImageView imageView = setImageView(myImageView, drawable);
+		imagePagerAdapter.addView(imageView, position);
+		// Set imageViewStatus initiated
+		imageViewAddedToImagePagerAdapter[position] = true;
 
-		// Set OnPageChangeListener to make buttons unClickable when they are
-		// not used, and Clickable again when they can be used.
-		// The listener also changes the title (day) when swiping.
-		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						Log.d("TheWearDebug",
-								"SimpleOnPageChangeListener triggered");
-						if (position == 0) {
-							// Forecast 1: Set the goBackButton unClickable and
-							// invisible
-							goBackButton.setClickable(false);
-							goBackButton.setVisibility(View.INVISIBLE);
-							Log.d("TheWearDebug", "goBackButton unClickable");
-							titleTextView
-									.setText(myForecastTimeStruct.forecastTimeString[0]);
-						} else if (position == 1) {
-							// Forecast 2: Set the goBackButton & the
-							// goForwardButton Clickable and visible
-							goBackButton.setClickable(true);
-							goBackButton.setVisibility(View.VISIBLE);
-							Log.d("TheWearDebug", "goBackButton Clickable");
-							goForwardButton.setClickable(true);
-							goForwardButton.setVisibility(View.VISIBLE);
-							Log.d("TheWearDebug", "goForwardButton Clickable");
-							titleTextView
-									.setText(myForecastTimeStruct.forecastTimeString[1]);
-						} else if (position == 2) {
-							// Forecast 3: Set the goForwardButton unClickable
-							// and invisible
-							goForwardButton.setClickable(false);
-							goForwardButton.setVisibility(View.INVISIBLE);
-							Log.d("TheWearDebug", "Forecast 3");
-							titleTextView
-									.setText(myForecastTimeStruct.forecastTimeString[2]);
-						} else {
-							// Should not happen
-							Log.e("TheWearDebug",
-									"ERROR: Forecast selected that doesn't exist");
-						}
-					}
-				});
+		titleTextView = (TextView) findViewById(R.id.textView1);
+		// Set the TextView for startup
+		final String tab1 = getString(R.string.title);
+		final String tab2 = null;
+		final String tab3 = null;
+		String[] tabTitles = { tab1, tab2, tab3 };
+		// Save a temporary title until the one corresponding with the forecast
+		// is saved.
+		myForecastTimeStruct = new ForecastTimeStruct(tabTitles);
+		titleTextView.setText(myForecastTimeStruct.forecastTimeString[0]);
+
+		// TODO make button background invisible depending on API version?
 
 		Log.i("TheWearDebug", "onCreate() finished");
 	} // End onCreate
@@ -312,6 +281,77 @@ public class MainActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		return true;
+	}
+
+	/**
+	 * setImageView(ImageView imageView, Bitmap bitmap)
+	 * 
+	 * * sets the padding for the imageView used in the ViewPager (the swiped
+	 * image)
+	 * 
+	 * * sets the ScaleType (how the image is centered)
+	 * 
+	 * * places the bitmap in the imageView.
+	 * 
+	 * Returns the imageView with added borders, ScaleType and image.
+	 */
+
+	public ImageView setImageView(ImageView imageView, Bitmap bitmap) {
+		int padding = getResources().getDimensionPixelSize(
+				R.dimen.padding_medium);
+		int paddingBottom = getResources().getDimensionPixelSize(
+				R.dimen.padding_bottom_medium);
+		// setPadding(integer left, integer top, integer right, integer bottom)
+		imageView.setPadding(padding, padding, padding, paddingBottom);
+		imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		// Options: CENTER, CENTER_INSIDE, FIT_CENTER
+		imageView.setImageBitmap(bitmap);
+		return imageView;
+	}
+
+	/**
+	 * setImageView(ImageView imageView, Drawable drawable)
+	 * 
+	 * * sets the padding for the imageView used in the ViewPager (the swiped
+	 * image)
+	 * 
+	 * * sets the ScaleType (how the image is centered)
+	 * 
+	 * * places the drawable in the imageView.
+	 * 
+	 * Returns the imageView with added borders, ScaleType and image.
+	 */
+
+	public ImageView setImageView(ImageView imageView, Drawable drawable) {
+		int padding = getResources().getDimensionPixelSize(
+				R.dimen.padding_medium);
+		int paddingBottom = getResources().getDimensionPixelSize(
+				R.dimen.padding_bottom_medium);
+		// setPadding(integer left, integer top, integer right, integer bottom)
+		imageView.setPadding(padding, padding, padding, paddingBottom);
+		imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		// Options: CENTER, CENTER_INSIDE, FIT_CENTER
+		imageView.setImageDrawable(drawable);
+		return imageView;
+	}
+
+	/**
+	 * setImageViewOnClickListener (ImageView imageView, int position) adds an
+	 * onClickListener to show the detailed forecast information to the
+	 * corresponding imageView using the position
+	 * 
+	 * Returns the imageView with onClickListener
+	 */
+
+	public ImageView setImageViewOnClickListener(ImageView imageView,
+			final int position) {
+		imageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showForecastInformation(position);
+			}
+		});
+		return imageView;
 	}
 
 	/**
@@ -736,7 +776,9 @@ public class MainActivity extends Activity {
 
 		// Call the Forecaster AsyncTask
 		myForecasterObject = new Forecaster(this, locationField, myImageViews,
-				myForecastTimeStruct, titleTextView, mViewPager);
+				myForecastTimeStruct, titleTextView, mViewPager,
+				imagePagerAdapter, this, imageViewAddedToImagePagerAdapter,
+				goForwardButton, goBackButton);
 		myForecasterObject.execute(userLocation);
 		Log.d("TheWearDebug", "Finished the Forecast AsyncTask");
 	}
@@ -751,141 +793,85 @@ public class MainActivity extends Activity {
 		// TODO Get the images centered. This might be solved by adding images
 		// with the right dimensions in the corresponding drawable-folders.
 
-		// TODO Change so only 1 view gets instantiated withouth a forecast
-
-		// Set the Images to be used for the swipe
-		private int[] mImages = new int[] { R.drawable.today, R.drawable.today,
-				R.drawable.day_after_tomorrow };
+		// This holds all the currently displayable views, in order from left to
+		// right.
+		private ArrayList<View> views = new ArrayList<View>();
 
 		/**
-		 * getImages is the method called to get (and construct) the images
-		 * shown if there is no forecast available.
-		 * 
-		 * Input is the position of the tab where the image is shown;
-		 * 
-		 * the method returns a bitmap.
+		 * Used by ViewPager. "Object" represents the page; tell the ViewPager
+		 * where the page should be displayed, from left-to-right. If the page
+		 * no longer exists, return POSITION_NONE.
 		 */
-
-		// TODO change the default images to a default one instead of the random
-		// ones I choose
-
-		public Bitmap getImages(int position) {
-			Bitmap myBitmap = Bitmap.createBitmap(300, 500, Config.ARGB_8888);
-			Resources res = getResources();
-			if (position == 0) {
-				Bitmap body = BitmapFactory.decodeResource(res,
-						mImages[position]);
-				Bitmap leftArm = BitmapFactory.decodeResource(res,
-						R.drawable.left_arm_down);
-				Bitmap rightArm = BitmapFactory.decodeResource(res,
-						R.drawable.right_arm_down);
-				Canvas canvas = new Canvas(myBitmap);
-				canvas.drawColor(0x00AAAAAA);
-				canvas.drawBitmap(body, 0, 0, null);
-				canvas.drawBitmap(leftArm, 0, 0, null);
-				canvas.drawBitmap(rightArm, 0, 0, null);
-			} else {
-				myBitmap = BitmapFactory.decodeResource(res, mImages[position]);
-			}
-
-			return myBitmap;
+		@Override
+		public int getItemPosition(Object object) {
+			int index = views.indexOf(object);
+			if (index == -1)
+				return POSITION_NONE;
+			else
+				return index;
 		}
+
+		/**
+		 * Used by ViewPager; can be used by app as well. Returns the total
+		 * number of pages that the ViewPage can display. This must never be 0.
+		 */
 
 		@Override
 		public int getCount() {
 			// Returns the number of images
-			return mImages.length;
+			return views.size();
 		}
+
+		/** Used by ViewPager. */
 
 		@Override
 		public boolean isViewFromObject(View view, Object object) {
 			// Identifies whether a page View is associated with a given key
 			// object
-			return view == ((ImageView) object);
+			return view == object;
 		}
 
 		/**
-		 * instantiateItem is called by the ViewPager to instantiate the tab
-		 * with our ImageView to show the forecast.
-		 * 
-		 * This method checks if a forecast got retrieved: if so, the image
-		 * displaying the forecast is shown, otherwise getImages is called, and
-		 * a default image is displayed.
-		 * 
-		 * When this method constructs a View -- consisting of 1 ImageView --,
-		 * an onClickListener is set for the ImageView. The onClickListener
-		 * calls the showForecastInformation() method (located in the
-		 * MainActivity class). The code in the showForecastInformation() can't
-		 * be executed in the ImagePagerAdapter subclass because the
-		 * AlertDialog.Builder doesn't work in this subclass. I have decided to
-		 * put all the code in the showForecastInformation() method instead of
-		 * making a method only for building the Dialog to keep that part of the
-		 * code together.
+		 * Used by ViewPager. Called when ViewPager needs a page to display; it
+		 * is our job to add the page to the container, which is normally the
+		 * ViewPager itself. Since all our pages are persistent, we simply
+		 * retrieve it from our "views" ArrayList.
 		 */
 
 		@Override
 		public Object instantiateItem(ViewGroup container, final int position) {
-			Context context = MainActivity.this;
-			ImageView imageView = myImageViews[position];
-			Log.d("TheWearDebug", "Setting Image for position " + position);
-
-			Bitmap bitmap = null;
-			if (myForecasterObject != null) {
-				ForecastInfo myForecastInfo = null;
-				try {
-					myForecastInfo = myForecasterObject.get();
-				} catch (InterruptedException e) {
-					// Auto-generated catch block
-					Log.e("TheWearDebug", "InterruptedException");
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// Auto-generated catch block
-					Log.e("TheWearDebug", "ExecutionException6");
-					e.printStackTrace();
-				}
-				if (myForecastInfo != null) {
-					if (myForecastInfo.mergedImages[position] != null) {
-						bitmap = myForecastInfo.mergedImages[position];
-					} else {
-						Log.d("TheWearAndroid", "mergedImage[pos] == null");
-						bitmap = getImages(position);
-					}
-				} else {
-					Log.d("TheWearAndroid", "myForecastInfo == null");
-					bitmap = getImages(position);
-				}
-			} else {
-				Log.d("TheWearAndroid", "myForecastObject == null");
-				bitmap = getImages(position);
-			}
-
-			// set offset from the edges
-			int padding = context.getResources().getDimensionPixelSize(
-					R.dimen.padding_medium);
-			int paddingBottom = context.getResources().getDimensionPixelSize(
-					R.dimen.padding_bottom_medium);
-			// setPadding(int left, int top, int right, int bottom)
-			imageView.setPadding(padding, padding, padding, paddingBottom);
-
-			imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-			// Options: CENTER, CENTER_INSIDE, FIT_CENTER
-			imageView.setImageBitmap(bitmap);
-			((ViewPager) container).addView(imageView, 0);
-
-			// set OnclickListener for imageView
-			imageView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					showForecastInformation(position);
-				}
-			});
-
-			return imageView;
+			View v = views.get(position);
+			container.addView(v);
+			return v;
 		}
+
+		/**
+		 * Used by ViewPager. Called when ViewPager no longer needs a page to
+		 * display; it is our job to remove the page from the container, which
+		 * is normally the ViewPager itself. Since all our pages are persistent,
+		 * we do nothing to the contents of our "views" ArrayList.
+		 */
 
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
-			((ViewPager) container).removeView((ImageView) object);
+			container.removeView(views.get(position));
+		}
+
+		/**
+		 * Add "view" at "position" to "views". Returns position of new view.
+		 * The app should call this to add pages; not used by ViewPager.
+		 */
+		public int addView(View v, int position) {
+			views.add(position, v);
+			return position;
+		}
+
+		/**
+		 * Returns the "view" at "position". The app should call this to
+		 * retrieve a view; not used by ViewPager.
+		 */
+		public View getView(int position) {
+			return views.get(position);
 		}
 	}
 }

@@ -1,12 +1,5 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import io.github.thewear.thewearandroidGUI.MainActivity;
-import io.github.thewear.thewearandroidGUI.MainActivity.ImagePagerAdapter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import src.gui.thewearandroid.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,6 +16,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import io.github.thewear.thewearandroidGUI.MainActivity;
+import io.github.thewear.thewearandroidGUI.MainActivity.ImagePagerAdapter;
+import src.gui.thewearandroid.R;
 
 public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
@@ -161,7 +161,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		// Get the coordinates from the location using GridCoach
 
 		// Replace spaces with %20
-		GridCoach myGridCoach = new GridCoach(userLocation[0]);
+		GridCoach myGridCoach = new GridCoach(userLocation[0],false);
 		progressCounter = progressCounter + 4;
 		publishProgress(progressCounter); // Total: 4/100
 

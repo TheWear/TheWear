@@ -3,7 +3,8 @@
 
     <!--
     If you have a string that should be translated, please add these to corresponding translated files!
-    All files that don't have to be translated should only be added to this file.
+    All files that don't have to be translated should only be added to this file.
+
     -->
 
     <string name="testVersion">v0.001</string>
@@ -89,6 +90,7 @@
     <string name="regionTextViewText">Region Preference:</string>
     <string name="regionPreferenceInformationTitle">Region Preference</string>
     <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
+    <string name="getGPSLocation">Button that gets the location by using the GPS signal</string>
 
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>

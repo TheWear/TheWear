@@ -145,7 +145,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     /**
      * Function to show settings alert dialog
-     * On pressing Settings button will lauch Settings Options
+     * On pressing Settings button will launch Settings Options
      * */
     public void showSettingsAlert(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
@@ -154,7 +154,7 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.setTitle("GPS is settings");
 
         // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialog.setMessage("Location by using wireless networks is not enabled. Do you want to go to settings menu?");
 
         // On pressing Settings button
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {

@@ -1,14 +1,5 @@
 package io.github.thewear.thewearandroidGUI;
 
-import io.github.thewear.thewearandroidClientAPP.DetailedForecastInformationManager;
-import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
-import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
-import io.github.thewear.thewearandroidClientAPP.Forecaster;
-
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import src.gui.thewearandroid.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -36,6 +27,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import io.github.thewear.thewearandroidClientAPP.DetailedForecastInformationManager;
+import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
+import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
+import io.github.thewear.thewearandroidClientAPP.Forecaster;
+import io.github.thewear.thewearandroidClientAPP.GPSCoordsManager;
+import io.github.thewear.thewearandroidClientAPP.GPSTracker;
+import src.gui.thewearandroid.R;
 
 public class MainActivity extends Activity {
 
@@ -666,6 +668,22 @@ public class MainActivity extends Activity {
 		}
 	}
 
+    public void getGPSLocation(View view){
+        GPSTracker gps = new GPSTracker(this);
+        if(gps.canGetLocation()){
+            String GPSLatitudeText = String.valueOf(gps.getLatitude());
+            String GPSLongitudeText = String.valueOf(gps.getLongitude());
+            String latLng = GPSLatitudeText+","+GPSLongitudeText;
+            Toast.makeText(getApplicationContext(), "Location found", Toast.LENGTH_LONG).show();
+            EditText locationField = (EditText) findViewById(R.id.editText1);
+            new GPSCoordsManager(locationField).execute(latLng);
+
+        }else{
+            gps.showSettingsAlert();
+        }
+        gps.stopUsingGPS();
+    }
+
 	/**
 	 * showRegionPreferenceInfo(View v) shows a dialog displaying information
 	 * about the region preference
@@ -783,7 +801,8 @@ public class MainActivity extends Activity {
 		Log.d("TheWearDebug", "Finished the Forecast AsyncTask");
 	}
 
-	/**
+
+    /**
 	 * ImagePagerAdapter contains the methods used to display the ImageViews
 	 * that show the forecast.
 	 */

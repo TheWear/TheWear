@@ -95,4 +95,19 @@
         android:src="@drawable/social_share" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_forecast"
+        android:layout_toLeftOf="@id/imageButton2"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentRight="false"
+        android:contentDescription="@string/getGPSLocation"
+        android:onClick="getGPSLocation"
+        android:longClickable="false"
+        android:src="@drawable/device_access_location_found" />
+    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+
 </RelativeLayout>

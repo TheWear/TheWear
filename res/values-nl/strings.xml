@@ -74,6 +74,10 @@
     <string name="regionTextViewText">RegioVoorkeur:</string>
     <string name="regionPreferenceInformationTitle">Regiovoorkeur</string>
     <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
+    <string name="getGPSLocation">Knop die de locatie ophaald gebruikmakend van het GPS signaal</string>
+    <string name="GPSLocationFound">Locatie gevonden</string>
+    <string name="GPSSettingsAlertDialogTitle">GPS opties</string>
+    <string name="GPSSettingsAlertDialogMessage">Locatiebepaling met behulp van draadloze netwerken is uitgeschakeld. Wil u naar het optiesmenu om dit aan te passen?</string>
 
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>

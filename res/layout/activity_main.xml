@@ -2,50 +2,50 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appRelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
+    android:focusableInTouchMode="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:id="@+id/appRelativeLayout"
-    android:focusableInTouchMode="true"
     tools:context=".MainActivity$MyFragment1" >
-    
+
     <android.support.v4.view.ViewPager
-    android:id="@+id/viewPager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp"
         android:background="@drawable/textboxback"
+        android:descendantFocusability="beforeDescendants"
         android:ems="16"
+        android:focusable="true"
+        android:hint="@string/EditTextHint"
+        android:imeOptions="actionSend"
         android:inputType="text"
         android:singleLine="true"
-        android:textIsSelectable="true"
-        android:hint="@string/EditTextHint"
-        android:focusable="true" 
-		android:descendantFocusability="beforeDescendants"
-		android:imeOptions="actionSend" />
+        android:textIsSelectable="true" />
 
     <ImageButton
         android:id="@+id/button_forecast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editText1"
-        android:layout_marginBottom="-10dp"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="-10dp"
         android:layout_marginRight="-14dp"
         android:contentDescription="@string/button1"
-        android:src="@drawable/av_play"
-        android:onClick="startForecast" />
+        android:onClick="startForecast"
+        android:src="@drawable/av_play" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
     <TextView
@@ -53,8 +53,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageButton
@@ -64,8 +64,8 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/previous"
-        android:onClick="goBack"
         android:longClickable="false"
+        android:onClick="goBack"
         android:src="@drawable/navigation_previous_item" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
@@ -76,8 +76,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/next"
-        android:onClick="goForward"
         android:longClickable="false"
+        android:onClick="goForward"
         android:src="@drawable/navigation_next_item" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
@@ -86,12 +86,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_forecast"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
-        android:layout_alignParentRight="true"
         android:contentDescription="@string/shareButton"
-        android:onClick="showSocialMediaPicker"
         android:longClickable="false"
+        android:onClick="showSocialMediaPicker"
         android:src="@drawable/social_share" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
 
@@ -100,14 +100,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_forecast"
-        android:layout_toLeftOf="@id/imageButton2"
+        android:layout_alignParentRight="false"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
-        android:layout_alignParentRight="false"
+        android:layout_toLeftOf="@id/imageButton2"
         android:contentDescription="@string/getGPSLocation"
-        android:onClick="getGPSLocation"
         android:longClickable="false"
+        android:onClick="getGPSLocation"
         android:src="@drawable/device_access_location_found" />
     <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+
+    <ProgressBar
+        android:id="@+id/mainProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:indeterminate="true" />
 
 </RelativeLayout>

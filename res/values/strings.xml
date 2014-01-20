@@ -91,6 +91,9 @@
     <string name="regionPreferenceInformationTitle">Region Preference</string>
     <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
     <string name="getGPSLocation">Button that gets the location by using the GPS signal</string>
+    <string name="GPSLocationFound">Location found</string>
+    <string name="GPSSettingsAlertDialogTitle">GPS Settings</string>
+    <string name="GPSSettingsAlertDialogMessage">Location by using wireless networks is not enabled. Do you want to go to settings menu?</string>
 
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>

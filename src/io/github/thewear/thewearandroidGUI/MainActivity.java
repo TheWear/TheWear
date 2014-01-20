@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -668,21 +669,32 @@ public class MainActivity extends Activity {
 		}
 	}
 
-    public void getGPSLocation(View view){
-        GPSTracker gps = new GPSTracker(this);
-        if(gps.canGetLocation()){
-            String GPSLatitudeText = String.valueOf(gps.getLatitude());
-            String GPSLongitudeText = String.valueOf(gps.getLongitude());
-            String latLng = GPSLatitudeText+","+GPSLongitudeText;
-            Toast.makeText(getApplicationContext(), "Location found", Toast.LENGTH_LONG).show();
-            EditText locationField = (EditText) findViewById(R.id.editText1);
-            new GPSCoordsManager(locationField).execute(latLng);
+	/**
+	 * getGPSLocation(View view) gets the location of the user using GPS based
+	 * on wireless networks, and opens the GPSCoordsManager to get the place
+	 * name for those coordinates
+	 */
 
-        }else{
-            gps.showSettingsAlert();
-        }
-        gps.stopUsingGPS();
-    }
+	public void getGPSLocation(View view) {
+		// show progressBar
+		ProgressBar progressBar = (ProgressBar) findViewById(R.id.mainProgressBar);
+		progressBar.setVisibility(View.VISIBLE);
+		GPSTracker gps = new GPSTracker(this);
+		if (gps.canGetLocation()) {
+			String GPSLatitudeText = String.valueOf(gps.getLatitude());
+			String GPSLongitudeText = String.valueOf(gps.getLongitude());
+			String latLng = GPSLatitudeText + "," + GPSLongitudeText;
+			Toast.makeText(getApplicationContext(), R.string.GPSLocationFound,
+					Toast.LENGTH_LONG).show();
+			EditText locationField = (EditText) findViewById(R.id.editText1);
+			new GPSCoordsManager(locationField, progressBar).execute(latLng);
+
+		} else {
+			progressBar.setVisibility(View.INVISIBLE);
+			gps.showSettingsAlert();
+		}
+		gps.stopUsingGPS();
+	}
 
 	/**
 	 * showRegionPreferenceInfo(View v) shows a dialog displaying information
@@ -801,8 +813,7 @@ public class MainActivity extends Activity {
 		Log.d("TheWearDebug", "Finished the Forecast AsyncTask");
 	}
 
-
-    /**
+	/**
 	 * ImagePagerAdapter contains the methods used to display the ImageViews
 	 * that show the forecast.
 	 */

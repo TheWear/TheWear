@@ -95,18 +95,18 @@
         <item>Windsnelheid</item> <!-- sqrt(UGRD^2+VGRD^2) -->
         <item>Sneeuwdikte (cm)"</item> <!-- WEASD -->
     </string-array>
-    <string-array name="weatherTypeStrings">
-        <item>Raar weer</item>
-        <item>Lichte regen</item>
-        <item>Harde regen</item>
-        <item>Sneew</item>
-        <item>Koud weer</item>
-        <item>Koud en wind</item>
-        <item>Licht oninteressant weer</item>
-        <item>Storm en regen</item>
-        <item>Warm weer</item>
-        <item>Lichte regen en warm weer</item>
-    </string-array>
+
+    <string name="LIGHTRAIN">lichte regen</string>
+    <string name="HEAVYRAIN">zware regen</string>
+    <string name="STORMYRAIN">storm en regen</string>
+    <string name="SNOW">sneeuw</string>
+    <string name="COOLWINDY">koud en wind</string>
+    <string name="COLD">koud</string>
+    <string name="WARMLIGHTRAIN">lichte rgen en warm</string>
+    <string name="WARM">warm</string>
+    <string name="SUNNYWEATHER">zonnig</string>
+    <string name="WARMSUNNYWEATHER">warm en zonnig</string>
+    <string name="DEFAULT">vrij oninteressant weer</string>
 
     <!-- This list is also posted on our drive, related to the countries -->
     <string-array name="ccTLDCodes">
@@ -364,7 +364,6 @@
         <item>se</item>
         <item>ch</item>
     </string-array>
-
     <string-array name="ccTLDCountries">
         <item>Internationaal</item>
         <item>Afghanistan</item>

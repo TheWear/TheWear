@@ -1,9 +1,7 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
 import io.github.thewear.thewearandroidClientAPP.PreferencesHandler;
 import android.content.Context;
-import android.content.res.Resources;
 
 public class WeatherEnumHandler {
 
@@ -63,30 +61,5 @@ public class WeatherEnumHandler {
 		} else {
 			weathertype = WeatherEnums.DEFAULT;
 		}
-	}
-
-	public String getWeatherTypeString(Resources res) {
-		String[] weatherTypeStrings = res.getStringArray(R.array.weatherTypeStrings);
-		if (weathertype == WeatherEnums.LIGHTRAIN) {
-			return weatherTypeStrings[1];
-		} else if (weathertype == WeatherEnums.HEAVYRAIN) {
-			return weatherTypeStrings[2];
-		} else if (weathertype == WeatherEnums.SNOW) {
-			return weatherTypeStrings[3];
-		} else if (weathertype == WeatherEnums.COLD) {
-			return weatherTypeStrings[4];
-		} else if (weathertype == WeatherEnums.COOLWINDY) {
-			return weatherTypeStrings[5];
-		} else if (weathertype == WeatherEnums.DEFAULT) {
-			return weatherTypeStrings[6];
-		} else if (weathertype == WeatherEnums.STORMYRAIN) {
-			return weatherTypeStrings[7];
-		} else if (weathertype == WeatherEnums.WARM) {
-			return weatherTypeStrings[8];
-		} else if (weathertype == WeatherEnums.WARMLIGHTRAIN) {
-			return weatherTypeStrings[9];
-		}
-
-		return weatherTypeStrings[0];
 	}
 }

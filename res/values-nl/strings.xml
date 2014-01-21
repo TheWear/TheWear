@@ -78,6 +78,7 @@
     <string name="GPSLocationFound">Locatie gevonden</string>
     <string name="GPSSettingsAlertDialogTitle">GPS opties</string>
     <string name="GPSSettingsAlertDialogMessage">Locatiebepaling met behulp van draadloze netwerken is uitgeschakeld. Wil u naar het optiesmenu om dit aan te passen?</string>
+    <string name="GPSLocationNotFound">Locatie niet gevonden</string>
 
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>

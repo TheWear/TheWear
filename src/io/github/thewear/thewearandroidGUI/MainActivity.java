@@ -24,7 +24,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -37,7 +36,6 @@ import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
 import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
 import io.github.thewear.thewearandroidClientAPP.Forecaster;
 import io.github.thewear.thewearandroidClientAPP.GPSCoordsManager;
-import io.github.thewear.thewearandroidClientAPP.GPSTracker;
 import src.gui.thewearandroid.R;
 
 public class MainActivity extends Activity {
@@ -676,11 +674,8 @@ public class MainActivity extends Activity {
 	 */
 
 	public void getGPSLocation(View view) {
-		// show progressBar
-		ProgressBar progressBar = (ProgressBar) findViewById(R.id.mainProgressBar);
-		progressBar.setVisibility(View.VISIBLE);
         EditText locationField = (EditText) findViewById(R.id.editText1);
-			new GPSCoordsManager(this, locationField, progressBar).execute();
+			new GPSCoordsManager(this, locationField).execute();
 
 
 	}

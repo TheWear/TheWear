@@ -94,6 +94,7 @@
     <string name="GPSLocationFound">Location found</string>
     <string name="GPSSettingsAlertDialogTitle">GPS Settings</string>
     <string name="GPSSettingsAlertDialogMessage">Location by using wireless networks is not enabled. Do you want to go to settings menu?</string>
+    <string name="GPSLocationNotFound">Location not found</string>
 
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>

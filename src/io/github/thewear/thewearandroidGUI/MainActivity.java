@@ -679,21 +679,10 @@ public class MainActivity extends Activity {
 		// show progressBar
 		ProgressBar progressBar = (ProgressBar) findViewById(R.id.mainProgressBar);
 		progressBar.setVisibility(View.VISIBLE);
-		GPSTracker gps = new GPSTracker(this);
-		if (gps.canGetLocation()) {
-			String GPSLatitudeText = String.valueOf(gps.getLatitude());
-			String GPSLongitudeText = String.valueOf(gps.getLongitude());
-			String latLng = GPSLatitudeText + "," + GPSLongitudeText;
-			Toast.makeText(getApplicationContext(), R.string.GPSLocationFound,
-					Toast.LENGTH_LONG).show();
-			EditText locationField = (EditText) findViewById(R.id.editText1);
-			new GPSCoordsManager(locationField, progressBar).execute(latLng);
+        EditText locationField = (EditText) findViewById(R.id.editText1);
+			new GPSCoordsManager(this, locationField, progressBar).execute();
 
-		} else {
-			progressBar.setVisibility(View.INVISIBLE);
-			gps.showSettingsAlert();
-		}
-		gps.stopUsingGPS();
+
 	}
 
 	/**

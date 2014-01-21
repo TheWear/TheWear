@@ -5,6 +5,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import io.github.thewear.thewearandroidGUI.MainActivity;
+import src.gui.thewearandroid.R;
 
 /**
  * GPSCoordsManager is an AsyncTask used to process the coordinates the user
@@ -13,17 +17,20 @@ import android.widget.ProgressBar;
 
 public class GPSCoordsManager extends AsyncTask<String, Integer, String> {
 
-	private EditText locationEditText;
+    private final MainActivity mainActivityView;
+    private EditText locationEditText;
 	private String currentLocation;
 	private ProgressBar progressBar;
+    private GPSTracker gps;
 
-	/**
+    /**
 	 * Contructor to import the location EditText in the GPSCoordsManager
 	 * AsyncTask
 	 */
-	public GPSCoordsManager(EditText locationEditText, ProgressBar progressBar) {
+	public GPSCoordsManager(MainActivity mainActivity, EditText locationEditText, ProgressBar progressBar) {
 		this.locationEditText = locationEditText;
 		this.progressBar = progressBar;
+        this.mainActivityView = mainActivity;
 	}
 
 	/**
@@ -34,6 +41,7 @@ public class GPSCoordsManager extends AsyncTask<String, Integer, String> {
 	@Override
 	protected void onPreExecute() {
 		this.currentLocation = null;
+        this.gps = new GPSTracker(mainActivityView);
 	}
 
 	/**
@@ -46,23 +54,32 @@ public class GPSCoordsManager extends AsyncTask<String, Integer, String> {
 	@Override
 	protected String doInBackground(String... latLong) {
 		// TODO Auto-generated method stub
-		Log.d("the Wear Debug", "latlng=" + latLong[0]);
-		GridCoach myGridCoach = new GridCoach(latLong[0], true);
-		String strUrl = myGridCoach.PlaceToURL("dummy");
-		LocationStruct locationInfo = myGridCoach.URLToJSonString(strUrl);
 
-		if (locationInfo == null) {
-			// No connection
-			// TODO Error no internetconnection popup/toast.
-		} else {
-			if (locationInfo.address == "Unknown location") {
-				// No known location
-				// TODO Error unknown location! popup/toast.
-			} else {
-				this.currentLocation = locationInfo.address;
-			}
+        if (gps.canGetLocation()) {
+            String GPSLatitudeText = String.valueOf(gps.getLatitude());
+            String GPSLongitudeText = String.valueOf(gps.getLongitude());
+            String latLng = GPSLatitudeText + "," + GPSLongitudeText;
+            Log.d("the Wear Debug", "latlng=" + latLng);
+            GridCoach myGridCoach = new GridCoach(latLng, true);
+            String strUrl = myGridCoach.PlaceToURL("dummy");
+            LocationStruct locationInfo = myGridCoach.URLToJSonString(strUrl);
+            Log.d("the wear debug", "lat="+locationInfo.lat);
+            Log.d("the wear debug", "lng="+locationInfo.lng);
+            Log.d("the wear debug", "address=" + locationInfo.address);
+            if (locationInfo == null) {
+                // No connection
+                // TODO Error no internetconnection popup/toast.
+            } else {
+                if (locationInfo.address == "Unknown location") {
+                    // No known location
+                    // TODO Error unknown location! popup/toast.
+                } else {
+                    this.currentLocation = locationInfo.address;
+                }
 
-		}
+            }
+        }
+
 
 		return currentLocation;
 	}
@@ -75,9 +92,15 @@ public class GPSCoordsManager extends AsyncTask<String, Integer, String> {
 
 	@Override
 	protected void onPostExecute(String currentLocation) {
-		// Set location in the location EditText
-		locationEditText.setText(currentLocation);
-		// Close progressBar
+        // Close progressBar
 		progressBar.setVisibility(View.INVISIBLE);
+        if (gps.canGetLocation()){
+            Toast.makeText(mainActivityView.getApplicationContext(), R.string.GPSLocationFound,Toast.LENGTH_LONG).show();
+            // Set location in the location EditText
+            locationEditText.setText(currentLocation);
+        }else{
+            gps.showSettingsAlert();
+        }
+        gps.stopUsingGPS();
 	}
 }

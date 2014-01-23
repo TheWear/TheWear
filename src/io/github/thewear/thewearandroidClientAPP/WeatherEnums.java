@@ -3,7 +3,10 @@ package io.github.thewear.thewearandroidClientAPP;
 import src.gui.thewearandroid.R;
 
 /**
- * loads correct strings
+ * enumerator WeatherEnums contains the strings used to determine which images
+ * each weather type uses (can be retrieved as boolean[] show_imgs; and the
+ * paths to the weather type descriptions (can be retrieved using
+ * weatherStringPath)
  */
 
 public enum WeatherEnums {
@@ -16,9 +19,9 @@ public enum WeatherEnums {
 	WARMLIGHTRAIN("1011000000001", R.string.WARMLIGHTRAIN), // short-pants and
 	// umbrella
 	WARM("1110000000010", R.string.WARM), // short-pants
-	SUNNYWEATHER("1110000000000", R.string.SUNNYWEATHER),
-	WARMSUNNYWEATHER("1110000000010", R.string.WARMSUNNYWEATHER),
-	DEFAULT("1110000000000", R.string.DEFAULT);
+	SUNNYWEATHER("1110000000000", R.string.SUNNYWEATHER), WARMSUNNYWEATHER(
+			"1110000000010", R.string.WARMSUNNYWEATHER), DEFAULT(
+			"1110000000000", R.string.DEFAULT);
 
 	public boolean[] show_imgs;
 	public int weatherStringPath;

@@ -535,7 +535,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			publishProgress(progressCounter); // Total: 11/23
 			Log.d("TheWearDebug", "handled WeatherEnum");
 
-			boolean[] advice = weather_data.weathertype.show_imgs;
+			boolean[] advice = weather_data.weatherType.show_imgs;
 			advice = Arrays.copyOf(advice, advice.length + 1);
 			advice[advice.length - 1] = weather_data.sunglasses;
 

@@ -24,7 +24,6 @@ public class PreferencesHandler {
 	public static int[] array;
 
 	public static int[] getPreferences(Context context) {
-		// TODO Change to SharedPreferences instead of using a file
 		// Get default Preference Values
 		int defaultPreference1Value = Integer.parseInt(context
 				.getString(R.string.preference1_defaultValue));

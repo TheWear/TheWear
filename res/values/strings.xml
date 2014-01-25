@@ -3,8 +3,7 @@
 
     <!--
     If you have a string that should be translated, please add these to corresponding translated files!
-    All files that don't have to be translated should only be added to this file.
-
+    All files that don't have to be translated should only be added to this file.
     -->
 
     <string name="testVersion">v0.001</string>
@@ -118,20 +117,18 @@
         <item>Snowdepth (cm)"</item>
         <!-- WEASD -->
     </string-array>
-    <string-array name="weatherTypeStrings">
-        <item>strange weather</item>
-        <item>light rain</item>
-        <item>heavy rain</item>
-        <item>snow</item>
-        <item>cold</item>
-        <item>cold and wind</item>
-        <item>slightly uninteresting weather</item>
-        <item>storm and rain</item>
-        <item>warm weather</item>
-        <item>light rain and warm weather</item>
-    </string-array>
 
-    <string name="sunGlassesPathname">sunglasses_2</string>
+    <string name="LIGHTRAIN">light rain</string>
+    <string name="HEAVYRAIN">heavy rain</string>
+    <string name="STORMYRAIN">storm and rain</string>
+    <string name="SNOW">snow</string>
+    <string name="COOLWINDY">cold and wind</string>
+    <string name="COLD">cold</string>
+    <string name="WARMLIGHTRAIN">light rain and warm</string>
+    <string name="WARM">warm weather</string>
+    <string name="SUNNYWEATHER">sunny weather</string>
+    <string name="WARMSUNNYWEATHER">warm and sunny</string>
+    <string name="DEFAULT">slightly uninteresting weather</string>
 
     <string-array name="pathnames">
         <item>base</item>
@@ -148,6 +145,8 @@
         <item>short_pants</item>
         <item>umbrella</item>
     </string-array>
+
+    <string name="sunGlassesPathname">sunglasses_2</string>
 
     <!-- This list is also posted on our drive, related to the countries -->
     <string-array name="ccTLDCodes">
@@ -405,7 +404,6 @@
         <item>ps</item>
         <item>zw</item>
     </string-array>
-
     <string-array name="ccTLDCountries">
         <item>International</item>
         <item>Afghanistan</item>

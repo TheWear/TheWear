@@ -562,7 +562,7 @@ public class MainActivity extends Activity {
 				Log.d("TheWearDebug",
 						"No detailed weather information available");
 				Toast myToast = Toast.makeText(getApplicationContext(),
-						R.string.noForecastDetailedInfo, Toast.LENGTH_SHORT);
+						R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else {
@@ -661,7 +661,7 @@ public class MainActivity extends Activity {
 		} else {
 			Log.d("TheWearAndroid", "myForecastObject == null");
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					R.string.noForecast, Toast.LENGTH_SHORT);
+					R.string.noForecast, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}
@@ -674,9 +674,8 @@ public class MainActivity extends Activity {
 	 */
 
 	public void getGPSLocation(View view) {
-        EditText locationField = (EditText) findViewById(R.id.editText1);
-			new GPSCoordsManager(this, locationField).execute();
-
+		EditText locationField = (EditText) findViewById(R.id.editText1);
+		new GPSCoordsManager(this, locationField).execute();
 
 	}
 

@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/com_facebook_icon"
             android:contentDescription="@string/facebookButton"
-            android:onClick="shareFacebook" />
+            android:onClick="shareFacebook"
+            style="?android:attr/borderlessButtonStyle" />
 
         <ImageButton
             android:id="@+id/imageButton2Twitter"
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/bird_blue_32"
             android:contentDescription="@string/facebookButton"
-            android:onClick="shareTwitter" />
+            android:onClick="shareTwitter"
+            style="?android:attr/borderlessButtonStyle" />
 
 </LinearLayout>

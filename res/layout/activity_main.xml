@@ -45,8 +45,8 @@
         android:layout_marginRight="-14dp"
         android:contentDescription="@string/button1"
         android:onClick="startForecast"
-        android:src="@drawable/av_play" />
-    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+        android:src="@drawable/av_play"
+        style="?android:attr/borderlessButtonStyle" />
 
     <TextView
         android:id="@+id/textView1"
@@ -66,8 +66,8 @@
         android:contentDescription="@string/previous"
         android:longClickable="false"
         android:onClick="goBack"
-        android:src="@drawable/navigation_previous_item" />
-    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+        android:src="@drawable/navigation_previous_item"
+        style="?android:attr/borderlessButtonStyle" />
 
     <ImageButton
         android:id="@+id/button_forward"
@@ -78,8 +78,8 @@
         android:contentDescription="@string/next"
         android:longClickable="false"
         android:onClick="goForward"
-        android:src="@drawable/navigation_next_item" />
-    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+        android:src="@drawable/navigation_next_item"
+        style="?android:attr/borderlessButtonStyle" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -92,8 +92,8 @@
         android:contentDescription="@string/shareButton"
         android:longClickable="false"
         android:onClick="showSocialMediaPicker"
-        android:src="@drawable/social_share" />
-    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+        android:src="@drawable/social_share"
+        style="?android:attr/borderlessButtonStyle" />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -107,8 +107,8 @@
         android:contentDescription="@string/getGPSLocation"
         android:longClickable="false"
         android:onClick="getGPSLocation"
-        android:src="@drawable/device_access_location_found" />
-    <!-- API 11+: style="?android:attr/borderlessButtonStyle" -->
+        android:src="@drawable/device_access_location_found"
+        style="?android:attr/borderlessButtonStyle" />
 
     <ProgressBar
         android:id="@+id/mainProgressBar"

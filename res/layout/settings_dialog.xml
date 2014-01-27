@@ -167,7 +167,8 @@
             android:layout_marginLeft="@dimen/settingsDialogHorizontalSpacer"
             android:contentDescription="@string/regionInfoButtonDescription"
             android:onClick="showRegionPreferenceInfo"
-            android:src="@drawable/action_help" />
+            android:src="@drawable/action_help"
+            style="?android:attr/borderlessButtonStyle" />
     </LinearLayout>
 
     <Spinner

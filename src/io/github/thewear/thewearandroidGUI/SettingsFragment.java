@@ -5,12 +5,13 @@ import io.github.thewear.thewearandroidClientAPP.TimeHandler;
 import src.gui.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -111,6 +112,12 @@ public class SettingsFragment extends DialogFragment {
 
 		// Set dialog Title
 		builder.setTitle(R.string.settingsDialogTitle);
+
+		// Set special theme if using api 10:
+		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD_MR1) {
+			dialogView.setBackgroundColor(getResources().getColor(
+					android.R.color.white));
+		}
 
 		// Get default preference
 		final Resources res = getResources();

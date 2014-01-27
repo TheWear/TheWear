@@ -4,6 +4,7 @@
 	This file contains the basic layout of the dialog.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/settingsDialogMainMargin"
@@ -168,6 +169,7 @@
             android:contentDescription="@string/regionInfoButtonDescription"
             android:onClick="showRegionPreferenceInfo"
             android:src="@drawable/action_help"
+            tools:ignore="NewApi"
             style="?android:attr/borderlessButtonStyle" />
     </LinearLayout>
 

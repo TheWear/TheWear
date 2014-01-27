@@ -46,6 +46,7 @@
         android:contentDescription="@string/button1"
         android:onClick="startForecast"
         android:src="@drawable/av_play"
+        tools:ignore="NewApi"
         style="?android:attr/borderlessButtonStyle" />
 
     <TextView
@@ -67,6 +68,7 @@
         android:longClickable="false"
         android:onClick="goBack"
         android:src="@drawable/navigation_previous_item"
+        tools:ignore="NewApi"
         style="?android:attr/borderlessButtonStyle" />
 
     <ImageButton
@@ -79,6 +81,7 @@
         android:longClickable="false"
         android:onClick="goForward"
         android:src="@drawable/navigation_next_item"
+        tools:ignore="NewApi"
         style="?android:attr/borderlessButtonStyle" />
 
     <ImageButton
@@ -93,6 +96,7 @@
         android:longClickable="false"
         android:onClick="showSocialMediaPicker"
         android:src="@drawable/social_share"
+        tools:ignore="NewApi"
         style="?android:attr/borderlessButtonStyle" />
 
     <ImageButton
@@ -108,6 +112,7 @@
         android:longClickable="false"
         android:onClick="getGPSLocation"
         android:src="@drawable/device_access_location_found"
+        tools:ignore="NewApi"
         style="?android:attr/borderlessButtonStyle" />
 
     <ProgressBar

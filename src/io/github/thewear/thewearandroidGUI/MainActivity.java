@@ -1,6 +1,5 @@
 package io.github.thewear.thewearandroidGUI;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -38,7 +38,7 @@ import io.github.thewear.thewearandroidClientAPP.Forecaster;
 import io.github.thewear.thewearandroidClientAPP.GPSCoordsManager;
 import src.gui.thewearandroid.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
 	/**
 	 * The GUI of the Application.
@@ -264,7 +264,7 @@ public class MainActivity extends Activity {
 			// Open Options Menu
 			myMenuFragment = new MenuFragment();
 			myMenuFragment.passNecessaryInformation(this, this);
-			myMenuFragment.show(getFragmentManager(), "Menu");
+			myMenuFragment.show(getSupportFragmentManager(), "Menu");
 
 			return true;
 		}
@@ -648,8 +648,8 @@ public class MainActivity extends Activity {
 				Bitmap currentBitmap = myForecastInfo.mergedImages[tabNumber];
 				if (currentBitmap != null) {
 					mySocialMediaPickerFragment = new SocialMediaPickerFragment();
-					mySocialMediaPickerFragment.show(getFragmentManager(),
-							"Preferences");
+					mySocialMediaPickerFragment.show(
+							getSupportFragmentManager(), "Preferences");
 				} else {
 					Log.d("TheWearDebug", "No Bitmap to share");
 					Toast myToast = Toast.makeText(getApplicationContext(),
@@ -674,9 +674,8 @@ public class MainActivity extends Activity {
 	 */
 
 	public void getGPSLocation(View view) {
-        EditText locationField = (EditText) findViewById(R.id.editText1);
-			new GPSCoordsManager(this, locationField).execute();
-
+		EditText locationField = (EditText) findViewById(R.id.editText1);
+		new GPSCoordsManager(this, locationField).execute();
 
 	}
 
@@ -729,13 +728,13 @@ public class MainActivity extends Activity {
 			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
 			myForecastPreferencesFragment.passNecessaryInformation(
 					myImageViews, myForecastInfo, this);
-			myForecastPreferencesFragment.show(getFragmentManager(),
+			myForecastPreferencesFragment.show(getSupportFragmentManager(),
 					"Preferences");
 		} else {
 			// Catch an empty myForecastInfo and show dialog
 			Log.d("TheWearAndroid", "myForecastObject == null");
 			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-			myForecastPreferencesFragment.show(getFragmentManager(),
+			myForecastPreferencesFragment.show(getSupportFragmentManager(),
 					"Preferences");
 		}
 	}
@@ -750,7 +749,7 @@ public class MainActivity extends Activity {
 		SettingsFragment mySettingsFragment = new SettingsFragment();
 		mySettingsFragment.passNecessaryInformation(myForecastTimeStruct,
 				titleTextView, mViewPager, this);
-		mySettingsFragment.show(getFragmentManager(), "Settings");
+		mySettingsFragment.show(getSupportFragmentManager(), "Settings");
 	}
 
 	/**

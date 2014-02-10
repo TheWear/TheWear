@@ -562,7 +562,7 @@ public class MainActivity extends FragmentActivity {
 				Log.d("TheWearDebug",
 						"No detailed weather information available");
 				Toast myToast = Toast.makeText(getApplicationContext(),
-						R.string.noForecastDetailedInfo, Toast.LENGTH_SHORT);
+						R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else {
@@ -661,7 +661,7 @@ public class MainActivity extends FragmentActivity {
 		} else {
 			Log.d("TheWearAndroid", "myForecastObject == null");
 			Toast myToast = Toast.makeText(getApplicationContext(),
-					R.string.noForecast, Toast.LENGTH_SHORT);
+					R.string.noForecast, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
 			myToast.show();
 		}

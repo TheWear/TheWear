@@ -4,7 +4,6 @@ import src.gui.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -41,12 +40,6 @@ public class SocialMediaPickerFragment extends DialogFragment {
 
 		// Set dialog Title
 		builder.setTitle(R.string.social_media_dialog_Title);
-
-		// Set special theme if using api 10:
-		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD_MR1) {
-			dialogView.setBackgroundColor(getResources().getColor(
-					android.R.color.white));
-		}
 
 		// set Cancel button
 		builder.setNegativeButton(R.string.negative_button,

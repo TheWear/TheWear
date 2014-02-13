@@ -15,4 +15,19 @@
     <integer name="defaultTemperatureNotation">0</integer>
     <integer name="defaultWindSpeedNotation">0</integer>
 
+    <!-- Preference -->
+    <integer-array name="timeNotationPreferenceInt">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+    <integer-array name="temperatureNotationPreferenceInt">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+    <integer-array name="windspeedNotationPreferenceInt">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
 </resources>

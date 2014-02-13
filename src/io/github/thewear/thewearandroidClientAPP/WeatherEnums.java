@@ -1,6 +1,6 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 
 /**
  * enumerator WeatherEnums contains the strings used to determine which images

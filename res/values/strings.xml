@@ -3,11 +3,12 @@
 
     <!--
     If you have a string that should be translated, please add these to corresponding translated files!
-    All files that don't have to be translated should only be added to this file.
+    All files that don't have to be translated should only be added to this file.
     -->
-
+    
     <string name="testVersion">v0.001</string>
     <string name="app_name">TheWear</string>
+    <string name="app_preferences">Settings</string>
     <string name="action_preferences">Preferences</string>
     <string name="action_about">About TheWear</string>
     <string name="action_regionPreference">Region Preference</string>
@@ -19,8 +20,6 @@
     <string name="next">Next Day</string>
     <string name="appDescription">TheWear gives you a clothing advise based on a real weather forecast.</string>
     <string name="EditTextHint">Location</string>
-    <string name="TheWear_preference_key">TheWear.Preferences</string>
-    <string name="location_preference">TheWear.Preferences.Location</string>
     <string name="preference_dialog_Title">Weather Preferences</string>
     <string name="preference1_imageView_descr">Temperature Preference</string>
     <string name="preference1">Cold Threshold</string>
@@ -41,15 +40,6 @@
     <string name="closeDialog">Close</string>
     <string name="settingsButton">Settings</string>
     <string name="forecastInfo_title">The Weather</string>
-    <string name="forecast_preference1">TheWear.Preferences.Preference1</string>
-    <string name="forecast_preference2">TheWear.Preferences.Preference2</string>
-    <string name="forecast_preference3">TheWear.Preferences.Preference3</string>
-    <string name="region_preference">TheWear.Preferences.Region</string>
-    <string name="time_notation_preference">TheWear.Preferences.TimeNotation</string>
-    <string name="temperature_notation_preference">TheWear.Preferences.TemperatureNotation</string>
-    <string name="windspeed_notation_preference">TheWear.Preferences.WindSpeedNotation</string>
-    <string name="autoRegionDetection_preference">TheWear.Preferences.AutoRegionDetection</string>
-    <string name="default_region">nl</string>
     <string name="region_preference_dialog_Title">Region Preferences</string>
     <string name="social_media_dialog_Title">Share</string>
     <string name="facebookButton">Facebook Button</string>
@@ -84,17 +74,47 @@
     <string name="locationUnknown">Location unknown. Please enter a new location</string>
     <string name="on">On</string>
     <string name="off">Off</string>
-    <string name="autoRegionToggleTextViewText">Automatic Region\nDetection</string>
-    <string name="regionInfoButtonDescription">CLick to for more information</string>
-    <string name="regionTextViewText">Region Preference:</string>
-    <string name="regionPreferenceInformationTitle">Region Preference</string>
-    <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
+    <string name="default_region">nl</string>
     <string name="getGPSLocation">Button that gets the location by using the GPS signal</string>
     <string name="GPSLocationFound">Location found</string>
     <string name="GPSSettingsAlertDialogTitle">GPS Settings</string>
     <string name="GPSSettingsAlertDialogMessage">Location by using wireless networks is not enabled. Do you want to go to settings menu?</string>
     <string name="GPSLocationNotFound">Location not found</string>
 
+    <!-- Preferences -->
+
+	<string name="TheWear_preference_key">TheWear.Preferences</string>
+    <string name="location_preference_key">TheWear.Preferences.Location</string>
+	<string name="forecast_preference1_key">TheWear.Preferences.Preference1</string>
+    <string name="forecast_preference2_key">TheWear.Preferences.Preference2</string>
+    <string name="forecast_preference3_key">TheWear.Preferences.Preference3</string>
+    <string name="time_notation_preference_key">TheWear.Preferences.TimeNotation</string>
+    <string name="temperature_notation_preference_key">TheWear.Preferences.TemperatureNotation</string>
+    <string name="windspeed_notation_preference_key">TheWear.Preferences.WindSpeedNotation</string>
+    <string name="autoRegionDetection_preference_key">TheWear.Preferences.AutoRegionDetection</string>
+    <string name="region_preference_key">TheWear.Preferences.Region</string>
+
+    <string-array name="timeNotationPreferenceText">
+        <item>12-hours</item>
+        <item>24-hours</item>
+    </string-array>
+    <string-array name="temperatureNotationPreferenceText">
+        <item>Celcius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+    </string-array>
+    <string-array name="windspeedNotationPreferenceText">
+        <item>m/s</item>
+        <item>Beaufort</item>
+        <item>Knots</item>
+    </string-array>
+
+    <string name="autoRegionDetection">Region Detection</string>
+    <string name="regionPreference">Region Preference</string>
+    <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
+    <string name="autoRegionDetectionSummaryOff">Your region preference is always used.</string>
+    <string name="autoRegionDetectionSummaryOn">Your region preference is only used when automatic detection is not possible</string>
+
+    <!-- Options Menu -->
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>
         <item>Region Preferences</item>

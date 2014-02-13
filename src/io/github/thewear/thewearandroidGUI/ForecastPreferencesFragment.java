@@ -9,7 +9,7 @@ import io.github.thewear.thewearandroidClientAPP.WeatherEnumHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -137,19 +137,19 @@ public class ForecastPreferencesFragment extends DialogFragment {
 				getString(R.string.TheWear_preference_key),
 				Context.MODE_PRIVATE);
 		preference1Value = sharedPref.getInt(
-				getString(R.string.forecast_preference1),
+				getString(R.string.forecast_preference1_key),
 				defaultPreference1Value);
 		preference2Value = sharedPref.getInt(
-				getString(R.string.forecast_preference2),
+				getString(R.string.forecast_preference2_key),
 				defaultPreference2Value);
 		preference3Value = sharedPref.getInt(
-				getString(R.string.forecast_preference3),
+				getString(R.string.forecast_preference3_key),
 				defaultPreference3Value);
 		temperatureNotation = sharedPref.getInt(
-				getString(R.string.temperature_notation_preference),
+				getString(R.string.temperature_notation_preference_key),
 				defaultTemperatureNotation);
 		windSpeedNotation = sharedPref.getInt(
-				getString(R.string.windspeed_notation_preference),
+				getString(R.string.windspeed_notation_preference_key),
 				defaultWindSpeedNotation);
 		Log.d("TheWearDebug", "Red the preference values");
 		Log.d("BUG", "Preference2Value: " + preference2Value);
@@ -287,8 +287,8 @@ public class ForecastPreferencesFragment extends DialogFragment {
 			preference2_min = res.getInteger(R.integer.preference2_min2);
 			break;
 		case 2: // Knots, conversion needed
-			preference2_max = (int) res.getInteger(R.integer.preference2_max3);
-			preference2_min = (int) res.getInteger(R.integer.preference2_min3);
+			preference2_max = res.getInteger(R.integer.preference2_max3);
+			preference2_min = res.getInteger(R.integer.preference2_min3);
 			break;
 		default:
 			Log.e("TheWearDebug", "No such wind speed notation");
@@ -600,11 +600,11 @@ public class ForecastPreferencesFragment extends DialogFragment {
 						// Saves the changed preference values and closes the
 						// dialog
 						SharedPreferences.Editor editor = sharedPref.edit();
-						editor.putInt(getString(R.string.forecast_preference1),
+						editor.putInt(getString(R.string.forecast_preference1_key),
 								savingPreference1Value);
-						editor.putInt(getString(R.string.forecast_preference2),
+						editor.putInt(getString(R.string.forecast_preference2_key),
 								savingPreference2Value);
-						editor.putInt(getString(R.string.forecast_preference3),
+						editor.putInt(getString(R.string.forecast_preference3_key),
 								savingPreference3Value);
 						editor.commit();
 						Log.d("TheWearDebug", "Saved the changed Preferences");
@@ -698,7 +698,7 @@ public class ForecastPreferencesFragment extends DialogFragment {
 		AlertDialog d = (AlertDialog) getDialog();
 		if (d != null) {
 			Log.d("TheWearDebug", "Custom onClickDialog set");
-			Button neutralButton = (Button) d.getButton(Dialog.BUTTON_NEUTRAL);
+			Button neutralButton = d.getButton(DialogInterface.BUTTON_NEUTRAL);
 			neutralButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {

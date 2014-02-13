@@ -10,6 +10,7 @@
     be added to the default strings file.
     -->
 
+    <string name="app_preferences">Instellingen</string>
     <string name="action_preferences">Voorkeuren</string>
     <string name="action_about">Over TheWear</string>
     <string name="action_regionPreference">Regiovoorkeur</string>
@@ -73,13 +74,36 @@
     <string name="regionInfoButtonDescription">Klik voor meer informatie</string>
     <string name="regionTextViewText">RegioVoorkeur:</string>
     <string name="regionPreferenceInformationTitle">Regiovoorkeur</string>
-    <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
     <string name="getGPSLocation">Knop die de locatie ophaald gebruikmakend van het GPS signaal</string>
     <string name="GPSLocationFound">Locatie gevonden</string>
     <string name="GPSSettingsAlertDialogTitle">GPS opties</string>
     <string name="GPSSettingsAlertDialogMessage">Locatiebepaling met behulp van draadloze netwerken is uitgeschakeld. Wil u naar het optiesmenu om dit aan te passen?</string>
     <string name="GPSLocationNotFound">Locatie niet gevonden</string>
 
+    <!-- Preferences -->
+
+    <string-array name="timeNotationPreferenceText">
+        <item>12-uurs</item>
+        <item>24-uurs</item>
+    </string-array>
+    <string-array name="temperatureNotationPreferenceText">
+        <item>Celcius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+    </string-array>
+    <string-array name="windspeedNotationPreferenceText">
+        <item>m/s</item>
+        <item>Beaufort</item>
+        <item>Knopen</item>
+    </string-array>
+
+    <string name="autoRegionDetection">Regio detectie</string>
+    <string name="regionPreference">Regiovoorkeur</string>
+    <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
+    <string name="autoRegionDetectionSummaryOff">Je regiovoorkeur wordt altijd gebuikt</string>
+    <string name="autoRegionDetectionSummaryOn">Je regiovoorkeur wordt alleen gebruikt als de automatische detectie geen regio vindt</string>
+
+
+    <!-- Options menu -->
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>
         <item>Regio voorkeuren</item>

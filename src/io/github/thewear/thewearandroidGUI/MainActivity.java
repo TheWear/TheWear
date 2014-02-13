@@ -3,11 +3,13 @@ package io.github.thewear.thewearandroidGUI;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -36,7 +38,7 @@ import io.github.thewear.thewearandroidClientAPP.ForecastInfo;
 import io.github.thewear.thewearandroidClientAPP.ForecastTimeStruct;
 import io.github.thewear.thewearandroidClientAPP.Forecaster;
 import io.github.thewear.thewearandroidClientAPP.GPSCoordsManager;
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 
 public class MainActivity extends FragmentActivity {
 
@@ -80,6 +82,9 @@ public class MainActivity extends FragmentActivity {
 		Log.i("TheWearDebug", "onCreate()...");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// Set defaults for the preferences.
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
 		final EditText locationField = (EditText) findViewById(R.id.editText1);
 		locationField.clearFocus();
@@ -176,8 +181,6 @@ public class MainActivity extends FragmentActivity {
 		myForecastTimeStruct = new ForecastTimeStruct(tabTitles);
 		titleTextView.setText(myForecastTimeStruct.forecastTimeString[0]);
 
-		// TODO make button background invisible depending on API version?
-
 		Log.i("TheWearDebug", "onCreate() finished");
 	} // End onCreate
 
@@ -201,7 +204,7 @@ public class MainActivity extends FragmentActivity {
 				getString(R.string.TheWear_preference_key),
 				Context.MODE_PRIVATE);
 		startLocation = sharedPref.getString(
-				getString(R.string.location_preference), null);
+				getString(R.string.location_preference_key), null);
 		Log.d("TheWearDebug", "Got startLocation: " + startLocation);
 
 		// Check if the preference is empty. If the Preference is empty, it
@@ -586,6 +589,7 @@ public class MainActivity extends FragmentActivity {
 							R.string.forecastInfo_title);
 					builder.setPositiveButton(R.string.dialogButtonClose,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									// User clicked Close button
@@ -690,6 +694,7 @@ public class MainActivity extends FragmentActivity {
 				R.string.regionPreferenceInformationTitle);
 		builder.setPositiveButton(R.string.dialogButtonClose,
 				new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// User clicked Close button
 					}
@@ -740,16 +745,13 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * showSettings() shows the settings menu (the SettingsFragment) when
+	 * showSettings() shows the settings menu (the TheWearPreferenceActivity) when
 	 * called.
 	 */
 
 	public void showSettings() {
-		Log.d("TheWearDebug", "Settings");
-		SettingsFragment mySettingsFragment = new SettingsFragment();
-		mySettingsFragment.passNecessaryInformation(myForecastTimeStruct,
-				titleTextView, mViewPager, this);
-		mySettingsFragment.show(getSupportFragmentManager(), "Settings");
+		Intent intent = new Intent(this, TheWearPreferenceActivity.class);
+		startActivity(intent);
 	}
 
 	/**
@@ -764,6 +766,7 @@ public class MainActivity extends FragmentActivity {
 		builder.setMessage(aboutText).setTitle(R.string.action_about);
 		builder.setPositiveButton(R.string.closeDialog,
 				new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// User clicked OK button
 					}

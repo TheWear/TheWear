@@ -1,6 +1,6 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
@@ -69,12 +69,12 @@ public class DetailedForecastInformationManager {
 		int defaultTemperatureNotation = res
 				.getInteger(R.integer.defaultTemperatureNotation);
 		int temperatureNotation = sharedPref.getInt(
-				res.getString(R.string.temperature_notation_preference),
+				res.getString(R.string.temperature_notation_preference_key),
 				defaultTemperatureNotation);
 		int defaultWindSpeedNotation = res
 				.getInteger(R.integer.defaultWindSpeedNotation);
 		int windSpeedNotation = sharedPref.getInt(
-				res.getString(R.string.windspeed_notation_preference),
+				res.getString(R.string.windspeed_notation_preference_key),
 				defaultWindSpeedNotation);
 		String tempUnit = null;
 		String convertedAttr1 = null;

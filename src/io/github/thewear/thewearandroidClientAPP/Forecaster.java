@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 import io.github.thewear.thewearandroidGUI.MainActivity;
 import io.github.thewear.thewearandroidGUI.MainActivity.ImagePagerAdapter;
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 
 public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
@@ -161,7 +161,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		// Get the coordinates from the location using GridCoach
 
 		// Replace spaces with %20
-		GridCoach myGridCoach = new GridCoach(userLocation[0],false);
+		GridCoach myGridCoach = new GridCoach(userLocation[0], false);
 		progressCounter = progressCounter + 4;
 		publishProgress(progressCounter); // Total: 4/100
 
@@ -175,7 +175,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				.getBoolean(R.bool.defaultAutoRegionDetection);
 		// Read the autoRegionDetection value from SharedPreferences
 		boolean autoRegionDetection = sharedPref.getBoolean(
-				res.getString(R.string.autoRegionDetection_preference),
+				res.getString(R.string.autoRegionDetection_preference_key),
 				defaultAutoRegionDetection);
 
 		// Check if te user wants auto detection of their region
@@ -238,7 +238,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				// Save the Location in the
 				SharedPreferences.Editor editor = sharedPref.edit();
 				editor.putString(applicationContext
-						.getString(R.string.location_preference),
+						.getString(R.string.location_preference_key),
 						locationInfo.address);
 				editor.commit();
 				progressCounter = progressCounter + 4;
@@ -561,7 +561,7 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		String defaultRegion = res.getString(R.string.default_region);
 		// Read the preference values from SharedPreferences
 		String regionPreference = sharedPref.getString(
-				res.getString(R.string.region_preference), defaultRegion);
+				res.getString(R.string.region_preference_key), defaultRegion);
 		return regionPreference;
 	}
 }

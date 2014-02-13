@@ -77,8 +77,8 @@ public class PreferenceConvertor {
 			case 3: // Beaufort, conversion needed
 				prefMax = SettingsConvertor.metersToBeaufort(res
 						.getInteger(maxPreferenceIdentifier));
-				pref = (int) (prefMax - SettingsConvertor.metersToBeaufort((res
-						.getInteger(minPreferenceIdentifier))));
+				pref = prefMax - SettingsConvertor.metersToBeaufort((res
+						.getInteger(minPreferenceIdentifier)));
 				break;
 			case 4: // Knots, conversion needed
 				prefMax = (int) SettingsConvertor.metersToKnots(res

@@ -6,7 +6,7 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -204,7 +204,7 @@ public class TimeHandler {
 		forecastTimeMinute[2] = ThirdforecastEndTime.getMinuteOfHour();
 
 		int timeNotationPreference = sharedPref.getInt(
-				res.getString(R.string.time_notation_preference),
+				res.getString(R.string.time_notation_preference_key),
 				res.getInteger(R.integer.defaultTimeNotation));
 		String[] titleString = constructTitleStrings(forecastTimeHour,
 				forecastTimeMinute, timeNotationPreference, res);

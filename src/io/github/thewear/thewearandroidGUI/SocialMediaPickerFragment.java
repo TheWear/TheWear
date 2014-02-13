@@ -1,6 +1,6 @@
 package io.github.thewear.thewearandroidGUI;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -26,6 +26,7 @@ public class SocialMediaPickerFragment extends DialogFragment {
 	 * the negative button of the dialog to cancel sharing.
 	 */
 
+	@Override
 	public Dialog onCreateDialog(Bundle SavedInstance) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		// get the LayoutInflater

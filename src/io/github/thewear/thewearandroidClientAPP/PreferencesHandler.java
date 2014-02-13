@@ -1,6 +1,6 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -38,13 +38,13 @@ public class PreferencesHandler {
 				context.getString(R.string.TheWear_preference_key),
 				Context.MODE_PRIVATE);
 		int coldLimit = sharedPref.getInt(
-				context.getString(R.string.forecast_preference1),
+				context.getString(R.string.forecast_preference1_key),
 				defaultPreference1Value);
 		int umbrellaLimit = sharedPref.getInt(
-				context.getString(R.string.forecast_preference2),
+				context.getString(R.string.forecast_preference2_key),
 				defaultPreference2Value);
 		int warmLimit = sharedPref.getInt(
-				context.getString(R.string.forecast_preference3),
+				context.getString(R.string.forecast_preference3_key),
 				defaultPreference3Value);
 
 		array = new int[3];

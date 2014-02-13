@@ -16,7 +16,7 @@ public class ServerCommunicator {
 		Log.d("TheWearDebug", "Starting readFile()");
 		String latString = Double.toString(lat);
 		String lngString = Double.toString(lng);
-        String[][] dataset = {null,null,null};
+		String[][] dataset = { null, null, null };
 		URL serverFile;
 		HttpURLConnection conn;
 		try {
@@ -36,10 +36,10 @@ public class ServerCommunicator {
 							sb.append(inputData + "\n");
 						}
 						String data = sb.toString();
-                        String[] alldataset = data.split(",");
-                        dataset[0] = alldataset[0].split("\t");
-                        dataset[1] = alldataset[1].split("\t");
-                        dataset[2] = alldataset[2].split("\t");
+						String[] alldataset = data.split(",");
+						dataset[0] = alldataset[0].split("\t");
+						dataset[1] = alldataset[1].split("\t");
+						dataset[2] = alldataset[2].split("\t");
 						Log.d("TheWearDebug", "date of the dataset: "
 								+ dataset[0][0]);
 

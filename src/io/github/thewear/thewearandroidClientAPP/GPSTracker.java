@@ -1,6 +1,6 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -179,6 +179,7 @@ public class GPSTracker extends Service implements LocationListener {
 		// On pressing Settings button
 		alertDialog.setPositiveButton(R.string.settingsDialogTitle,
 				new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(
 								Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -189,6 +190,7 @@ public class GPSTracker extends Service implements LocationListener {
 		// on pressing cancel button
 		alertDialog.setNegativeButton(R.string.negative_button,
 				new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
 					}

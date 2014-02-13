@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:integerListPreferenceImplementation="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
+
+    <io.github.thewear.thewearandroidGUI.IntegerListPreference
+        android:defaultValue="@integer/defaultTimeNotation"
+        android:dialogTitle="@string/setting1"
+        integerListPreferenceImplementation:entryList="@array/timeNotationPreferenceText"
+        integerListPreferenceImplementation:valueList="@array/timeNotationPreferenceInt"
+        android:key="@string/time_notation_preference_key"
+        android:order="1"
+        android:persistent="true"
+        android:title="@string/setting1" />
+    
+    <io.github.thewear.thewearandroidGUI.IntegerListPreference
+        android:defaultValue="@integer/defaultTemperatureNotation"
+        android:dialogTitle="@string/setting2"
+        integerListPreferenceImplementation:entryList="@array/temperatureNotationPreferenceText"
+        integerListPreferenceImplementation:valueList="@array/temperatureNotationPreferenceInt"
+        android:key="@string/temperature_notation_preference_key"
+        android:order="2"
+        android:persistent="true"
+        android:title="@string/setting2" />
+    
+    <io.github.thewear.thewearandroidGUI.IntegerListPreference
+        android:defaultValue="@integer/defaultWindSpeedNotation"
+        android:dialogTitle="@string/setting3"
+        integerListPreferenceImplementation:entryList="@array/windspeedNotationPreferenceText"
+        integerListPreferenceImplementation:valueList="@array/windspeedNotationPreferenceInt"
+        android:key="@string/windspeed_notation_preference_key"
+        android:order="3"
+        android:persistent="true"
+        android:title="@string/setting3" />
+
+    <SwitchPreference
+        android:defaultValue="@bool/defaultAutoRegionDetection"
+        android:dialogMessage="test Message"
+        android:dialogTitle="@string/autoRegionDetection"
+        android:switchTextOff="@string/off"
+        android:switchTextOn="@string/on"
+        android:key="@string/autoRegionDetection_preference_key"
+        android:order="4"
+        android:persistent="true"
+        android:summaryOff="@string/autoRegionDetectionSummaryOff"
+        android:summaryOn="@string/autoRegionDetectionSummaryOn"
+        android:title="@string/autoRegionDetection" />
+
+    <ListPreference
+        android:defaultValue="@string/default_region"
+        android:dialogTitle="@string/regionPreference"
+        android:entries="@array/ccTLDCountries"
+        android:entryValues="@array/ccTLDCodes"
+        android:key="@string/region_preference_key"
+        android:order="5"
+        android:persistent="true"
+        android:summary="@string/regionPreferenceInformation"
+        android:title="@string/regionPreference" />
+
+</PreferenceScreen>

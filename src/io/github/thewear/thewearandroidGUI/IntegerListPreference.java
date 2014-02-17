@@ -11,7 +11,16 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 
 public class IntegerListPreference extends DialogPreference {
-	
+
+	/**
+	 * IntegerListPreference is a custom ListPreference that can use integers as
+	 * entryValues, and also store these values as integers.
+	 * 
+	 * source:
+	 * http://kmansoft.com/2011/01/02/implementing-a-styleable-preference
+	 * -for-a-list-of-integers/
+	 */
+
 	private CharSequence[] mEntries;
 	private int[] mValues;
 	private int mValue;
@@ -209,9 +218,10 @@ public class IntegerListPreference extends DialogPreference {
 	}
 
 	@Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setValue(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue);
-    }
+	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
+		setValue(restoreValue ? getPersistedInt(mValue)
+				: (Integer) defaultValue);
+	}
 
 	@Override
 	protected Parcelable onSaveInstanceState() {

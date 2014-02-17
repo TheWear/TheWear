@@ -3,7 +3,6 @@ package io.github.thewear.thewearandroidClientAPP;
 import io.github.thewear.thewearandroid.R;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
 public class DetailedForecastInformationManager {
 
@@ -97,7 +96,8 @@ public class DetailedForecastInformationManager {
 					.celsiusToFahrenheit(attr7));
 			break;
 		default:
-			Log.e("TheWearDebug", "No such temperatureNotation");
+			throw new IllegalArgumentException(
+					"DetailedForecastInformationManager: error - No such temperatureNotation");
 		}
 
 		String windSpeedUnit = null;
@@ -118,7 +118,8 @@ public class DetailedForecastInformationManager {
 					.metersToKnots(attr4));
 			break;
 		default:
-			Log.e("TheWearDebug", "No such windSpeedNotation");
+			throw new IllegalArgumentException(
+					"DetailedForecastInformationManager: error - No such windSpeedNotation");
 		}
 
 		String mouseOverString = String.format(mouseOverStringFormat, tempUnit,

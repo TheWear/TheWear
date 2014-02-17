@@ -3,7 +3,6 @@ package io.github.thewear.thewearandroidClientAPP;
 import io.github.thewear.thewearandroid.R;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 public class PreferencesHandler {
 
@@ -31,7 +30,6 @@ public class PreferencesHandler {
 				.getString(R.string.preference2_defaultValue));
 		int defaultPreference3Value = Integer.parseInt(context
 				.getString(R.string.preference3_defaultValue));
-		Log.d("TheWearDebug", "Got default Vales");
 
 		// Read the preference values from Shared Preferences
 		SharedPreferences sharedPref = context.getSharedPreferences(

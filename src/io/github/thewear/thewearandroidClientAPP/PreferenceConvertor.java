@@ -1,29 +1,21 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import android.util.Log;
-
 public class PreferenceConvertor {
 
 	/**
 	 * This class Adjusts the preference range for use with a SeekBar: It makes
 	 * it possible to use other minimum values than 0.
 	 * 
-	 * initiatePreferenceConvertor(Context context, String preference) has to be
+	 * Constructor PreferenceConvertor(int unitNotation, int notation) sets the
+	 * notation and notationCorrection to be used by this class.
+	 * 
+	 * initiatePreferenceConvertor(int miniumValue, int MaximumValue) has to be
 	 * called to calculate the offset between the real preference value and the
-	 * preference value used by the SeekBar. Input for these methods is the
-	 * Context 'context' to be able to retrieve the resources; and String
-	 * 'preferenceName' which is the preference name linked to the resources.
-	 * Minimum and maximum values have to be stored in "res/values/integers.xml"
-	 * with a name in the following format: [preferenceName]_min and
-	 * [preferenceName]_max
+	 * preference value used by the SeekBar.
 	 * 
-	 * NormalToAdjusted(int normal) converts the real preference value to the
-	 * preference value used by the SeekBar, and returns the adjusted preference
-	 * value
-	 * 
-	 * AdjustedToNormal(int adjusted) converts the preference value used by the
-	 * SeekBar to the real preference value, and returns the real preference
-	 * value
+	 * The two units currently available are Temperature (unitNotation = 0) and
+	 * WindSpeed (unitNotation = 1). If you don't want to use any corrections
+	 * for units, use 'unitNotation = 0, notation = 0'
 	 */
 
 	private int adjustment;
@@ -33,15 +25,13 @@ public class PreferenceConvertor {
 	private int notation;
 
 	/**
-	 * General constructor
-	 */
-
-	public PreferenceConvertor() {
-
-	}
-
-	/**
-	 * Constructor for use with the Temperature (=0) and WindSpeed (=1) notation
+	 * PreferenceConvertor(int unitNotation, int notation) sets the notation and
+	 * notationCorrection to be used by this class. the notationCorrection is
+	 * for use with the Temperature (unitNotation = 0) and WindSpeed
+	 * (unitNotation = 1) notation.
+	 * 
+	 * If you don't want to use any corrections for units, use 'unitNotation =
+	 * 0, notation = 0'
 	 */
 
 	public PreferenceConvertor(int unitNotation, int notation) {
@@ -52,6 +42,16 @@ public class PreferenceConvertor {
 		}
 		this.notation = notation;
 	}
+
+	/**
+	 * initiatePreferenceConvertor(int miniumValue, int MaximumValue) calculates
+	 * the adjustment needed to use 'NormalToAdjusted(int normal)' and
+	 * AdjustedToNormal(int adjusted). to use this, the constructor
+	 * PreferenceConvertor(int unitNotation, int notation) has to be used.
+	 * 
+	 * initiatePreferenceConvertor(int miniumValue, int MaximumValue) also sets
+	 * the for units and notation adjusted prefMax and prefMin public variables.
+	 */
 
 	public void initiatePreferenceConvertor(int miniumValue, int MaximumValue) {
 		int pref = -1;
@@ -82,20 +82,46 @@ public class PreferenceConvertor {
 			pref = prefMax - prefMin;
 			break;
 		default:
-			Log.e("TheWearDebug", "No such preference notation");
+			throw new IllegalArgumentException(
+					"PreferenceConvertor: error - No such preference notation");
 		}
 		adjustment = prefMax - pref;
 	}
+
+	/**
+	 * NormalToAdjusted(int normal) converts the real preference value to the
+	 * preference value used by the SeekBar, and returns the adjusted preference
+	 * value. The constructor PreferenceConvertor(int unitNotation, int
+	 * notation) and method initiatePreferenceConvertor(int miniumValue, int
+	 * MaximumValue) have to be used before this method to work properly.
+	 */
 
 	public int NormalToAdjusted(int normal) {
 		int adjusted = normal - adjustment;
 		return adjusted;
 	}
 
+	/**
+	 * 
+	 * NormalToAdjusted(int normal) converts the real preference value to the
+	 * preference value used by the SeekBar, and returns the adjusted preference
+	 * value. The constructor PreferenceConvertor(int unitNotation, int
+	 * notation) and method initiatePreferenceConvertor(int miniumValue, int
+	 * MaximumValue) have to be used before this method to work properly.
+	 */
+
 	public int AdjustedToNormal(int adjusted) {
 		int normal = adjusted + adjustment;
 		return normal;
 	}
+
+	/**
+	 * convertValueForDisplaying(int value) converts 'value' to 'valueToDisplay'
+	 * (returns as int). Conversion is only possible for temperature and
+	 * windspeed. the constructor PreferenceConvertor(int unitNotation, int
+	 * notation) and method initiatePreferenceConvertor(int miniumValue, int
+	 * MaximumValue) have to be used before this method to work properly.
+	 */
 
 	public int convertValueForDisplaying(int value) {
 		int valueToDisplay = -1;
@@ -116,10 +142,19 @@ public class PreferenceConvertor {
 			valueToDisplay = Math.round(SettingsConvertor.metersToKnots(value));
 			break;
 		default:
-			Log.e("TheWearDebug", "No such preference notation");
+			throw new IllegalArgumentException(
+					"PreferenceConvertor: error - No such preference notation");
 		}
 		return valueToDisplay;
 	}
+
+	/**
+	 * convertValueForPersisting(int value) converts 'value' to 'valueToStore'
+	 * (returns as int). Conversion is only possible for temperature and
+	 * windspeed. the constructor PreferenceConvertor(int unitNotation, int
+	 * notation) and method initiatePreferenceConvertor(int miniumValue, int
+	 * MaximumValue) have to be used before this method to work properly.
+	 */
 
 	public int convertValueForPersisting(int value) {
 		int valueToStore = -1;
@@ -142,7 +177,8 @@ public class PreferenceConvertor {
 			valueToStore = Math.round(SettingsConvertor.knotsToMeters(value));
 			break;
 		default:
-			Log.e("TheWearDebug", "No such preference notation");
+			throw new IllegalArgumentException(
+					"PreferenceConvertor: error - No such preference notation");
 		}
 		return valueToStore;
 	}

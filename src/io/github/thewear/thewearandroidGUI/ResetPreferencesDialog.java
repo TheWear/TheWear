@@ -10,6 +10,10 @@ import android.util.AttributeSet;
 
 public class ResetPreferencesDialog extends DialogPreference {
 
+	/**
+	 * UNUSED AND UNFINISHED CLASS
+	 */
+
 	private String[] preferenceKeys;
 
 	public ResetPreferencesDialog(Context context, AttributeSet attrs) {

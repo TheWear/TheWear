@@ -8,7 +8,19 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 public class ForecastPreferenceActivity extends PreferenceActivity {
-	
+
+	/**
+	 * ForecastPreferenceActivity is the activity containing the Java code for
+	 * the forecast preference. it is connected to the
+	 * R.xml.forecast_preferences; containing a cold weather threshold, a wind
+	 * speed threshold and a warm weather threshold.
+	 */
+
+	/**
+	 * onCreate is the method used to create the PreferenceActivity. It contains
+	 * some methods deprecated in API level 11
+	 */
+
 	@SuppressWarnings("deprecation")
 	// addPreferencesFromResource and getPreferenceManager are deprecated in API
 	// level 11; but we are using API level 10
@@ -20,15 +32,20 @@ public class ForecastPreferenceActivity extends PreferenceActivity {
 		getPreferenceManager().setSharedPreferencesMode(MODE_PRIVATE);
 		addPreferencesFromResource(R.xml.forecast_preferences);
 		setUpInActionBar();
-		
+
 	}
+
+	/**
+	 * setUpInActionBar() is the method used to set the 'Up' functionality for
+	 * the PreferenceActivity. It targets API level 11+
+	 */
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	// The new API is only used if the device has API level 11 or higher
 	public void setUpInActionBar() {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
 			ActionBar actionBar = getActionBar();
-		    actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 	}
 

@@ -31,6 +31,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutionException;
 
 import io.github.thewear.thewearandroidClientAPP.DetailedForecastInformationManager;
@@ -430,8 +431,8 @@ public class MainActivity extends FragmentActivity {
 		} else if (tabNumber == 1) { // Tab 2 to tab 3
 			mViewPager.setCurrentItem(2, true);
 		} else { // In case of an Error
-			Log.e("SwitchForecastButton",
-					"An error occured while switching Forecast (forward). Check the Selected Forecast");
+			throw new NoSuchElementException(
+					"MainActivity: error - An error occured while switching Forecast (forward). Check the Selected Forecast");
 		}
 	}
 
@@ -444,8 +445,8 @@ public class MainActivity extends FragmentActivity {
 		} else if (tabNumber == 2) { // Tab 3 to tab 2
 			mViewPager.setCurrentItem(1, true);
 		} else { // In case of an Error
-			Log.e("SwitchForecastButton",
-					"An error occured while switching Forecast (back). Check the Selected Forecast");
+			throw new NoSuchElementException(
+					"MainActivity: error - An error occured while switching Forecast (back). Check the Selected Forecast");
 		}
 	}
 
@@ -458,7 +459,6 @@ public class MainActivity extends FragmentActivity {
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO Implement sharing over Facebook
-		Log.i("TheWearDebug", "Sharing over Facebook");
 	}
 
 	/**
@@ -470,7 +470,6 @@ public class MainActivity extends FragmentActivity {
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO implement sharing over Twitter
-		Log.i("TheWearDebug", "Sharing over Twitter");
 	}
 
 	/**
@@ -675,7 +674,7 @@ public class MainActivity extends FragmentActivity {
 
 	/**
 	 * showForecastPreferences() shows the preferences menu (the
-	 * ForecastPreferencesFragment) when called.
+	 * TheWearPreferenceActivity) when called.
 	 * 
 	 * This method tries to retrieve the dataset of the last forecast, and
 	 * passes it to the setter method of the ForecastPreferencesFragment(),

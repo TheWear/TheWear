@@ -1,6 +1,7 @@
 package io.github.thewear.thewearandroidClientAPP;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 
 import io.github.thewear.thewearandroid.R;
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Bitmap.Config;
-import android.util.Log;
 
 public class MergeImage {
 
@@ -40,8 +40,8 @@ public class MergeImage {
 					// If getIdentifier can't find an integer with that name, it
 					// returns the non-existing identifier '0'
 					if (imageIdentifier == 0) {
-						Log.e("TheWearDebug",
-								"Could not retrieve the drawable resources. Path: "
+						throw new InputMismatchException(
+								"MergeImage: error - Could not retrieve the drawable resources. Path: "
 										+ imagePathname[i]);
 					} else {
 						Bitmap bitmap = BitmapFactory.decodeResource(res,
@@ -51,8 +51,8 @@ public class MergeImage {
 				}
 			}
 		} else {
-			Log.e("TheWearDebug",
-					"The number of pathnames doesn't correspont with the advice length.");
+			throw new InputMismatchException(
+					"MergeImage: error - The number of pathnames doesn't correspont with the advice length.");
 		}
 		return myBitmap;
 	}

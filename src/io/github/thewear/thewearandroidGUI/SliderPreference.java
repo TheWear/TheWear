@@ -10,7 +10,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
@@ -18,6 +17,11 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class SliderPreference extends DialogPreference {
+
+	/**
+	 * SliderPreference is a Preference with a SeekBar slider which can be used
+	 * to select integer values for preferences.
+	 */
 
 	private int mValue;
 	private int mAdjustedValue;
@@ -29,6 +33,12 @@ public class SliderPreference extends DialogPreference {
 	private int maximumPreferenceValue;
 	SeekBar mSeekBar;
 	TextView preferenceValueTextView;
+
+	/**
+	 * the constructor SliderPreference(Context context, AttributeSet attrs)
+	 * sets the positiveButtonText and negativeButtonText, and imports all
+	 * values from custom fields.
+	 */
 
 	public SliderPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -44,13 +54,13 @@ public class SliderPreference extends DialogPreference {
 				.getString(R.styleable.SliderPreference_description);
 		if (preferenceDescription == null) {
 			throw new IllegalArgumentException(
-					"IntegerListPreference: error - Description is not specified");
+					"SliderPreference: error - Description is not specified");
 		}
 
 		unitType = a.getInt(R.styleable.SliderPreference_unitType, unitType);
 		if (unitType == -1) {
 			throw new IllegalArgumentException(
-					"IntegerListPreference: error - UnitType is not specified");
+					"SliderPreference: error - UnitType is not specified");
 		}
 
 		unitPreferenceDefault = a
@@ -58,7 +68,7 @@ public class SliderPreference extends DialogPreference {
 						unitPreferenceDefault);
 		if (unitPreferenceDefault == -1) {
 			throw new IllegalArgumentException(
-					"IntegerListPreference: error - unitPreferenceDefault is not specified");
+					"SliderPreference: error - unitPreferenceDefault is not specified");
 		}
 
 		minimumPreferenceValue = a.getInt(
@@ -66,18 +76,39 @@ public class SliderPreference extends DialogPreference {
 				minimumPreferenceValue);
 		if (minimumPreferenceValue == -1) {
 			throw new IllegalArgumentException(
-					"IntegerListPreference: error - minimumPreferenceValue is not specified");
+					"SliderPreference: error - minimumPreferenceValue is not specified");
 		}
 		maximumPreferenceValue = a.getInt(
 				R.styleable.SliderPreference_maximumValue,
 				maximumPreferenceValue);
 		if (maximumPreferenceValue == -1) {
 			throw new IllegalArgumentException(
-					"IntegerListPreference: error - maximumPreferenceValue is not specified");
+					"SliderPreference: error - maximumPreferenceValue is not specified");
 		}
 
 		a.recycle();
 	}
+
+	/**
+	 * onCreateDialogView() executes all the code we want to have executed when
+	 * the dialog is created:
+	 * 
+	 * * Set the dialog layout (using a LayoutInflater) and content
+	 * 
+	 * * Set the onChangeListeners for the SeekBar to change the EditText values
+	 * when the seekBar is changed
+	 * 
+	 * * Set a positive button (OK button) for saving of the preferences and to
+	 * close the window.
+	 * 
+	 * * Set a negative button (Cancel button) to cancel a change of preferences
+	 * and to close the window
+	 * 
+	 * The temperatures are shown as °C or °F according to the user preference.
+	 * 
+	 * The Wind Speed is shown in m/s, Beaufort or Knots according to the user
+	 * preference.
+	 */
 
 	protected View onCreateDialogView() {
 		LayoutInflater inflater = (LayoutInflater) getContext()
@@ -111,7 +142,8 @@ public class SliderPreference extends DialogPreference {
 			preferenceUnitTextView.setText(unit);
 			break;
 		default:
-			Log.e("TheWearDebug", "No such UnitPreferenceKey");
+			throw new IllegalArgumentException(
+					"SliderPreference: error - No such UnitPreferenceKey");
 		}
 		String unit = units[unitPreference];
 		preferenceUnitTextView.setText(unit);
@@ -124,10 +156,8 @@ public class SliderPreference extends DialogPreference {
 		mSeekBar.setMax(myPreferenceConvertor.prefMax
 				- myPreferenceConvertor.prefMin);
 
-		mValue = myPreferenceConvertor
-				.convertValueForDisplaying(mValue);
-		mAdjustedValue = myPreferenceConvertor
-				.NormalToAdjusted(mValue);
+		mValue = myPreferenceConvertor.convertValueForDisplaying(mValue);
+		mAdjustedValue = myPreferenceConvertor.NormalToAdjusted(mValue);
 		mSeekBar.setProgress(mAdjustedValue);
 
 		preferenceValueTextView = (TextView) view
@@ -188,6 +218,12 @@ public class SliderPreference extends DialogPreference {
 			persistInt(mValue);
 		}
 	}
+
+	/**
+	 * onDialogClosed(boolean positiveResult) converts the preference value back
+	 * to the default value (°C or m/s) for saving, and saves the value when the
+	 * user had clicked the positive button.
+	 */
 
 	@Override
 	protected void onDialogClosed(boolean positiveResult) {

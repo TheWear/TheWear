@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import io.github.thewear.thewearandroidGUI.MainActivity;
 import io.github.thewear.thewearandroidGUI.MainActivity.ImagePagerAdapter;
@@ -100,8 +100,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		this.goBackButton = goBackButton;
 	}
 
-	// Log.d("TheWearDebug","");
-
 	/**
 	 * onPreExecute is called when before the background thread is called: the
 	 * progress dialog is instantiated and shown here.
@@ -111,7 +109,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 	@Override
 	protected void onPreExecute() {
-		Log.d("TheWearDebug", "onPreExecute of Forecaster AsyncTask Started");
 		// Show a ProgressDialog while the Forecast AsyncTask runs
 		Resources res = applicationContext.getResources();
 		myProgressDialog = new ProgressDialog(applicationContext);
@@ -150,8 +147,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 	@Override
 	protected ForecastInfo doInBackground(String... userLocation) {
 
-		Log.d("TheWearDebug", "doInBackground of Forecaster AsyncTask Started");
-
 		// Initialize the progressCounter
 		progressCounter = 0;
 
@@ -183,14 +178,10 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 			// get MCC (Mobile Country Code)
 			Configuration config = res.getConfiguration();
 			int mcc = config.mcc;
-			Log.d("TheWearDebug", "mcc = " + mcc);
 			// get MMC codes List and Index of the MCC of the user
-			Log.d("TheWearDebug", "MCCList.get().size: " + MCCList.get().size());
 			int mccIndex = MCCList.get().indexOf(mcc);
-			// get region code List (ccTLDCodes)
-			Log.d("TheWearDebug", "mccIndex = " + mccIndex);
-
-			// Check if the MCC of te user is known
+			// get region code List (ccTLDCodes) and check if the MCC of te user
+			// is known
 			if (mccIndex != -1) {
 				// get MCC codes and index of user MCC
 				regionPreference = MCCList.ccTLDForMcc[mccIndex];
@@ -205,7 +196,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		String strUrl = myGridCoach.PlaceToURL(regionPreference);
 		progressCounter = progressCounter + 4;
 		publishProgress(progressCounter); // Total: 8/100
-		Log.d("TheWearDebug", "URL to google maps Constructed");
 
 		// Initialize LocationStruct
 		LocationStruct locationInfo = null;
@@ -214,7 +204,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		locationInfo = myGridCoach.URLToJSonString(strUrl);
 		progressCounter = progressCounter + 7;
 		publishProgress(progressCounter); // Total: 15/100
-		Log.d("TheWearDebug", "LocationInfo retrieved");
 
 		if (locationInfo == null) {
 			// No connection
@@ -232,8 +221,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				myGridCoach.setLocation(locationInfo.lat, locationInfo.lng);
 				progressCounter = progressCounter + 4;
 				publishProgress(progressCounter); // Total: 19/100
-				Log.d("TheWearDebug",
-						"LocationInfo coordinates stored for further use");
 
 				// Save the Location in the
 				SharedPreferences.Editor editor = sharedPref.edit();
@@ -243,14 +230,11 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				editor.commit();
 				progressCounter = progressCounter + 4;
 				publishProgress(progressCounter); // Total: 23/100
-				Log.d("TheWearDebug", "saved userLocation: "
-						+ locationInfo.address);
 
 				// Convert location coordinates to gridpoints used by GFS
 				Double[] gridCoos = myGridCoach.convertToGridCoos();
 				progressCounter = progressCounter + 4;
 				publishProgress(progressCounter); // Total: 27/100
-				Log.d("TheWearDebug", "Converted coordinates to Gridpoints");
 
 				// Get the different specific forecasts, and cancel when
 				// necessary
@@ -296,8 +280,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 	@Override
 	protected void onProgressUpdate(Integer... progress) {
-		Log.i("TheWearDebug", "onProgressUpdate Executed. Progress: "
-				+ progress[0] + "/100");
 		// Update the progress bar of the ProgressDialog
 		myProgressDialog.setProgress(progress[0]);
 	}
@@ -316,41 +298,32 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 
 	@Override
 	protected void onPostExecute(ForecastInfo forecastInfo) {
-		Log.d("TheWearDebug", "onPostExecute of Forecaster AsyncTask Started");
 
 		if (isCancelled == true) {
-			Log.d("TheWearDebug", "Forecaster AsyncTask is Canceled");
 			// Close the ProgressDialog
 			myProgressDialog.dismiss();
 			Resources res = applicationContext.getResources();
 
 			// Show Toast to explain error
 			if (reason == "internetConnection") {
-				Log.i("TheWearDebug",
-						"Forecaster canceled. Reason: internetConnection");
 				Toast myToast = Toast.makeText(applicationContext,
 						res.getString(R.string.noInternetConnection),
 						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "serverConnection") {
-				Log.i("TheWearDebug",
-						"Forecaster canceled. Reason: serverConnection");
 				Toast myToast = Toast.makeText(applicationContext,
 						res.getString(R.string.noServerConnection),
 						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "server") {
-				Log.i("TheWearDebug", "Forecaster canceled. Reason: server");
 				Toast myToast = Toast.makeText(applicationContext,
 						res.getString(R.string.connectionError),
 						Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
 				myToast.show();
 			} else if (reason == "unknownLocation") {
-				Log.i("TheWearDebug",
-						"Forecaster canceled. Reason: unknownLocation");
 				locationField.setText("");
 				locationField.clearFocus();
 				Toast myToast = Toast.makeText(applicationContext,
@@ -360,34 +333,25 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 				myToast.show();
 				// CLear the locationField
 			} else {
-				Log.e("TheWearDebug", "Error: reason doesn't exist.");
+				throw new IllegalArgumentException("Forecaster: error - reason doesn't exist.");
 			}
 		} else {
 
 			// Return (show) the during the Forecaster AsyncTask looked up
 			// location to the user.
-			Log.d("TheWearDebug", "Show Location " + forecastInfo.address);
-			Log.d("TheWearDebug", "locationField: " + locationField);
 			locationField.setText(forecastInfo.address);
 			locationField.clearFocus();
 
 			// set images
 			for (int position = 0; position <= 2; position++) {
 				// Check if images are available
-				Log.i("TheWearDebug", "FOR loop for position " + position);
 				if (mergedImage[position].equals(null)) {
 					// No Images to show; this shouldn't be called
-					Log.i("TheWearDebug", "mergedImage == null");
 
 				} else {
-					// Images present
-					Log.d("TheWearDebug", "Images Present for position "
-							+ position);
-
 					// Check if ImageViews are fully set
 					if (imageViewAddedToImagePagerAdapter[position] == false) {
 						// ImageView not yet Set
-						Log.i("TheWearDebug", "myImageViews == null");
 						// Create new imageViews in the imagePagerAdapter
 						ImageView myImageView = myImageViews[position];
 						// make imageView
@@ -414,10 +378,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 						// Set imageViewStatus initiated
 						imageViewAddedToImagePagerAdapter[position] = true;
 					} else {
-						// ImageView set
-						Log.i("TheWearDebug",
-								"Setting new forecastImage for position "
-										+ position);
 						// set the new Images
 						myImageViews[position]
 								.setImageBitmap(mergedImage[position]);
@@ -432,15 +392,11 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 					.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 						@Override
 						public void onPageSelected(int position) {
-							Log.d("TheWearDebug",
-									"SimpleOnPageChangeListener triggered");
 							if (position == 0) {
 								// Forecast 1: Set the goBackButton unClickable
 								// and invisible
 								goBackButton.setClickable(false);
 								goBackButton.setVisibility(View.INVISIBLE);
-								Log.d("TheWearDebug",
-										"goBackButton unClickable");
 								titleTextView
 										.setText(myForecastTimeStruct.forecastTimeString[0]);
 							} else if (position == 1) {
@@ -448,11 +404,8 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 								// goForwardButton Clickable and visible
 								goBackButton.setClickable(true);
 								goBackButton.setVisibility(View.VISIBLE);
-								Log.d("TheWearDebug", "goBackButton Clickable");
 								goForwardButton.setClickable(true);
 								goForwardButton.setVisibility(View.VISIBLE);
-								Log.d("TheWearDebug",
-										"goForwardButton Clickable");
 								titleTextView
 										.setText(myForecastTimeStruct.forecastTimeString[1]);
 							} else if (position == 2) {
@@ -460,13 +413,11 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 								// unClickable and invisible
 								goForwardButton.setClickable(false);
 								goForwardButton.setVisibility(View.INVISIBLE);
-								Log.d("TheWearDebug", "Forecast 3");
 								titleTextView
 										.setText(myForecastTimeStruct.forecastTimeString[2]);
 							} else {
 								// Should not happen
-								Log.e("TheWearDebug",
-										"ERROR: Forecast selected that doesn't exist");
+								throw new NoSuchElementException("DetailedForecastInformationManager: error - Forecast selected that doesn't exist");
 							}
 						}
 					});
@@ -511,13 +462,10 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 		if (localDataset == null) {
 			isCancelled = true;
 			reason = "serverConnection";
-			Log.d("TheWearDebug", "Canceling Forecaster... (connection)");
 		} else if (localDataset.length == 1) {
 			isCancelled = true;
 			reason = "server";
-			Log.d("TheWearDebug", "Canceling Forecaster... (server)");
 		} else {
-			Log.d("TheWearDebug", "Got weather dataset from our server");
 
 			if (forecastNumber == 0) {
 				String firstForecastServerInformation = localDataset[0][0];
@@ -533,7 +481,6 @@ public class Forecaster extends AsyncTask<String, Integer, ForecastInfo> {
 					applicationContext);
 			progressCounter = progressCounter + 4;
 			publishProgress(progressCounter); // Total: 11/23
-			Log.d("TheWearDebug", "handled WeatherEnum");
 
 			boolean[] advice = weather_data.weatherType.show_imgs;
 			advice = Arrays.copyOf(advice, advice.length + 1);

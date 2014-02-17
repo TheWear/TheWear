@@ -159,9 +159,6 @@ public class GridCoach {
 																.containsKey("lng")) {
 													lat = (Double) location
 															.get("lat");
-													Log.d("the wear debug",
-															String.valueOf(location
-																	.get("lng")));
 													lng = (Double) location
 															.get("lng");
 													data = new LocationStruct(
@@ -188,7 +185,6 @@ public class GridCoach {
 				}
 
 			} catch (MalformedURLException e1) {
-				Log.e("Connection Error", "Connection Error 1");
 				Log.e("TheWearDebug", "MalformedURLException in GridCoach");
 				data = null;
 			} catch (UnsupportedEncodingException e1) {
@@ -201,8 +197,6 @@ public class GridCoach {
 				Log.e("TheWearDebug", "IOException in GridCoach");
 				data = null;
 			}
-
-			Log.d("TheWearDebug", "Completed URLToJSonString");
 
 		} catch (MalformedURLException e2) {
 			e2.printStackTrace();

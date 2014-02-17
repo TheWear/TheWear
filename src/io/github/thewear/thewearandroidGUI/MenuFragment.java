@@ -1,12 +1,13 @@
 package io.github.thewear.thewearandroidGUI;
 
+import java.util.NoSuchElementException;
+
 import io.github.thewear.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,6 @@ public class MenuFragment extends DialogFragment {
 		// dialog layout
 		View dialogView = inflater.inflate(R.layout.options_menu, null);
 		builder.setView(dialogView);
-		Log.d("TheWearDebug", "Region preference Dialog Created");
 
 		// Set dialog Title
 		builder.setTitle(R.string.options);
@@ -73,7 +73,8 @@ public class MenuFragment extends DialogFragment {
 				case 3: // Option 4
 					mainActivity.showMenuItem4();
 				default: // ERROR
-					Log.e("TheWearDebug", "This position is incorrect.");
+					throw new NoSuchElementException(
+							"MenuFragment: error - This position is incorrect.");
 				}
 			}
 		});

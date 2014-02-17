@@ -7,10 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import io.github.thewear.thewearandroid.R;
-
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
 public class TimeHandler {
 
@@ -160,8 +158,8 @@ public class TimeHandler {
 			// Nothing to change
 			break;
 		default:
-			Log.e("TheWearDebug",
-					"No such time notation preference (TimeHandler)");
+			throw new IllegalArgumentException(
+					"TimeHandler: error - No such time notation preference");
 		}
 		// To string
 		hourOfDayString = to2CharString(hourOfDayInt);
@@ -321,8 +319,8 @@ public class TimeHandler {
 			}
 			break;
 		default: // ERROR
-			Log.e("TheWearDebug",
-					"No such time notation preference, can't change the title");
+			throw new IllegalArgumentException(
+					"TimeHandler: error - No such time notation preference, can't change the title");
 		}
 		String[] titleString = new String[3];
 		titleString[0] = now + " - " + to2CharString(hour[0]) + ":"

@@ -1,7 +1,5 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 
 public class PreferenceConvertor {
@@ -29,68 +27,64 @@ public class PreferenceConvertor {
 	 */
 
 	private int adjustment;
+	private int notationCorrection = 0;
+	public int prefMax = -1;
+	public int prefMin = -1;
+	private int notation;
 
-	public void initiatePreferenceConvertor(Context context, String preference,
-			int notation, boolean additionalInformation, int additionalNumber) {
-		// Initiate the PreferenceConvertor: calculate the adjustment.
-		Resources res = context.getResources();
+	/**
+	 * General constructor
+	 */
 
-		// Construct resources Path to get the resources
-		String maxPreference;
-		String minPreference;
-		if (additionalInformation) {
-			additionalNumber++;
-			maxPreference = preference + "_max" + additionalNumber;
-			minPreference = preference + "_min" + additionalNumber;
+	public PreferenceConvertor() {
+
+	}
+
+	/**
+	 * Constructor for use with the Temperature (=0) and WindSpeed (=1) notation
+	 */
+
+	public PreferenceConvertor(int unitNotation, int notation) {
+		if (unitNotation == 0) {
+			notationCorrection = 0; // Temperature
 		} else {
-			maxPreference = preference + "_max";
-			minPreference = preference + "_min";
+			notationCorrection = 2; // WindSpeed
 		}
-		int maxPreferenceIdentifier = res.getIdentifier(maxPreference,
-				"integer", context.getPackageName());
-		int minPreferenceIdentifier = res.getIdentifier(minPreference,
-				"integer", context.getPackageName());
-		// If getIdentifier can't find an integer with that name, it returns the
-		// non-existing identifier '0'
-		if ((maxPreferenceIdentifier == 0) || (minPreferenceIdentifier == 0)) {
-			Log.e("TheWearDebug",
-					"Could not retrieve the integer resources to be able to do conversions.");
-		} else {
-			int prefMax = -1;
-			int pref = -1;
-			switch (notation) {
-			case 0: // °C, no conversion needed
-				prefMax = res.getInteger(maxPreferenceIdentifier);
-				pref = prefMax - (res.getInteger(minPreferenceIdentifier));
-				break;
-			case 1: // °F, conversion needed.
-				prefMax = SettingsConvertor.celsiusToFahrenheit(res
-						.getInteger(maxPreferenceIdentifier));
-				pref = prefMax
-						- SettingsConvertor.celsiusToFahrenheit((res
-								.getInteger(minPreferenceIdentifier)));
-				break;
-			case 2: // m/s, no conversion needed
-				prefMax = res.getInteger(maxPreferenceIdentifier);
-				pref = prefMax - (res.getInteger(minPreferenceIdentifier));
-				break;
-			case 3: // Beaufort, conversion needed
-				prefMax = SettingsConvertor.metersToBeaufort(res
-						.getInteger(maxPreferenceIdentifier));
-				pref = prefMax - SettingsConvertor.metersToBeaufort((res
-						.getInteger(minPreferenceIdentifier)));
-				break;
-			case 4: // Knots, conversion needed
-				prefMax = (int) SettingsConvertor.metersToKnots(res
-						.getInteger(maxPreferenceIdentifier));
-				pref = (int) (prefMax - SettingsConvertor.metersToKnots((res
-						.getInteger(minPreferenceIdentifier))));
-				break;
-			default:
-				Log.e("TheWearDebug", "No such temperature notation");
-			}
-			adjustment = prefMax - pref;
+		this.notation = notation;
+	}
+
+	public void initiatePreferenceConvertor(int miniumValue, int MaximumValue) {
+		int pref = -1;
+		switch (notation + notationCorrection) {
+		case 0: // °C, no conversion needed
+			prefMax = MaximumValue;
+			prefMin = miniumValue;
+			pref = prefMax - prefMin;
+			break;
+		case 1: // °F, conversion needed.
+			prefMax = SettingsConvertor.celsiusToFahrenheit(MaximumValue);
+			prefMin = SettingsConvertor.celsiusToFahrenheit(miniumValue);
+			pref = prefMax - prefMin;
+			break;
+		case 2: // m/s, no conversion needed
+			prefMax = MaximumValue;
+			prefMin = miniumValue;
+			pref = prefMax - prefMin;
+			break;
+		case 3: // Beaufort, conversion needed
+			prefMax = SettingsConvertor.metersToBeaufort(MaximumValue);
+			prefMin = SettingsConvertor.metersToBeaufort(miniumValue);
+			pref = prefMax - prefMin;
+			break;
+		case 4: // Knots, conversion needed
+			prefMax = Math.round(SettingsConvertor.metersToKnots(MaximumValue));
+			prefMin = Math.round(SettingsConvertor.metersToKnots(miniumValue));
+			pref = prefMax - prefMin;
+			break;
+		default:
+			Log.e("TheWearDebug", "No such preference notation");
 		}
+		adjustment = prefMax - pref;
 	}
 
 	public int NormalToAdjusted(int normal) {
@@ -101,5 +95,55 @@ public class PreferenceConvertor {
 	public int AdjustedToNormal(int adjusted) {
 		int normal = adjusted + adjustment;
 		return normal;
+	}
+
+	public int convertValueForDisplaying(int value) {
+		int valueToDisplay = -1;
+		switch (notation + notationCorrection) {
+		case 0: // °C, no conversion needed
+			valueToDisplay = value;
+			break;
+		case 1: // °F, conversion needed.
+			valueToDisplay = SettingsConvertor.celsiusToFahrenheit(value);
+			break;
+		case 2: // m/s, no conversion needed
+			valueToDisplay = value;
+			break;
+		case 3: // Beaufort, conversion needed
+			valueToDisplay = SettingsConvertor.metersToBeaufort(value);
+			break;
+		case 4: // Knots, conversion needed
+			valueToDisplay = Math.round(SettingsConvertor.metersToKnots(value));
+			break;
+		default:
+			Log.e("TheWearDebug", "No such preference notation");
+		}
+		return valueToDisplay;
+	}
+
+	public int convertValueForPersisting(int value) {
+		int valueToStore = -1;
+		switch (notation + notationCorrection) {
+		case 0: // °C, no conversion needed
+			valueToStore = value;
+			break;
+		case 1: // °F, conversion needed.
+			valueToStore = Math.round(SettingsConvertor
+					.fahrenheitToCelsius(value));
+			break;
+		case 2: // m/s, no conversion needed
+			valueToStore = value;
+			break;
+		case 3: // Beaufort, conversion needed
+			valueToStore = Math
+					.round(SettingsConvertor.beaufortToMeters(value));
+			break;
+		case 4: // Knots, conversion needed
+			valueToStore = Math.round(SettingsConvertor.knotsToMeters(value));
+			break;
+		default:
+			Log.e("TheWearDebug", "No such preference notation");
+		}
+		return valueToStore;
 	}
 }

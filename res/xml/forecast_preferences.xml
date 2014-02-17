@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
+    
+    <io.github.thewear.thewearandroidGUI.SliderPreference 
+        android:defaultValue="@integer/preference1_defaultValue"
+        android:dialogTitle="@string/preference1"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
+        custom:description="@string/preference1"
+        custom:unitType="temperature"
+        custom:defaultUnit="@integer/defaultTemperatureNotation"
+        custom:minimumValue="@integer/preference1_min"
+        custom:maximumValue="@integer/preference1_max"
+        android:key="@string/forecast_preference1_key"
+        android:order="1"
+        android:persistent="true"
+        android:title="@string/preference1"/>
+
+    <io.github.thewear.thewearandroidGUI.SliderPreference 
+        android:defaultValue="@integer/preference2_defaultValue"
+        android:dialogTitle="@string/preference2"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
+        custom:description="@string/preference2"
+        custom:unitType="windspeed"
+        custom:defaultUnit="@integer/defaultWindSpeedNotation"
+        custom:minimumValue="@integer/preference2_min"
+        custom:maximumValue="@integer/preference2_max"
+        android:key="@string/forecast_preference2_key"
+        android:order="2"
+        android:persistent="true"
+        android:title="@string/preference2"/>
+
+    <io.github.thewear.thewearandroidGUI.SliderPreference 
+        android:defaultValue="@integer/preference3_defaultValue"
+        android:dialogTitle="@string/preference3"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
+        custom:description="@string/preference3"
+        custom:unitType="temperature"
+        custom:defaultUnit="@integer/defaultTemperatureNotation"
+        custom:minimumValue="@integer/preference3_min"
+        custom:maximumValue="@integer/preference3_max"
+        android:key="@string/forecast_preference3_key"
+        android:order="3"
+        android:persistent="true"
+        android:title="@string/preference3"/>
+
+</PreferenceScreen>

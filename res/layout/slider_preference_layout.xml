@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:id="@+id/SliderPreferenceDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/SliderPreferenceLeftMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sliderPreferenceSeekBar"
+        android:layout_alignLeft="@+id/sliderPreferenceSeekBar"
+        android:layout_marginLeft="@dimen/seekBarCompensationMargin"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/SliderPreferenceRightMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sliderPreferenceSeekBar"
+        android:layout_alignRight="@+id/sliderPreferenceSeekBar"
+        android:layout_marginRight="@dimen/seekBarCompensationMargin"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:id="@+id/autoRegionToggleLineairLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SliderPreferenceDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settingsDialogMargin"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/SliderPreferenceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/SliderPreferenceUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spaceMargin"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/sliderPreferenceSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autoRegionToggleLineairLayout"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:integerListPreferenceImplementation="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
+    xmlns:custom="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
 
     <io.github.thewear.thewearandroidGUI.IntegerListPreference
         android:defaultValue="@integer/defaultTimeNotation"
         android:dialogTitle="@string/setting1"
-        integerListPreferenceImplementation:entryList="@array/timeNotationPreferenceText"
-        integerListPreferenceImplementation:valueList="@array/timeNotationPreferenceInt"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
+        custom:entryList="@array/timeNotationPreferenceText"
+        custom:valueList="@array/timeNotationPreferenceInt"
         android:key="@string/time_notation_preference_key"
         android:order="1"
         android:persistent="true"
@@ -15,8 +17,10 @@
     <io.github.thewear.thewearandroidGUI.IntegerListPreference
         android:defaultValue="@integer/defaultTemperatureNotation"
         android:dialogTitle="@string/setting2"
-        integerListPreferenceImplementation:entryList="@array/temperatureNotationPreferenceText"
-        integerListPreferenceImplementation:valueList="@array/temperatureNotationPreferenceInt"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
+        custom:entryList="@array/temperatureNotationPreferenceText"
+        custom:valueList="@array/temperatureNotationPreferenceInt"
         android:key="@string/temperature_notation_preference_key"
         android:order="2"
         android:persistent="true"
@@ -25,8 +29,10 @@
     <io.github.thewear.thewearandroidGUI.IntegerListPreference
         android:defaultValue="@integer/defaultWindSpeedNotation"
         android:dialogTitle="@string/setting3"
-        integerListPreferenceImplementation:entryList="@array/windspeedNotationPreferenceText"
-        integerListPreferenceImplementation:valueList="@array/windspeedNotationPreferenceInt"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
+        custom:entryList="@array/windspeedNotationPreferenceText"
+        custom:valueList="@array/windspeedNotationPreferenceInt"
         android:key="@string/windspeed_notation_preference_key"
         android:order="3"
         android:persistent="true"
@@ -36,6 +42,8 @@
         android:defaultValue="@bool/defaultAutoRegionDetection"
         android:dialogMessage="test Message"
         android:dialogTitle="@string/autoRegionDetection"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
         android:switchTextOff="@string/off"
         android:switchTextOn="@string/on"
         android:key="@string/autoRegionDetection_preference_key"
@@ -48,6 +56,8 @@
     <ListPreference
         android:defaultValue="@string/default_region"
         android:dialogTitle="@string/regionPreference"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positive_button"
         android:entries="@array/ccTLDCountries"
         android:entryValues="@array/ccTLDCodes"
         android:key="@string/region_preference_key"

@@ -7,8 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class TheWearPreferenceActivity extends PreferenceActivity {
-
+public class ForecastPreferenceActivity extends PreferenceActivity {
+	
 	@SuppressWarnings("deprecation")
 	// addPreferencesFromResource and getPreferenceManager are deprecated in API
 	// level 11; but we are using API level 10
@@ -18,7 +18,7 @@ public class TheWearPreferenceActivity extends PreferenceActivity {
 		getPreferenceManager().setSharedPreferencesName(
 				getString(R.string.TheWear_preference_key));
 		getPreferenceManager().setSharedPreferencesMode(MODE_PRIVATE);
-		addPreferencesFromResource(R.xml.preferences);
+		addPreferencesFromResource(R.xml.forecast_preferences);
 		setUpInActionBar();
 		
 	}
@@ -34,4 +34,6 @@ public class TheWearPreferenceActivity extends PreferenceActivity {
 
 	// TODO: Move Forecast Preferences here if we think this won't be changed a
 	// lot
+
+	// TODO set to defaults
 }

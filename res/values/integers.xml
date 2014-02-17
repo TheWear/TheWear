@@ -3,14 +3,19 @@
 
     <integer name="preference1_max">20</integer>
     <integer name="preference1_min">0</integer>
-    <integer name="preference2_max1">35</integer>
-    <integer name="preference2_min1">0</integer>
+    <integer name="preference2_max">35</integer>
+    <integer name="preference2_min">0</integer>
     <integer name="preference2_max2">12</integer>
     <integer name="preference2_min2">0</integer>
     <integer name="preference2_max3">65</integer>
     <integer name="preference2_min3">0</integer>
     <integer name="preference3_max">30</integer>
     <integer name="preference3_min">15</integer>
+
+    <integer name="preference1_defaultValue">7</integer>
+    <integer name="preference2_defaultValue">6</integer>
+    <integer name="preference3_defaultValue">25</integer>
+
     <integer name="defaultTimeNotation">1</integer>
     <integer name="defaultTemperatureNotation">0</integer>
     <integer name="defaultWindSpeedNotation">0</integer>

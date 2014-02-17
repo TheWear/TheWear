@@ -11,6 +11,7 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 
 public class IntegerListPreference extends DialogPreference {
+	
 	private CharSequence[] mEntries;
 	private int[] mValues;
 	private int mValue;

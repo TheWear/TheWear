@@ -79,7 +79,6 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.i("TheWearDebug", "onCreate()...");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -120,7 +119,6 @@ public class MainActivity extends FragmentActivity {
 					String userLocation = editedTextView.getText().toString();
 					// Remove whitespace in front and at the end of the string
 					userLocation = userLocation.trim();
-					Log.d("TheWearDebug", "userLocation: " + userLocation);
 
 					// check for empty location field and display Toast if so.
 					if (userLocation.equals("")) {
@@ -180,8 +178,6 @@ public class MainActivity extends FragmentActivity {
 		// is saved.
 		myForecastTimeStruct = new ForecastTimeStruct(tabTitles);
 		titleTextView.setText(myForecastTimeStruct.forecastTimeString[0]);
-
-		Log.i("TheWearDebug", "onCreate() finished");
 	} // End onCreate
 
 	/**
@@ -205,12 +201,10 @@ public class MainActivity extends FragmentActivity {
 				Context.MODE_PRIVATE);
 		startLocation = sharedPref.getString(
 				getString(R.string.location_preference_key), null);
-		Log.d("TheWearDebug", "Got startLocation: " + startLocation);
 
 		// Check if the preference is empty. If the Preference is empty, it
 		// means the application is not yet used.
 		if (startLocation != null) {
-			Log.d("TheWearDebug", "startLocation != null");
 
 			// Set Location in the location field
 			EditText locationField = (EditText) findViewById(R.id.editText1);
@@ -245,7 +239,6 @@ public class MainActivity extends FragmentActivity {
 			dialog.show();
 
 		} else {
-			Log.d("TheWearDebug", "startLocation == null");
 			// A toast shown only on the first startup
 			Toast myToast = Toast.makeText(getApplicationContext(),
 					R.string.firstTimeStartupMessage, Toast.LENGTH_LONG);
@@ -410,14 +403,12 @@ public class MainActivity extends FragmentActivity {
 
 	// Start Forecast, used by all 3 of the pages
 	public void startForecast(View v) {
-		Log.d("Buttons", "Start Forecast");
 
 		// Read the location out of the TextField to use in the Forecaster
 		EditText locationField = (EditText) findViewById(R.id.editText1);
 		String userLocation = locationField.getText().toString();
 		// Remove whitespace in front and at the end of the string
 		userLocation = userLocation.trim();
-		Log.d("TheWearDebug", "userLocation: " + userLocation);
 
 		// check for empty location field and display Toast if so.
 		if (userLocation.equals("")) {
@@ -432,16 +423,11 @@ public class MainActivity extends FragmentActivity {
 
 	// go one page further, used by 1st and 2nd page (not by 3th)
 	public void goForward(View v) {
-		Log.d("Buttons", "We go forward!");
 		// Get current Forecast number
 		int tabNumber = mViewPager.getCurrentItem();
-		Log.i("SelectedTab", "The current Selected tabNumber is \'" + tabNumber
-				+ "\'");
 		if (tabNumber == 0) { // Tab 1 to tab 2
-			Log.d("Buttons", "Going to Forecast 2");
 			mViewPager.setCurrentItem(1, true); // True is for smoothScroll
 		} else if (tabNumber == 1) { // Tab 2 to tab 3
-			Log.d("Buttons", "Going to Forecast 3");
 			mViewPager.setCurrentItem(2, true);
 		} else { // In case of an Error
 			Log.e("SwitchForecastButton",
@@ -451,16 +437,11 @@ public class MainActivity extends FragmentActivity {
 
 	// go one page back, used by 2nd and 3th Forecast (not by 1st)
 	public void goBack(View v) {
-		Log.d("Buttons", "We go backward!");
 		// Get current Forecast number
 		int tabNumber = mViewPager.getCurrentItem();
-		Log.i("SelectedTab", "The current Selected tabNumber is \'" + tabNumber
-				+ "\'");
 		if (tabNumber == 1) { // Tab 2 to tab 1
-			Log.d("Buttons", "Going to Forecast 1");
 			mViewPager.setCurrentItem(0, true);
 		} else if (tabNumber == 2) { // Tab 3 to tab 2
-			Log.d("Buttons", "Going to Forecast 2");
 			mViewPager.setCurrentItem(1, true);
 		} else { // In case of an Error
 			Log.e("SwitchForecastButton",
@@ -474,7 +455,6 @@ public class MainActivity extends FragmentActivity {
 	 */
 
 	public void shareFacebook(View v) {
-		Log.d("TheWearDebug", "Sharing over Facebook");
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO Implement sharing over Facebook
@@ -487,7 +467,6 @@ public class MainActivity extends FragmentActivity {
 	 */
 
 	public void shareTwitter(View v) {
-		Log.d("TheWearDebug", "Sharing over Twitter");
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO implement sharing over Twitter
@@ -547,7 +526,6 @@ public class MainActivity extends FragmentActivity {
 
 	public void showForecastInformation(int position) {
 		// Show the additional forecast information
-		Log.d("TheWearDebug", "Detailed Information clicked");
 		if (myForecasterObject != null) {
 			ForecastInfo myForecastInfo = null;
 			try {
@@ -562,8 +540,6 @@ public class MainActivity extends FragmentActivity {
 				e.printStackTrace();
 			}
 			if (myForecastInfo == null) {
-				Log.d("TheWearDebug",
-						"No detailed weather information available");
 				Toast myToast = Toast.makeText(getApplicationContext(),
 						R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -572,7 +548,6 @@ public class MainActivity extends FragmentActivity {
 				String[] dataset = myForecastInfo.dataset.get(position);
 
 				if (dataset != null) {
-					Log.d("TheWearDebug", "Weather information available");
 
 					// Make the detailed forecast information string
 					DetailedForecastInformationManager myDetailedForecastInformationManager = new DetailedForecastInformationManager(
@@ -599,8 +574,6 @@ public class MainActivity extends FragmentActivity {
 					AlertDialog dialog = builder.create();
 					dialog.show();
 				} else {
-					Log.d("TheWearDebug",
-							"No detailed weather information available");
 					Toast myToast = Toast.makeText(getApplicationContext(),
 							R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 					myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -608,7 +581,6 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		} else {
-			Log.d("TheWearAndroid", "myForecastObject == null");
 			Toast myToast = Toast.makeText(getApplicationContext(),
 					R.string.noForecastDetailedInfo, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -642,7 +614,6 @@ public class MainActivity extends FragmentActivity {
 				e.printStackTrace();
 			}
 			if (myForecastInfo == null) {
-				Log.d("TheWearDebug", "No Bitmap to share");
 				Toast myToast = Toast.makeText(getApplicationContext(),
 						R.string.noForecast, Toast.LENGTH_LONG);
 				myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -655,7 +626,6 @@ public class MainActivity extends FragmentActivity {
 					mySocialMediaPickerFragment.show(
 							getSupportFragmentManager(), "Preferences");
 				} else {
-					Log.d("TheWearDebug", "No Bitmap to share");
 					Toast myToast = Toast.makeText(getApplicationContext(),
 							R.string.noForecast, Toast.LENGTH_LONG);
 					myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -663,7 +633,6 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		} else {
-			Log.d("TheWearAndroid", "myForecastObject == null");
 			Toast myToast = Toast.makeText(getApplicationContext(),
 					R.string.noForecast, Toast.LENGTH_LONG);
 			myToast.setGravity(Gravity.CENTER, 0, 0);
@@ -716,37 +685,41 @@ public class MainActivity extends FragmentActivity {
 
 	public void showForecastPreferences() {
 		// Show the Preferences Window
-		if (myForecasterObject != null) {
-			ForecastInfo myForecastInfo = null;
-			Log.d("TheWearDebug", "\'Preferences\' clicked");
-			try {
-				myForecastInfo = myForecasterObject.get();
-			} catch (InterruptedException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "InterruptedException");
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// Auto-generated catch block
-				Log.e("TheWearDebug", "ExecutionException4");
-				e.printStackTrace();
-			}
-			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-			myForecastPreferencesFragment.passNecessaryInformation(
-					myImageViews, myForecastInfo, this);
-			myForecastPreferencesFragment.show(getSupportFragmentManager(),
-					"Preferences");
-		} else {
-			// Catch an empty myForecastInfo and show dialog
-			Log.d("TheWearAndroid", "myForecastObject == null");
-			ForecastPreferencesFragment myForecastPreferencesFragment = new ForecastPreferencesFragment();
-			myForecastPreferencesFragment.show(getSupportFragmentManager(),
-					"Preferences");
-		}
+		// if (myForecasterObject != null) {
+		// ForecastInfo myForecastInfo = null;
+		// Log.d("TheWearDebug", "\'Preferences\' clicked");
+		// try {
+		// myForecastInfo = myForecasterObject.get();
+		// } catch (InterruptedException e) {
+		// // Auto-generated catch block
+		// Log.e("TheWearDebug", "InterruptedException");
+		// e.printStackTrace();
+		// } catch (ExecutionException e) {
+		// // Auto-generated catch block
+		// Log.e("TheWearDebug", "ExecutionException4");
+		// e.printStackTrace();
+		// }
+		// ForecastPreferencesFragment myForecastPreferencesFragment = new
+		// ForecastPreferencesFragment();
+		// myForecastPreferencesFragment.passNecessaryInformation(
+		// myImageViews, myForecastInfo, this);
+		// myForecastPreferencesFragment.show(getSupportFragmentManager(),
+		// "Preferences");
+		// } else {
+		// // Catch an empty myForecastInfo and show dialog
+		// Log.d("TheWearAndroid", "myForecastObject == null");
+		// ForecastPreferencesFragment myForecastPreferencesFragment = new
+		// ForecastPreferencesFragment();
+		// myForecastPreferencesFragment.show(getSupportFragmentManager(),
+		// "Preferences");
+		// }
+		Intent intent = new Intent(this, ForecastPreferenceActivity.class);
+		startActivity(intent);
 	}
 
 	/**
-	 * showSettings() shows the settings menu (the TheWearPreferenceActivity) when
-	 * called.
+	 * showSettings() shows the settings menu (the TheWearPreferenceActivity)
+	 * when called.
 	 */
 
 	public void showSettings() {
@@ -759,7 +732,6 @@ public class MainActivity extends FragmentActivity {
 	 */
 
 	public void showAboutApp() {
-		Log.d("TheWearDebug", "About our App");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		String aboutText = getString(R.string.about_text) + "\nVersion: "
 				+ getString(R.string.testVersion);
@@ -796,7 +768,6 @@ public class MainActivity extends FragmentActivity {
 				imagePagerAdapter, this, imageViewAddedToImagePagerAdapter,
 				goForwardButton, goBackButton);
 		myForecasterObject.execute(userLocation);
-		Log.d("TheWearDebug", "Finished the Forecast AsyncTask");
 	}
 
 	/**

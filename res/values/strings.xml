@@ -9,6 +9,7 @@
     <string name="testVersion">v0.001</string>
     <string name="app_name">TheWear</string>
     <string name="app_preferences">Settings</string>
+    <string name="forecast_preferences">Weather Preferences</string>
     <string name="action_preferences">Preferences</string>
     <string name="action_about">About TheWear</string>
     <string name="action_regionPreference">Region Preference</string>
@@ -88,11 +89,19 @@
 	<string name="forecast_preference1_key">TheWear.Preferences.Preference1</string>
     <string name="forecast_preference2_key">TheWear.Preferences.Preference2</string>
     <string name="forecast_preference3_key">TheWear.Preferences.Preference3</string>
+
     <string name="time_notation_preference_key">TheWear.Preferences.TimeNotation</string>
     <string name="temperature_notation_preference_key">TheWear.Preferences.TemperatureNotation</string>
     <string name="windspeed_notation_preference_key">TheWear.Preferences.WindSpeedNotation</string>
     <string name="autoRegionDetection_preference_key">TheWear.Preferences.AutoRegionDetection</string>
     <string name="region_preference_key">TheWear.Preferences.Region</string>
+    <string-array name="settingPreferenceKeys">
+        <item>TheWear.Preferences.TimeNotation</item>
+        <item>TheWear.Preferences.TemperatureNotation</item>
+        <item>TheWear.Preferences.WindSpeedNotation</item>
+        <item>TheWear.Preferences.AutoRegionDetection</item>
+        <item>TheWear.Preferences.Region</item>
+    </string-array>
 
     <string-array name="timeNotationPreferenceText">
         <item>12-hours</item>
@@ -107,12 +116,17 @@
         <item>Beaufort</item>
         <item>Knots</item>
     </string-array>
+    <string-array name="temperatureNotationShort">
+        <item>°C</item>
+        <item>°F</item>
+    </string-array>
 
     <string name="autoRegionDetection">Region Detection</string>
     <string name="regionPreference">Region Preference</string>
     <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
     <string name="autoRegionDetectionSummaryOff">Your region preference is always used.</string>
     <string name="autoRegionDetectionSummaryOn">Your region preference is only used when automatic detection is not possible</string>
+    <string name="preferencesToDefault">blabla</string>
 
     <!-- Options Menu -->
     <string-array name="optionsMenuList">

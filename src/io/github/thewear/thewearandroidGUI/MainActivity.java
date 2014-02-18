@@ -216,7 +216,7 @@ public class MainActivity extends FragmentActivity {
 			// the App loads faster)
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.startupDialogContent);
-			builder.setPositiveButton(R.string.dialogButtonYes,
+			builder.setPositiveButton(R.string.yes,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -226,7 +226,7 @@ public class MainActivity extends FragmentActivity {
 
 						}
 					});
-			builder.setNegativeButton(R.string.dialogButtonNo,
+			builder.setNegativeButton(R.string.no,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -561,7 +561,7 @@ public class MainActivity extends FragmentActivity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					builder.setMessage(detailedInformation).setTitle(
 							R.string.forecastInfo_title);
-					builder.setPositiveButton(R.string.dialogButtonClose,
+					builder.setPositiveButton(R.string.close,
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog,
@@ -648,28 +648,6 @@ public class MainActivity extends FragmentActivity {
 	public void getGPSLocation(View view) {
 		EditText locationField = (EditText) findViewById(R.id.editText1);
 		new GPSCoordsManager(this, locationField).execute();
-
-	}
-
-	/**
-	 * showRegionPreferenceInfo(View v) shows a dialog displaying information
-	 * about the region preference
-	 */
-
-	public void showRegionPreferenceInfo(View v) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.regionPreferenceInformation).setTitle(
-				R.string.regionPreferenceInformationTitle);
-		builder.setPositiveButton(R.string.dialogButtonClose,
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						// User clicked Close button
-					}
-				});
-		// Get the AlertDialog from create()
-		AlertDialog dialog = builder.create();
-		dialog.show();
 	}
 
 	/**
@@ -735,7 +713,7 @@ public class MainActivity extends FragmentActivity {
 		String aboutText = getString(R.string.about_text) + "\nVersion: "
 				+ getString(R.string.testVersion);
 		builder.setMessage(aboutText).setTitle(R.string.action_about);
-		builder.setPositiveButton(R.string.closeDialog,
+		builder.setPositiveButton(R.string.close,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {

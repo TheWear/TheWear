@@ -4,10 +4,10 @@
     
     <io.github.thewear.thewearandroidGUI.SliderPreference 
         android:defaultValue="@integer/preference1_defaultValue"
-        android:dialogTitle="@string/preference1"
-        android:negativeButtonText="@string/negative_button"
-        android:positiveButtonText="@string/positive_button"
-        custom:description="@string/preference1"
+        android:dialogTitle="@string/coldThreshold"
+        android:negativeButtonText="@string/cancel"
+        android:positiveButtonText="@string/ok"
+        custom:description="@string/coldThreshold"
         custom:unitType="temperature"
         custom:defaultUnit="@integer/defaultTemperatureNotation"
         custom:minimumValue="@integer/preference1_min"
@@ -15,14 +15,14 @@
         android:key="@string/forecast_preference1_key"
         android:order="1"
         android:persistent="true"
-        android:title="@string/preference1"/>
+        android:title="@string/coldThreshold"/>
 
     <io.github.thewear.thewearandroidGUI.SliderPreference 
         android:defaultValue="@integer/preference2_defaultValue"
-        android:dialogTitle="@string/preference2"
-        android:negativeButtonText="@string/negative_button"
-        android:positiveButtonText="@string/positive_button"
-        custom:description="@string/preference2"
+        android:dialogTitle="@string/WindThreshold"
+        android:negativeButtonText="@string/cancel"
+        android:positiveButtonText="@string/ok"
+        custom:description="@string/WindThreshold"
         custom:unitType="windspeed"
         custom:defaultUnit="@integer/defaultWindSpeedNotation"
         custom:minimumValue="@integer/preference2_min"
@@ -30,14 +30,14 @@
         android:key="@string/forecast_preference2_key"
         android:order="2"
         android:persistent="true"
-        android:title="@string/preference2"/>
+        android:title="@string/WindThreshold"/>
 
     <io.github.thewear.thewearandroidGUI.SliderPreference 
         android:defaultValue="@integer/preference3_defaultValue"
-        android:dialogTitle="@string/preference3"
-        android:negativeButtonText="@string/negative_button"
-        android:positiveButtonText="@string/positive_button"
-        custom:description="@string/preference3"
+        android:dialogTitle="@string/hotThreshold"
+        android:negativeButtonText="@string/cancel"
+        android:positiveButtonText="@string/ok"
+        custom:description="@string/hotThreshold"
         custom:unitType="temperature"
         custom:defaultUnit="@integer/defaultTemperatureNotation"
         custom:minimumValue="@integer/preference3_min"
@@ -45,6 +45,6 @@
         android:key="@string/forecast_preference3_key"
         android:order="3"
         android:persistent="true"
-        android:title="@string/preference3"/>
+        android:title="@string/hotThreshold"/>
 
 </PreferenceScreen>

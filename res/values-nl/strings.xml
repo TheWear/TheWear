@@ -10,75 +10,98 @@
     be added to the default strings file.
     -->
 
+<!-- manifest informatation -->
+    <string name="appDescription">TheWear geeft een kledingsadvies aan de hand van het weerbericht.</string>
     <string name="app_preferences">Instellingen</string>
-    <string name="action_preferences">Voorkeuren</string>
-    <string name="action_about">Over TheWear</string>
-    <string name="action_regionPreference">Regiovoorkeur</string>
-    <string name="about_text">TheWear Development Version.\nAlleen te gebruiken voor testen en debuggen.</string>
-    <string name="title">Welkom!</string>
-    <string name="button1">Weerbericht</string>
-    <string name="forecastDescription">gedetailleerd weerbericht?</string>
-    <string name="previous">Gisteren</string>
-    <string name="next">Morgen</string>
-    <string name="appDescription">TheWear geeft een kledingsadvies aan de hand van het weerbericht</string>
+    <string name="forecast_preferences">Weersvoorkeuren</string>
+
+    <!-- activity_main (layout) -->
     <string name="EditTextHint">Locatie</string>
-    <string name="preference_dialog_Title">Weersvoorkeuren</string>
-    <string name="preference1_imageView_descr">Temperatuurvoorkeur</string>
-    <string name="preference1">Koudedrempel</string>
-    <string name="preference2_imageView_descr">Windsterkte voorkeur</string>
-    <string name="preference2">Winddrempel</string>
-    <string name="preference3_imageView_descr">Temperatuurvoorkeur</string>
-    <string name="preference3">Warmtedrempel</string>
-    <string name="positive_button">OK</string>
-    <string name="neutral_button">Standaardwaarden</string>
-    <string name="negative_button">Cancel</string>
-    <string name="closeDialog">Sluiten</string>
-    <string name="forecastInfo_title">Het weer</string>
-    <string name="default_region">nl</string>
-    <string name="region_preference_dialog_Title">Regiovoorkeur</string>
-    <string name="social_media_dialog_Title">Delen</string>
-    <string name="facebookButton">Facebook Button</string>
-    <string name="shareButton">Button die het deel-venster opent</string>
-    <string name="options">Opties</string>
-    <string name="largeText">Large Text</string>
-    <string name="setting1">Tijdsnotatie</string>
-    <string name="setting2">Temperatuur</string>
-    <string name="setting3">Windsnelheid</string>
+    <string name="getForecast">Haal weerbericht op</string>
+    <string name="previous">Vorige dag</string>
+    <string name="next">Volgende dag</string>
+    <string name="shareButton">Open deelmogelijkheden</string>
+    <string name="getGPSLocation">Locatie ophalen gebruikmakend van het GPS signaal</string>
+
+    <!-- social_media_dialog (layout) -->
+    <string name="facebookButton">Delen op Facebook</string>
+
+    <!-- main (menu) -->
+    <string name="action_preferences">Voorkeuren</string>
+    <string name="action_regionPreference">Regiovoorkeuren</string>
     <string name="settingsDialogTitle">Instellingen</string>
-    <string name="setting1RadioButton1">12-uurs</string>
-    <string name="setting1RadioButton2">24-uurs</string>
-    <string name="setting2RadioButton1">°C</string>
-    <string name="setting2RadioButton2">°F</string>
-    <string name="setting3RadioButton1">m/s</string>
-    <string name="setting3RadioButton2">Beaufort</string>
-    <string name="setting3RadioButton3">Knopen</string>
+    <string name="action_about">Over TheWear</string>
+
+    <!-- forecast_preferences (xml) -->
+    <string name="coldThreshold">Koudedrempel</string>
+    <string name="WindThreshold">Winddrempel</string>
+    <string name="hotThreshold">Warmtedrempel</string>
+
+    <!-- preferences (xml) -->
+    <string name="timeNotation">Tijdsnotatie</string>
+    <string name="TemperatureNotation">Temperatuurnotatie</string>
+    <string name="windSpeedNotation">Windsnelheidnotatie</string>
+    <string name="autoRegionDetection">Regio detectie</string>
+    <string name="autoRegionDetectionSummaryOff">Je regiovoorkeur wordt altijd gebuikt</string>
+    <string name="autoRegionDetectionSummaryOn">Je regiovoorkeur wordt alleen gebruikt als de automatische detectie geen regio vindt</string>
+    <string name="regionPreference">Regiovoorkeur</string>
+    <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
+
+    <!-- Button texts -->
+    <string name="ok">OK</string>
+    <string name="defaultText">Standaardwaarden</string>
+    <string name="cancel">Annuleren</string>
+    <string name="close">Sluiten</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="on">Aan</string>
+    <string name="off">Uit</string>
+
+    <!-- MainActivity -->
+    <string name="firstTimeStartupMessage">Voer een locatie in en druk op play om het weerbericht op te halen</string>
+    <string name="title">Welkom!</string>
     <string name="startupDialogContent">Weerbericht ophalen?</string>
-    <string name="dialogButtonYes">Ja</string>
-    <string name="dialogButtonNo">Nee</string>
-    <string name="dialogButtonClose">Sluiten</string>
-    <string name="noForecast">Geen Weerbericht om te delen.</string>
-    <string name="noForecastDetailedInfo">Geen gedetailleerd weerbericht beschikbaar.</string>
-    <string name="firstTimeStartupMessage">Gelieve een locatie in te voeren en op play te drukkken voor het weerbericht.</string>
-    <string name="now">nu</string>
-    <string name="am">am</string>
-    <string name="pm">pm</string>
-    <string name="hour">h</string>
+    <string name="noForecastDetailedInfo">Geen gedetailleerd weerbericht beschikbaar</string>
+    <string name="forecastInfo_title">Het weer</string>
+    <string name="noForecast">Geen weerbericht om te delen</string>
+    <string name="about_text">TheWear Development Version.\nAlleen te gebruiken voor testen en debuggen.</string>
+
+    <!-- MenuFragment -->
+    <string name="options">Opties</string>
+
+    <!-- SocialMediaPickerFragment -->
+    <string name="social_media_dialog_Title">Delen</string>
+
+    <!-- DetailedForecastInformationManager -->
+    <string name="celcius">°C</string>
+    <string name="fahrenheit">°F</string>
+    <string name="metersPerSecond">m/s</string>
+    <string name="beaufort">Beaufort</string>
+    <string name="knots">Knopen</string>
+
+    <!-- Forecaster -->
     <string name="forecastProgressDialogTitle">Ophalen weerbericht</string>
     <string name="noInternetConnection">Kan geen verbinding maken met het internet</string>
     <string name="noServerConnection">Kan geen verbinding maken met de server van TheWear</string>
     <string name="connectionError">Er is een onbekende fout opgetreden tijdens het ophalen van het weerbericht van de server van TheWear</string>
-    <string name="locationUnknown">Onbekende locatie. Gelieve een nieuwe locatie in te voeren.</string>
-    <string name="on">Aan</string>
-    <string name="off">Uit</string>
-    <string name="autoRegionToggleTextViewText">Automatische regio\ndetectie</string>
-    <string name="regionInfoButtonDescription">Klik voor meer informatie</string>
-    <string name="regionTextViewText">RegioVoorkeur:</string>
-    <string name="regionPreferenceInformationTitle">Regiovoorkeur</string>
-    <string name="getGPSLocation">Knop die de locatie ophaald gebruikmakend van het GPS signaal</string>
+    <string name="locationUnknown">Onbekende locatie: Voer een nieuwe locatie in.</string>
+
+    <!-- GPSCoordsManager -->
     <string name="GPSLocationFound">Locatie gevonden</string>
-    <string name="GPSSettingsAlertDialogTitle">GPS opties</string>
-    <string name="GPSSettingsAlertDialogMessage">Locatiebepaling met behulp van draadloze netwerken is uitgeschakeld. Wil u naar het optiesmenu om dit aan te passen?</string>
     <string name="GPSLocationNotFound">Locatie niet gevonden</string>
+
+    <!-- GPSTracker -->
+    <string name="GPSSettingsAlertDialogTitle">GPS Opties</string>
+    <string name="GPSSettingsAlertDialogMessage">Locatiebepaling met behulp van draadloze netwerken is uitgeschakeld. Wil u naar de GPS instellingen gaan?</string>
+
+    <!-- TimeHandler -->
+    <string name="am">am</string>
+    <string name="pm">pm</string>
+    <string name="now">nu</string>
+    <string name="hour">h</string>
+
+    <!-- DEFAULTS -->
+    <string name="default_region">nl</string>
 
     <!-- Preferences -->
 
@@ -96,13 +119,6 @@
         <item>Knopen</item>
     </string-array>
 
-    <string name="autoRegionDetection">Regio detectie</string>
-    <string name="regionPreference">Regiovoorkeur</string>
-    <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
-    <string name="autoRegionDetectionSummaryOff">Je regiovoorkeur wordt altijd gebuikt</string>
-    <string name="autoRegionDetectionSummaryOn">Je regiovoorkeur wordt alleen gebruikt als de automatische detectie geen regio vindt</string>
-
-
     <!-- Options menu -->
     <string-array name="optionsMenuList">
         <item>Weersvoorkeuren</item>
@@ -110,6 +126,8 @@
         <item>Instellingen</item>
         <item>Over TheWear</item>
     </string-array>
+
+    <!-- Detailed forecast strings -->
     <string-array name="mouseOverStringStrings">
         <item>Temperatuur</item> <!-- TMP -->
         <item>Maximumtemperatuur</item> <!-- TMAX -->

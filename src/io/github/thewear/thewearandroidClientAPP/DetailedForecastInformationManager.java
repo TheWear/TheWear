@@ -81,13 +81,13 @@ public class DetailedForecastInformationManager {
 		String convertedAttr7 = null;
 		switch (temperatureNotation) {
 		case 0:
-			tempUnit = res.getString(R.string.setting2RadioButton1);
+			tempUnit = res.getString(R.string.celcius);
 			convertedAttr1 = String.valueOf(attr1);
 			convertedAttr6 = String.valueOf(attr6);
 			convertedAttr7 = String.valueOf(attr7);
 			break;
 		case 1:
-			tempUnit = res.getString(R.string.setting2RadioButton2);
+			tempUnit = res.getString(R.string.fahrenheit);
 			convertedAttr1 = String.valueOf((double) SettingsConvertor
 					.celsiusToFahrenheit(attr1));
 			convertedAttr6 = String.valueOf((double) SettingsConvertor
@@ -104,16 +104,16 @@ public class DetailedForecastInformationManager {
 		String convertedAttr4 = null;
 		switch (windSpeedNotation) {
 		case 0:
-			windSpeedUnit = res.getString(R.string.setting3RadioButton1);
+			windSpeedUnit = res.getString(R.string.metersPerSecond);
 			convertedAttr4 = String.valueOf(attr4);
 			break;
 		case 1:
-			windSpeedUnit = res.getString(R.string.setting3RadioButton2);
+			windSpeedUnit = res.getString(R.string.beaufort);
 			convertedAttr4 = String.valueOf((double) SettingsConvertor
 					.metersToBeaufort(attr4));
 			break;
 		case 2:
-			windSpeedUnit = res.getString(R.string.setting3RadioButton3);
+			windSpeedUnit = res.getString(R.string.knots);
 			convertedAttr4 = String.valueOf((double) SettingsConvertor
 					.metersToKnots(attr4));
 			break;

@@ -41,7 +41,7 @@ public class SocialMediaPickerFragment extends DialogFragment {
 		builder.setTitle(R.string.social_media_dialog_Title);
 
 		// set Cancel button
-		builder.setNegativeButton(R.string.negative_button,
+		builder.setNegativeButton(R.string.cancel,
 				new DialogInterface.OnClickListener() {
 
 					@Override

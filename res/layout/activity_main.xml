@@ -43,7 +43,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-10dp"
         android:layout_marginRight="-14dp"
-        android:contentDescription="@string/button1"
+        android:contentDescription="@string/getForecast"
         android:onClick="startForecast"
         android:src="@drawable/av_play"
         tools:ignore="NewApi"

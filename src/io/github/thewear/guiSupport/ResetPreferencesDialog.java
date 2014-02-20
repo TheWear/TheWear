@@ -1,4 +1,4 @@
-package io.github.thewear.thewearandroidGUI;
+package io.github.thewear.guiSupport;
 
 import io.github.thewear.thewearandroid.R;
 import android.content.Context;

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+     Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+    -->
+
+    <!-- Base attributes available to DialogPreference. -->
+    <declare-styleable name="ExtendedDialogPreference">
+
+        <!-- The title in the dialog. -->
+        <attr name="dialogTitle" format="string" />
+        <!--
+             The message in the dialog. If a dialogLayout is provided and contains
+             a TextView with ID android:id/message, this message will be placed in there.
+        -->
+        <attr name="dialogMessage" format="string" />
+        <!-- The icon for the dialog. -->
+        <attr name="dialogIcon" format="reference" />
+        <!-- The positive button text for the dialog. Set to @null to hide the positive button. -->
+        <attr name="positiveButtonText" format="string" />
+        <!-- ADDED: The neutral button text for the dialog. Set to @null to hide the neutral button. -->
+        <attr name="neutralButtonText" format="string" />
+        <!-- The negative button text for the dialog. Set to @null to hide the negative button. -->
+        <attr name="negativeButtonText" format="string" />
+        <!--
+             A layout to be used as the content View for the dialog. By default, this shouldn't
+             be needed. If a custom DialogPreference is required, this should be set. For example,
+             the EditTextPreference uses a layout with an EditText as this attribute.
+        -->
+        <attr name="dialogLayout" format="reference" />
+    </declare-styleable>
+
+    <!-- Default style for DialogPreference. -->
+        <attr name="dialogPreferenceStyle" format="reference" />
+
+</resources>

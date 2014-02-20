@@ -2,11 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
     
-    <io.github.thewear.thewearandroidGUI.SliderPreference 
+    <io.github.thewear.guiSupport.SliderPreference 
         android:defaultValue="@integer/preference1_defaultValue"
-        android:dialogTitle="@string/coldThreshold"
-        android:negativeButtonText="@string/cancel"
-        android:positiveButtonText="@string/ok"
+        custom:dialogTitle="@string/coldThreshold"
+        custom:negativeButtonText="@string/cancel"
+        custom:neutralButtonText="@string/defaultText"
+        custom:positiveButtonText="@string/ok"
         custom:description="@string/coldThreshold"
         custom:unitType="temperature"
         custom:defaultUnit="@integer/defaultTemperatureNotation"
@@ -17,11 +18,12 @@
         android:persistent="true"
         android:title="@string/coldThreshold"/>
 
-    <io.github.thewear.thewearandroidGUI.SliderPreference 
+    <io.github.thewear.guiSupport.SliderPreference 
         android:defaultValue="@integer/preference2_defaultValue"
-        android:dialogTitle="@string/WindThreshold"
-        android:negativeButtonText="@string/cancel"
-        android:positiveButtonText="@string/ok"
+        custom:dialogTitle="@string/WindThreshold"
+        custom:negativeButtonText="@string/cancel"
+        custom:neutralButtonText="@string/defaultText"
+        custom:positiveButtonText="@string/ok"
         custom:description="@string/WindThreshold"
         custom:unitType="windspeed"
         custom:defaultUnit="@integer/defaultWindSpeedNotation"
@@ -32,11 +34,12 @@
         android:persistent="true"
         android:title="@string/WindThreshold"/>
 
-    <io.github.thewear.thewearandroidGUI.SliderPreference 
+    <io.github.thewear.guiSupport.SliderPreference 
         android:defaultValue="@integer/preference3_defaultValue"
-        android:dialogTitle="@string/hotThreshold"
-        android:negativeButtonText="@string/cancel"
-        android:positiveButtonText="@string/ok"
+        custom:dialogTitle="@string/hotThreshold"
+        custom:negativeButtonText="@string/cancel"
+        custom:neutralButtonText="@string/defaultText"
+        custom:positiveButtonText="@string/ok"
         custom:description="@string/hotThreshold"
         custom:unitType="temperature"
         custom:defaultUnit="@integer/defaultTemperatureNotation"

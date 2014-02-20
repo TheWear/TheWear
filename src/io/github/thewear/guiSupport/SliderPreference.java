@@ -1,22 +1,25 @@
-package io.github.thewear.thewearandroidGUI;
+package io.github.thewear.guiSupport;
 
 import io.github.thewear.thewearandroid.R;
 import io.github.thewear.thewearandroidClientAPP.PreferenceConvertor;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class SliderPreference extends DialogPreference {
+public class SliderPreference extends ExtendedDialogPreference {
 
 	/**
 	 * SliderPreference is a Preference with a SeekBar slider which can be used
@@ -24,7 +27,6 @@ public class SliderPreference extends DialogPreference {
 	 */
 
 	private int mValue;
-	private int mAdjustedValue;
 	private String preferenceDescription;
 	private int unitType = -1;
 	private int unitPreferenceDefault = -1;
@@ -33,6 +35,7 @@ public class SliderPreference extends DialogPreference {
 	private int maximumPreferenceValue;
 	SeekBar mSeekBar;
 	TextView preferenceValueTextView;
+	private int preferenceDefaultValue;
 
 	/**
 	 * the constructor SliderPreference(Context context, AttributeSet attrs)
@@ -42,9 +45,6 @@ public class SliderPreference extends DialogPreference {
 
 	public SliderPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
-		setPositiveButtonText(android.R.string.ok);
-		setNegativeButtonText(android.R.string.cancel);
 
 		// get custom values
 		TypedArray a = context.obtainStyledAttributes(attrs,
@@ -157,7 +157,7 @@ public class SliderPreference extends DialogPreference {
 				- myPreferenceConvertor.prefMin);
 
 		mValue = myPreferenceConvertor.convertValueForDisplaying(mValue);
-		mAdjustedValue = myPreferenceConvertor.NormalToAdjusted(mValue);
+		int mAdjustedValue = myPreferenceConvertor.NormalToAdjusted(mValue);
 		mSeekBar.setProgress(mAdjustedValue);
 
 		preferenceValueTextView = (TextView) view
@@ -180,9 +180,9 @@ public class SliderPreference extends DialogPreference {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				if (fromUser == true) {
-					// set the preference values
-					mValue = myPreferenceConvertor.AdjustedToNormal(progress);
-					String setPreferenceValue = "" + mValue;
+					int mChangedValue = myPreferenceConvertor
+							.AdjustedToNormal(progress);
+					String setPreferenceValue = "" + mChangedValue;
 					preferenceValueTextView.setText(setPreferenceValue);
 				}
 			}
@@ -203,7 +203,7 @@ public class SliderPreference extends DialogPreference {
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
-		return a.getInteger(index, 0);
+		return preferenceDefaultValue = a.getInteger(index, 0);
 	}
 
 	@Override
@@ -220,17 +220,49 @@ public class SliderPreference extends DialogPreference {
 	}
 
 	/**
+	 * showDialog(Bundle state) with super.showDialog(state) to get the normal
+	 * behavior and then overwrite the onClick behavior of the neutral button.
+	 */
+
+	protected void showDialog(Bundle state) {
+		super.showDialog(state);
+
+		// Overwrite neutral button
+		AlertDialog d = (AlertDialog) getDialog();
+		Button neutralButton = d.getButton(DialogInterface.BUTTON_NEUTRAL);
+		neutralButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int mDefaultValue = myPreferenceConvertor
+						.convertValueForDisplaying(preferenceDefaultValue);
+				int mAdjustedValue = myPreferenceConvertor
+						.NormalToAdjusted(mDefaultValue);
+				mSeekBar.setProgress(mAdjustedValue);
+				String mValueText = "" + mDefaultValue;
+				preferenceValueTextView.setText(mValueText);
+			}
+		});
+	}
+
+	/**
 	 * onDialogClosed(boolean positiveResult) converts the preference value back
 	 * to the default value (°C or m/s) for saving, and saves the value when the
 	 * user had clicked the positive button.
 	 */
 
 	@Override
-	protected void onDialogClosed(boolean positiveResult) {
+	protected void onDialogClosed(int whichButtonClicked) {
 		// When the user selects "OK", persist the new value
-		mValue = myPreferenceConvertor.convertValueForPersisting(mValue);
-		if (positiveResult) {
+		if (DialogInterface.BUTTON_POSITIVE == whichButtonClicked) {
+			int seekBarProgress = mSeekBar.getProgress();
+			mValue = myPreferenceConvertor.AdjustedToNormal(seekBarProgress);
+			mValue = myPreferenceConvertor.convertValueForPersisting(mValue);
 			persistInt(mValue);
+		} else if (DialogInterface.BUTTON_NEUTRAL == whichButtonClicked) {
+			// This should not be called
+		} else {
+			mValue = myPreferenceConvertor.convertValueForPersisting(mValue);
 		}
 	}
 

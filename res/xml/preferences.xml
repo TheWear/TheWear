@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
 
-    <io.github.thewear.thewearandroidGUI.IntegerListPreference
+    <io.github.thewear.guiSupport.IntegerListPreference
         android:defaultValue="@integer/defaultTimeNotation"
         android:dialogTitle="@string/timeNotation"
         android:negativeButtonText="@string/cancel"
@@ -14,7 +14,7 @@
         android:persistent="true"
         android:title="@string/timeNotation" />
     
-    <io.github.thewear.thewearandroidGUI.IntegerListPreference
+    <io.github.thewear.guiSupport.IntegerListPreference
         android:defaultValue="@integer/defaultTemperatureNotation"
         android:dialogTitle="@string/TemperatureNotation"
         android:negativeButtonText="@string/cancel"
@@ -26,7 +26,7 @@
         android:persistent="true"
         android:title="@string/TemperatureNotation" />
     
-    <io.github.thewear.thewearandroidGUI.IntegerListPreference
+    <io.github.thewear.guiSupport.IntegerListPreference
         android:defaultValue="@integer/defaultWindSpeedNotation"
         android:dialogTitle="@string/windSpeedNotation"
         android:negativeButtonText="@string/cancel"

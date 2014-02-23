@@ -38,11 +38,13 @@
         android:persistent="true"
         android:title="@string/windSpeedNotation" />
 
-    <CheckBoxPreference
+    <SwitchPreference
         android:defaultValue="@bool/defaultAutoRegionDetection"
         android:dialogTitle="@string/autoRegionDetection"
         android:negativeButtonText="@string/cancel"
         android:positiveButtonText="@string/ok"
+        android:switchTextOff="@string/off"
+        android:switchTextOn="@string/on"
         android:key="@string/autoRegionDetection_preference_key"
         android:order="4"
         android:persistent="true"

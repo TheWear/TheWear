@@ -7,7 +7,7 @@
     </declare-styleable>
 
     <declare-styleable name="PreferenceKeys">
-        <attr name="all" format="reference" />
+        <attr name="keysToReset" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="SliderPreference">
@@ -19,6 +19,8 @@
         <attr name="defaultUnit" format="integer|reference" />
         <attr name="minimumValue" format="integer|reference" />
         <attr name="maximumValue" format="integer|reference" />
+        <attr name="contentDescription" format="string|reference" />
+        <attr name="src" format="integer|reference" />
     </declare-styleable>
 
 </resources>

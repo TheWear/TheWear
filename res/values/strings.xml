@@ -32,8 +32,14 @@
 
     <!-- forecast_preferences (xml) -->
     <string name="coldThreshold">Cold Threshold</string>
+    <string name="coldThresholdDescription">Cold Threshold Description</string>
+    <string name="coldThreshold_contentDescription">Cold Threshold Image</string>
     <string name="WindThreshold">Wind Threshold</string>
+    <string name="windThresholdDescription">Wind Threshold Description</string>
+    <string name="windThreshold_contentDescription">Wind Threshold Image</string>
     <string name="hotThreshold">Hot Threshold</string>
+    <string name="hotThresholdDescription">Hot Threshold Description</string>
+    <string name="hotThreshold_contentDescription">Hot Threshold Image</string>
 
     <!-- preferences (xml) -->
     <string name="timeNotation">Time notation</string>
@@ -44,6 +50,11 @@
     <string name="autoRegionDetectionSummaryOn">Your region preference is only used when automatic detection is not possible</string>
     <string name="regionPreference">Region Preference</string>
     <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
+    <string name="resetPreferencesTitle">Reset App to defaults</string>
+    <string name="resetPreferencesDialogTitle">Reset all App preferences?</string>
+    <string name="resetPreferencesDialogMessage">All forecast preferences and settings of the App will be reset to the defaults.</string>
+    <string name="setToDefaults">Set to defaults</string>
+    <string name="resetPreferencesSummary">This affects the forecast preferences and settings</string>
 
     <!-- Button texts -->
     <string name="ok">OK</string>
@@ -114,12 +125,17 @@
     <string name="autoRegionDetection_preference_key">TheWear.Preferences.AutoRegionDetection</string>
     <string name="region_preference_key">TheWear.Preferences.Region</string>
 
-    <string-array name="settingPreferenceKeys">
-        <item>TheWear.Preferences.TimeNotation</item>
-        <item>TheWear.Preferences.TemperatureNotation</item>
-        <item>TheWear.Preferences.WindSpeedNotation</item>
-        <item>TheWear.Preferences.AutoRegionDetection</item>
-        <item>TheWear.Preferences.Region</item>
+    <string name="resetPreferencesKey">TheWear.Preferences.Reset</string>
+
+    <string-array name="allPreferenceKeys">
+        <item>@string/forecast_preference1_key</item>
+        <item>@string/forecast_preference2_key</item>
+        <item>@string/forecast_preference3_key</item>
+        <item>@string/time_notation_preference_key</item>
+        <item>@string/temperature_notation_preference_key</item>
+        <item>@string/windspeed_notation_preference_key</item>
+        <item>@string/autoRegionDetection_preference_key</item>
+        <item>@string/region_preference_key</item>
     </string-array>
     <string-array name="timeNotationPreferenceText">
         <item>12-hours</item>

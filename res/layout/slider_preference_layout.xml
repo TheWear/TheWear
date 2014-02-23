@@ -1,65 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal" >
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/SliderPreferenceDescription"
+    <ImageView
+        tools:ignore="contentDescription"
+        android:id="@+id/SliderPreferenceImageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/settingsDialogMargin"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/SliderPreferenceLeftMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sliderPreferenceSeekBar"
-        android:layout_alignLeft="@+id/sliderPreferenceSeekBar"
+        android:layout_marginTop="@dimen/seekBarCompensationMargin"
         android:layout_marginLeft="@dimen/seekBarCompensationMargin"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/SliderPreferenceRightMargin"
+    <RelativeLayout
+        android:id="@+id/SliderPreferenceLineairLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sliderPreferenceSeekBar"
-        android:layout_alignRight="@+id/sliderPreferenceSeekBar"
-        android:layout_marginRight="@dimen/seekBarCompensationMargin"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <LinearLayout
-        android:id="@+id/autoRegionToggleLineairLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SliderPreferenceDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/settingsDialogMargin"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/SliderPreferenceValue"
+            android:id="@+id/SliderPreferenceDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/settingsDialogMargin"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/SliderPreferenceUnit"
+            android:id="@+id/SliderPreferenceLeftMargin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spaceMargin"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+            android:layout_above="@+id/sliderPreferenceSeekBar"
+            android:layout_alignLeft="@+id/sliderPreferenceSeekBar"
+            android:layout_marginLeft="@dimen/seekBarCompensationMargin"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <SeekBar
-        android:id="@+id/sliderPreferenceSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/autoRegionToggleLineairLayout"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/SliderPreferenceRightMargin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/sliderPreferenceSeekBar"
+            android:layout_alignRight="@+id/sliderPreferenceSeekBar"
+            android:layout_marginRight="@dimen/seekBarCompensationMargin"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-</RelativeLayout>
+        <LinearLayout
+            android:id="@+id/autoRegionToggleLineairLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SliderPreferenceDescription"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/settingsDialogMargin"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/SliderPreferenceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/SliderPreferenceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spaceMargin"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/sliderPreferenceSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoRegionToggleLineairLayout"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</LinearLayout>

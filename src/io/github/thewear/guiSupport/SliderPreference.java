@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,6 +16,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -24,6 +26,14 @@ public class SliderPreference extends ExtendedDialogPreference {
 	/**
 	 * SliderPreference is a Preference with a SeekBar slider which can be used
 	 * to select integer values for preferences.
+	 * 
+	 * @attr ref R.styleable#SliderPreference_description
+	 * @attr ref R.styleable#SliderPreference_unitType
+	 * @attr ref R.styleable#SliderPreference_defaultUnit
+	 * @attr ref R.styleable#SliderPreference_minimumValue
+	 * @attr ref R.styleable#SliderPreference_maximumValue
+	 * @attr ref R.styleable#SliderPreference_contentDescription
+	 * @attr ref R.styleable#SliderPreference_src
 	 */
 
 	private int mValue;
@@ -33,9 +43,11 @@ public class SliderPreference extends ExtendedDialogPreference {
 	private PreferenceConvertor myPreferenceConvertor;
 	private int minimumPreferenceValue;
 	private int maximumPreferenceValue;
-	SeekBar mSeekBar;
-	TextView preferenceValueTextView;
+	private SeekBar mSeekBar;
+	private TextView preferenceValueTextView;
 	private int preferenceDefaultValue;
+	private String mImageContentDescription;
+	private Drawable mDrawable;
 
 	/**
 	 * the constructor SliderPreference(Context context, AttributeSet attrs)
@@ -86,6 +98,19 @@ public class SliderPreference extends ExtendedDialogPreference {
 					"SliderPreference: error - maximumPreferenceValue is not specified");
 		}
 
+		mImageContentDescription = a
+				.getString(R.styleable.SliderPreference_contentDescription);
+		if (mImageContentDescription == null) {
+			throw new IllegalArgumentException(
+					"SliderPreference: error - mImageContentDescription is not specified");
+		}
+
+		mDrawable = a.getDrawable(R.styleable.SliderPreference_src);
+		if (mDrawable == null) {
+			throw new IllegalArgumentException(
+					"SliderPreference: error - mDrawable is not specified");
+		}
+
 		a.recycle();
 	}
 
@@ -110,6 +135,7 @@ public class SliderPreference extends ExtendedDialogPreference {
 	 * preference.
 	 */
 
+	@Override
 	protected View onCreateDialogView() {
 		LayoutInflater inflater = (LayoutInflater) getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -118,6 +144,11 @@ public class SliderPreference extends ExtendedDialogPreference {
 		TextView preferenceDescriptionTextView = (TextView) view
 				.findViewById(R.id.SliderPreferenceDescription);
 		preferenceDescriptionTextView.setText(preferenceDescription);
+
+		ImageView descriptiveImage = (ImageView) view
+				.findViewById(R.id.SliderPreferenceImageView);
+		descriptiveImage.setImageDrawable(mDrawable);
+		descriptiveImage.setContentDescription(mImageContentDescription);
 
 		TextView preferenceUnitTextView = (TextView) view
 				.findViewById(R.id.SliderPreferenceUnit);
@@ -224,6 +255,7 @@ public class SliderPreference extends ExtendedDialogPreference {
 	 * behavior and then overwrite the onClick behavior of the neutral button.
 	 */
 
+	@Override
 	protected void showDialog(Bundle state) {
 		super.showDialog(state);
 
@@ -329,10 +361,12 @@ public class SliderPreference extends ExtendedDialogPreference {
 		@SuppressWarnings("unused")
 		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
 
+			@Override
 			public SavedState createFromParcel(Parcel in) {
 				return new SavedState(in);
 			}
 
+			@Override
 			public SavedState[] newArray(int size) {
 				return new SavedState[size];
 			}

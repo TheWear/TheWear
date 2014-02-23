@@ -46,13 +46,13 @@ import android.widget.TextView;
  * preferences will, when clicked, open a dialog showing the actual preference
  * controls.
  * 
- * @attr ref android.R.styleable#DialogPreference_dialogTitle
- * @attr ref android.R.styleable#DialogPreference_dialogMessage
- * @attr ref android.R.styleable#DialogPreference_dialogIcon
- * @attr ref android.R.styleable#DialogPreference_dialogLayout
- * @attr ref android.R.styleable#DialogPreference_positiveButtonText
- * @attr ref android.R.styleable#DialogPreference_neutralButtonText
- * @attr ref android.R.styleable#DialogPreference_negativeButtonText
+ * @android_attr ref R.styleable#ExtendedDialogPreference_dialogTitle
+ * @android_attr ref R.styleable#ExtendedDialogPreference_dialogMessage
+ * @android_attr ref R.styleable#ExtendedDialogPreference_dialogIcon
+ * @android_attr ref R.styleable#ExtendedDialogPreference_dialogLayout
+ * @android_attr ref R.styleable#ExtendedDialogPreference_positiveButtonText
+ * @android_attr ref R.styleable#ExtendedDialogPreference_neutralButtonText
+ * @android_attr ref R.styleable#ExtendedDialogPreference_negativeButtonText
  */
 public abstract class ExtendedDialogPreference extends Preference implements
 		DialogInterface.OnClickListener, DialogInterface.OnDismissListener,
@@ -440,10 +440,12 @@ public abstract class ExtendedDialogPreference extends Preference implements
 		}
 	}
 
+	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		mWhichButtonClicked = which;
 	}
 
+	@Override
 	public void onDismiss(DialogInterface dialog) {
 
 		unregisterOnActivityDestroyListener(this);
@@ -476,6 +478,7 @@ public abstract class ExtendedDialogPreference extends Preference implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void onActivityDestroy() {
 
 		if (mDialog == null || !mDialog.isShowing()) {
@@ -536,10 +539,12 @@ public abstract class ExtendedDialogPreference extends Preference implements
 
 		@SuppressWarnings("unused")
 		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+			@Override
 			public SavedState createFromParcel(Parcel in) {
 				return new SavedState(in);
 			}
 
+			@Override
 			public SavedState[] newArray(int size) {
 				return new SavedState[size];
 			}

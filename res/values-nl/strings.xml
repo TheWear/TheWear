@@ -34,8 +34,14 @@
 
     <!-- forecast_preferences (xml) -->
     <string name="coldThreshold">Koudedrempel</string>
+    <string name="coldThresholdDescription">Koudedrempel beschrijving</string>
+    <string name="coldThreshold_contentDescription">Koudedrempel afbeelding</string>
     <string name="WindThreshold">Winddrempel</string>
+    <string name="windThresholdDescription">Winddrempel beschrijving</string>
+    <string name="windThreshold_contentDescription">Winddrempel afbeelding</string>
     <string name="hotThreshold">Warmtedrempel</string>
+    <string name="hotThresholdDescription">Warmtedrempel beschrijving</string>
+    <string name="hotThreshold_contentDescription">Warmtedrempel afbeelding</string>
 
     <!-- preferences (xml) -->
     <string name="timeNotation">Tijdsnotatie</string>
@@ -46,10 +52,15 @@
     <string name="autoRegionDetectionSummaryOn">Je regiovoorkeur wordt alleen gebruikt als de automatische detectie geen regio vindt</string>
     <string name="regionPreference">Regiovoorkeur</string>
     <string name="regionPreferenceInformation">De regiovoorkeur wordt gebruikt om als beginpunt bij het opzoeken van de ingevoerde locatie, indien de automatische regiodetectie is uitgeschakeld of geen locatie heeft kunnen vinden.</string>
+    <string name="resetPreferencesTitle">Standaardinstellingen terugzetten</string>
+    <string name="resetPreferencesDialogTitle">Standaardinstellingen terugzetten?</string>
+    <string name="resetPreferencesDialogMessage">Alle weersvoorkeuren en instellingen van de App worden teruggezet naar de standaardinstellingen.</string>
+    <string name="setToDefaults">Standaardinstellingen terugzetten</string>
+    <string name="resetPreferencesSummary">Dit beïnvloed de weersvoorkeuren en de instellingen van de App</string>
 
     <!-- Button texts -->
     <string name="ok">OK</string>
-    <string name="defaultText">Standaardwaarden</string>
+    <string name="defaultText">Standaardwaarde</string>
     <string name="cancel">Annuleren</string>
     <string name="close">Sluiten</string>
     <string name="yes">Ja</string>

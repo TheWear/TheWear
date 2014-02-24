@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/io.github.thewear.thewearandroid" >
+    
+    <io.github.thewear.guiSupport.SliderPreference 
+        android:defaultValue="@integer/preference1_defaultValue"
+        custom:dialogTitle="@string/coldThreshold"
+        custom:negativeButtonText="@string/cancel"
+        custom:neutralButtonText="@string/defaultText"
+        custom:positiveButtonText="@string/ok"
+        custom:description="@string/coldThresholdDescription"
+        custom:unitType="temperature"
+        custom:defaultUnit="@integer/defaultTemperatureNotation"
+        custom:minimumValue="@integer/preference1_min"
+        custom:maximumValue="@integer/preference1_max"
+        android:key="@string/forecast_preference1_key"
+        android:order="1"
+        android:persistent="true"
+        android:title="@string/coldThreshold"
+        custom:contentDescription="@string/coldThreshold_contentDescription"
+        custom:src="@drawable/snow_combined" />
+
+    <io.github.thewear.guiSupport.SliderPreference 
+        android:defaultValue="@integer/preference2_defaultValue"
+        custom:dialogTitle="@string/WindThreshold"
+        custom:negativeButtonText="@string/cancel"
+        custom:neutralButtonText="@string/defaultText"
+        custom:positiveButtonText="@string/ok"
+        custom:description="@string/windThresholdDescription"
+        custom:unitType="windspeed"
+        custom:defaultUnit="@integer/defaultWindSpeedNotation"
+        custom:minimumValue="@integer/preference2_min"
+        custom:maximumValue="@integer/preference2_max"
+        android:key="@string/forecast_preference2_key"
+        android:order="2"
+        android:persistent="true"
+        android:title="@string/WindThreshold"
+        custom:contentDescription="@string/windThreshold_contentDescription"
+        custom:src="@drawable/umbrellabroken" />
+
+    <io.github.thewear.guiSupport.SliderPreference 
+        android:defaultValue="@integer/preference3_defaultValue"
+        custom:dialogTitle="@string/hotThreshold"
+        custom:negativeButtonText="@string/cancel"
+        custom:neutralButtonText="@string/defaultText"
+        custom:positiveButtonText="@string/ok"
+        custom:description="@string/hotThresholdDescription"
+        custom:unitType="temperature"
+        custom:defaultUnit="@integer/defaultTemperatureNotation"
+        custom:minimumValue="@integer/preference3_min"
+        custom:maximumValue="@integer/preference3_max"
+        android:key="@string/forecast_preference3_key"
+        android:order="3"
+        android:persistent="true"
+        android:title="@string/hotThreshold"
+        custom:contentDescription="@string/hotThreshold_contentDescription"
+        custom:src="@drawable/shortpants" />
+
+</PreferenceScreen>

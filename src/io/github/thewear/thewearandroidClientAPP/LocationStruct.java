@@ -11,7 +11,7 @@ public class LocationStruct {
 	public String address = null;
 	public Double lat = null;
 	public Double lng = null;
-	
+
 	public LocationStruct(String address, Double lat, Double lng) {
 		this.address = address;
 		this.lat = lat;

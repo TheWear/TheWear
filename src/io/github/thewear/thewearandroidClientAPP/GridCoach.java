@@ -22,16 +22,15 @@ import java.net.URL;
  **/
 public class GridCoach {
 
-    private Boolean isLatLng;
-    private String strLocation;
+	private Boolean isLatLng;
+	private String strLocation;
 	private Double dblLatitude;
 	private Double dblLongitude;
 
-
-	public GridCoach(String location,Boolean isLatLng) {
+	public GridCoach(String location, Boolean isLatLng) {
 		String locationSpace = replace(location, " ", "%20");
 		this.strLocation = locationSpace;
-        this.isLatLng = isLatLng;
+		this.isLatLng = isLatLng;
 	}
 
 	public void setLocation(Double lat, Double lng) {
@@ -78,15 +77,16 @@ public class GridCoach {
 	 */
 
 	public String PlaceToURL(String region) {
-        String urlString;
-        if (isLatLng){
-            urlString = ("http://maps.googleapis.com/maps/api/geocode/json?latlng="
-                    + this.strLocation + "&sensor=true");
-        }else{
-		    urlString = ("http://maps.googleapis.com/maps/api/geocode/json?address="
-				+ this.strLocation + "&sensor=false&region=" + region.trim());
-        }
-        return  urlString;
+		String urlString;
+		if (isLatLng) {
+			urlString = ("http://maps.googleapis.com/maps/api/geocode/json?latlng="
+					+ this.strLocation + "&sensor=true");
+		} else {
+			urlString = ("http://maps.googleapis.com/maps/api/geocode/json?address="
+					+ this.strLocation + "&sensor=false&region=" + region
+					.trim());
+		}
+		return urlString;
 	}
 
 	public LocationStruct URLToJSonString(String strUrl) {
@@ -143,7 +143,8 @@ public class GridCoach {
 								for (Object result : results.toArray()) {
 									JSONObject result2 = (JSONObject) result;
 									if (result2
-											.containsKey("formatted_address") && address == null) {
+											.containsKey("formatted_address")
+											&& address == null) {
 										address = (String) result2
 												.get("formatted_address");
 										if (result2.containsKey("geometry")) {
@@ -158,7 +159,6 @@ public class GridCoach {
 																.containsKey("lng")) {
 													lat = (Double) location
 															.get("lat");
-                                                    Log.d("the wear debug",String.valueOf(location.get("lng")));
 													lng = (Double) location
 															.get("lng");
 													data = new LocationStruct(
@@ -185,7 +185,6 @@ public class GridCoach {
 				}
 
 			} catch (MalformedURLException e1) {
-				Log.e("Connection Error", "Connection Error 1");
 				Log.e("TheWearDebug", "MalformedURLException in GridCoach");
 				data = null;
 			} catch (UnsupportedEncodingException e1) {
@@ -198,8 +197,6 @@ public class GridCoach {
 				Log.e("TheWearDebug", "IOException in GridCoach");
 				data = null;
 			}
-
-			Log.d("TheWearDebug", "Completed URLToJSonString");
 
 		} catch (MalformedURLException e2) {
 			e2.printStackTrace();

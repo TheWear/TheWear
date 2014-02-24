@@ -1,9 +1,8 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
 public class DetailedForecastInformationManager {
 
@@ -69,12 +68,12 @@ public class DetailedForecastInformationManager {
 		int defaultTemperatureNotation = res
 				.getInteger(R.integer.defaultTemperatureNotation);
 		int temperatureNotation = sharedPref.getInt(
-				res.getString(R.string.temperature_notation_preference),
+				res.getString(R.string.temperature_notation_preference_key),
 				defaultTemperatureNotation);
 		int defaultWindSpeedNotation = res
 				.getInteger(R.integer.defaultWindSpeedNotation);
 		int windSpeedNotation = sharedPref.getInt(
-				res.getString(R.string.windspeed_notation_preference),
+				res.getString(R.string.windspeed_notation_preference_key),
 				defaultWindSpeedNotation);
 		String tempUnit = null;
 		String convertedAttr1 = null;
@@ -82,13 +81,13 @@ public class DetailedForecastInformationManager {
 		String convertedAttr7 = null;
 		switch (temperatureNotation) {
 		case 0:
-			tempUnit = res.getString(R.string.setting2RadioButton1);
+			tempUnit = res.getString(R.string.celcius);
 			convertedAttr1 = String.valueOf(attr1);
 			convertedAttr6 = String.valueOf(attr6);
 			convertedAttr7 = String.valueOf(attr7);
 			break;
 		case 1:
-			tempUnit = res.getString(R.string.setting2RadioButton2);
+			tempUnit = res.getString(R.string.fahrenheit);
 			convertedAttr1 = String.valueOf((double) SettingsConvertor
 					.celsiusToFahrenheit(attr1));
 			convertedAttr6 = String.valueOf((double) SettingsConvertor
@@ -97,28 +96,30 @@ public class DetailedForecastInformationManager {
 					.celsiusToFahrenheit(attr7));
 			break;
 		default:
-			Log.e("TheWearDebug", "No such temperatureNotation");
+			throw new IllegalArgumentException(
+					"DetailedForecastInformationManager: error - No such temperatureNotation");
 		}
 
 		String windSpeedUnit = null;
 		String convertedAttr4 = null;
 		switch (windSpeedNotation) {
 		case 0:
-			windSpeedUnit = res.getString(R.string.setting3RadioButton1);
+			windSpeedUnit = res.getString(R.string.metersPerSecond);
 			convertedAttr4 = String.valueOf(attr4);
 			break;
 		case 1:
-			windSpeedUnit = res.getString(R.string.setting3RadioButton2);
+			windSpeedUnit = res.getString(R.string.beaufort);
 			convertedAttr4 = String.valueOf((double) SettingsConvertor
 					.metersToBeaufort(attr4));
 			break;
 		case 2:
-			windSpeedUnit = res.getString(R.string.setting3RadioButton3);
+			windSpeedUnit = res.getString(R.string.knots);
 			convertedAttr4 = String.valueOf((double) SettingsConvertor
 					.metersToKnots(attr4));
 			break;
 		default:
-			Log.e("TheWearDebug", "No such windSpeedNotation");
+			throw new IllegalArgumentException(
+					"DetailedForecastInformationManager: error - No such windSpeedNotation");
 		}
 
 		String mouseOverString = String.format(mouseOverStringFormat, tempUnit,

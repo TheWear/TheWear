@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import io.github.thewear.thewearandroidGUI.MainActivity;
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 
 /**
  * GPSCoordsManager is an AsyncTask used to process the coordinates the user
@@ -94,17 +94,19 @@ public class GPSCoordsManager extends AsyncTask<String, Integer, String> {
 		progressBar.setVisibility(View.INVISIBLE);
 		if (gps.canGetLocation()) {
 			if (canFindLocation == true) {
-				Toast myToast = Toast.makeText(mainActivityView.getApplicationContext(),
+				Toast myToast = Toast.makeText(
+						mainActivityView.getApplicationContext(),
 						R.string.GPSLocationFound, Toast.LENGTH_LONG);
-						myToast.setGravity(Gravity.CENTER, 0, 0);
-						myToast.show();
+				myToast.setGravity(Gravity.CENTER, 0, 0);
+				myToast.show();
 				// Set location in the location EditText
 				locationEditText.setText(currentLocation);
 			} else {
-				Toast myToast = Toast.makeText(mainActivityView.getApplicationContext(),
+				Toast myToast = Toast.makeText(
+						mainActivityView.getApplicationContext(),
 						R.string.GPSLocationNotFound, Toast.LENGTH_LONG);
-						myToast.setGravity(Gravity.CENTER, 0, 0);
-						myToast.show();
+				myToast.setGravity(Gravity.CENTER, 0, 0);
+				myToast.show();
 			}
 		} else {
 			gps.showSettingsAlert();

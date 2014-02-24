@@ -13,16 +13,14 @@ public class ServerCommunicator {
 	 */
 
 	public String[][] getWeatherData(int forecast, double lat, double lng) {
-		Log.d("TheWearDebug", "Starting readFile()");
 		String latString = Double.toString(lat);
 		String lngString = Double.toString(lng);
-        String[][] dataset = {null,null,null};
+		String[][] dataset = { null, null, null };
 		URL serverFile;
 		HttpURLConnection conn;
 		try {
 			serverFile = new URL("http://www.swla.nl/getinfo.php?lat="
 					+ latString + "&lng=" + lngString + "&time=all");
-			Log.d("TheWearDebug", "connecting with URL" + serverFile);
 			try {
 				conn = (HttpURLConnection) serverFile.openConnection();
 				try {
@@ -36,12 +34,10 @@ public class ServerCommunicator {
 							sb.append(inputData + "\n");
 						}
 						String data = sb.toString();
-                        String[] alldataset = data.split(",");
-                        dataset[0] = alldataset[0].split("\t");
-                        dataset[1] = alldataset[1].split("\t");
-                        dataset[2] = alldataset[2].split("\t");
-						Log.d("TheWearDebug", "date of the dataset: "
-								+ dataset[0][0]);
+						String[] alldataset = data.split(",");
+						dataset[0] = alldataset[0].split("\t");
+						dataset[1] = alldataset[1].split("\t");
+						dataset[2] = alldataset[2].split("\t");
 
 					} catch (IOException e) {
 						// TODO Add error message for IOException
@@ -49,7 +45,6 @@ public class ServerCommunicator {
 					} finally {
 						try {
 							reader.close();
-							Log.d("TheWearDebug", "readFile() reader closed");
 						} catch (IOException e) {
 							// TODO Add error message for IOException
 							Log.e("TheWearDebug", "IOException 2");
@@ -57,7 +52,6 @@ public class ServerCommunicator {
 					}
 				} finally {
 					conn.disconnect();
-					Log.d("TheWearDebug", "readFile() connection closed");
 				}
 			} catch (IOException e1) {
 				// TODO Add error message for IOException
@@ -68,7 +62,6 @@ public class ServerCommunicator {
 			}
 		} catch (MalformedURLException e1) {
 			// TODO Add error message for MalformedURLException
-			Log.d("TheWearDebug", "MalformedURLException");
 			dataset = null;
 		}
 

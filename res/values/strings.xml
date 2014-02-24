@@ -3,104 +3,167 @@
 
     <!--
     If you have a string that should be translated, please add these to corresponding translated files!
-    All files that don't have to be translated should only be added to this file.
+    All files that don't have to be translated should only be added to this file.
     -->
 
+    <!-- manifest informatation -->
     <string name="testVersion">v0.001</string>
     <string name="app_name">TheWear</string>
-    <string name="action_preferences">Preferences</string>
-    <string name="action_about">About TheWear</string>
-    <string name="action_regionPreference">Region Preference</string>
-    <string name="about_text">TheWear Development Version.\nFor debuging and testing purposes only.</string>
-    <string name="title">Welcome!</string>
-    <string name="button1">Forecast</string>
-    <string name="forecastDescription">Forecast Detailed Info?</string>
-    <string name="previous">Previous Day</string>
-    <string name="next">Next Day</string>
     <string name="appDescription">TheWear gives you a clothing advise based on a real weather forecast.</string>
+    <string name="app_preferences">Settings</string>
+    <string name="forecast_preferences">Weather Preferences</string>
+
+    <!-- activity_main (layout) -->
     <string name="EditTextHint">Location</string>
-    <string name="TheWear_preference_key">TheWear.Preferences</string>
-    <string name="location_preference">TheWear.Preferences.Location</string>
-    <string name="preference_dialog_Title">Weather Preferences</string>
-    <string name="preference1_imageView_descr">Temperature Preference</string>
-    <string name="preference1">Cold Threshold</string>
-    <string name="preference1_defaultValue">7</string>
-    <!-- 6.688 -->
-    <string name="preference1_Unit">°C</string>
-    <string name="preference2_imageView_descr">Wind strength Preference</string>
-    <string name="preference2">Wind Threshold</string>
-    <string name="preference2_defaultValue">6</string>
-    <string name="preference2_Unit">m/s</string>
-    <string name="preference3_imageView_descr">Temperature Preference</string>
-    <string name="preference3">Hot Threshold</string>
-    <string name="preference3_defaultValue">25</string>
-    <string name="preference3_Unit">°C</string>
-    <string name="positive_button">OK</string>
-    <string name="neutral_button">Default</string>
-    <string name="negative_button">Cancel</string>
-    <string name="closeDialog">Close</string>
-    <string name="settingsButton">Settings</string>
-    <string name="forecastInfo_title">The Weather</string>
-    <string name="forecast_preference1">TheWear.Preferences.Preference1</string>
-    <string name="forecast_preference2">TheWear.Preferences.Preference2</string>
-    <string name="forecast_preference3">TheWear.Preferences.Preference3</string>
-    <string name="region_preference">TheWear.Preferences.Region</string>
-    <string name="time_notation_preference">TheWear.Preferences.TimeNotation</string>
-    <string name="temperature_notation_preference">TheWear.Preferences.TemperatureNotation</string>
-    <string name="windspeed_notation_preference">TheWear.Preferences.WindSpeedNotation</string>
-    <string name="autoRegionDetection_preference">TheWear.Preferences.AutoRegionDetection</string>
-    <string name="default_region">nl</string>
-    <string name="region_preference_dialog_Title">Region Preferences</string>
-    <string name="social_media_dialog_Title">Share</string>
-    <string name="facebookButton">Facebook Button</string>
-    <string name="shareButton">Button that opens the share dialog</string>
-    <string name="options">Options</string>
-    <string name="setting1">Time Notation</string>
-    <string name="setting2">Temperature</string>
-    <string name="setting3">Wind Speed</string>
+    <string name="getForecast">Get forecast</string>
+    <string name="previous">Previous day</string>
+    <string name="next">Next day</string>
+    <string name="shareButton">Open sharing possibilities</string>
+    <string name="getGPSLocation">Get the location by using the GPS signal</string>
+
+    <!-- social_media_dialog (layout) -->
+    <string name="facebookButton">Share on Facebook</string>
+
+    <!-- main (menu) -->
+    <string name="action_preferences">Preferences</string>
+    <string name="action_regionPreference">Region Preference</string>
     <string name="settingsDialogTitle">Settings</string>
-    <string name="setting1RadioButton1">12-hours</string>
-    <string name="setting1RadioButton2">24-hours</string>
-    <string name="setting2RadioButton1">°C</string>
-    <string name="setting2RadioButton2">°F</string>
-    <string name="setting3RadioButton1">m/s</string>
-    <string name="setting3RadioButton2">Beaufort</string>
-    <string name="setting3RadioButton3">Knots</string>
+    <string name="action_about">About TheWear</string>
+
+    <!-- forecast_preferences (xml) -->
+    <string name="coldThreshold">Cold Threshold</string>
+    <string name="coldThresholdDescription">Cold Threshold Description</string>
+    <string name="coldThreshold_contentDescription">Cold Threshold Image</string>
+    <string name="WindThreshold">Wind Threshold</string>
+    <string name="windThresholdDescription">Wind Threshold Description</string>
+    <string name="windThreshold_contentDescription">Wind Threshold Image</string>
+    <string name="hotThreshold">Hot Threshold</string>
+    <string name="hotThresholdDescription">Hot Threshold Description</string>
+    <string name="hotThreshold_contentDescription">Hot Threshold Image</string>
+
+    <!-- preferences (xml) -->
+    <string name="timeNotation">Time notation</string>
+    <string name="TemperatureNotation">Temperature notation</string>
+    <string name="windSpeedNotation">Wind speed notation</string>
+    <string name="autoRegionDetection">Region Detection</string>
+    <string name="autoRegionDetectionSummaryOff">Your region preference is always used.</string>
+    <string name="autoRegionDetectionSummaryOn">Your region preference is only used when automatic detection is not possible</string>
+    <string name="regionPreference">Region Preference</string>
+    <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
+    <string name="resetPreferencesTitle">Reset App to defaults</string>
+    <string name="resetPreferencesDialogTitle">Reset all App preferences?</string>
+    <string name="resetPreferencesDialogMessage">All forecast preferences and settings of the App will be reset to the defaults.</string>
+    <string name="setToDefaults">Set to defaults</string>
+    <string name="resetPreferencesSummary">This affects the forecast preferences and settings</string>
+
+    <!-- Button texts -->
+    <string name="ok">OK</string>
+    <string name="defaultText">Default</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+
+    <!-- MainActivity -->
+    <string name="firstTimeStartupMessage">Enter Location and press Play for the Forecast</string>
+    <string name="title">Welcome!</string>
     <string name="startupDialogContent">Retrieve Forecast?</string>
-    <string name="dialogButtonYes">Yes</string>
-    <string name="dialogButtonNo">No</string>
-    <string name="dialogButtonClose">Close</string>
-    <string name="noForecast">No forecast to share</string>
     <string name="noForecastDetailedInfo">No detailed weather information available</string>
-    <string name="firstTimeStartupMessage">Please Enter Location and press Play for the Forecast</string>
-    <string name="now">now</string>
-    <string name="am">am</string>
-    <string name="pm">pm</string>
-    <string name="hour">h</string>
+    <string name="forecastInfo_title">The Weather</string>
+    <string name="noForecast">No forecast to share</string>
+    <string name="about_text">TheWear Development Version.\nFor debuging and testing purposes only.</string>
+
+    <!-- MenuActivity -->
+    <string name="options">Options</string>
+
+    <!-- SocialMediaPickerFragment -->
+    <string name="social_media_dialog_Title">Share</string>
+
+    <!-- DetailedForecastInformationManager -->
+    <string name="celcius">°C</string>
+    <string name="fahrenheit">°F</string>
+    <string name="metersPerSecond">m/s</string>
+    <string name="beaufort">Beaufort</string>
+    <string name="knots">Knots</string>
+
+    <!-- Forecaster -->
     <string name="forecastProgressDialogTitle">Retrieving Forecast</string>
     <string name="noInternetConnection">Cannot connect to the Internet</string>
     <string name="noServerConnection">Cannot connect to TheWear server</string>
     <string name="connectionError">An unknown error occurred while retrieving the forecast from TheWear server</string>
-    <string name="locationUnknown">Location unknown. Please enter a new location</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
-    <string name="autoRegionToggleTextViewText">Automatic Region\nDetection</string>
-    <string name="regionInfoButtonDescription">CLick to for more information</string>
-    <string name="regionTextViewText">Region Preference:</string>
-    <string name="regionPreferenceInformationTitle">Region Preference</string>
-    <string name="regionPreferenceInformation">The region preference is used to base our location search for the forecast on if you have automatic region detection disabled, or if the automatic region detection failed.</string>
-    <string name="getGPSLocation">Button that gets the location by using the GPS signal</string>
+    <string name="locationUnknown">Location unknown: enter a new location</string>
+
+    <!-- GPSCoordsManager -->
     <string name="GPSLocationFound">Location found</string>
-    <string name="GPSSettingsAlertDialogTitle">GPS Settings</string>
-    <string name="GPSSettingsAlertDialogMessage">Location by using wireless networks is not enabled. Do you want to go to settings menu?</string>
     <string name="GPSLocationNotFound">Location not found</string>
 
+    <!-- GPSTracker -->
+    <string name="GPSSettingsAlertDialogTitle">GPS Settings</string>
+    <string name="GPSSettingsAlertDialogMessage">Location by using wireless networks is not enabled. Do you want to go to settings menu?</string>
+
+    <!-- TimeHandler -->
+    <string name="am">am</string>
+    <string name="pm">pm</string>
+    <string name="now">now</string>
+    <string name="hour">h</string>
+
+    <!-- DEFAULTS -->
+    <string name="default_region">nl</string>
+
+    <!-- Preferences -->
+
+    <string name="TheWear_preference_key">TheWear.Preferences</string>
+    <string name="location_preference_key">TheWear.Preferences.Location</string>
+    <string name="forecast_preference1_key">TheWear.Preferences.Preference1</string>
+    <string name="forecast_preference2_key">TheWear.Preferences.Preference2</string>
+    <string name="forecast_preference3_key">TheWear.Preferences.Preference3</string>
+    <string name="time_notation_preference_key">TheWear.Preferences.TimeNotation</string>
+    <string name="temperature_notation_preference_key">TheWear.Preferences.TemperatureNotation</string>
+    <string name="windspeed_notation_preference_key">TheWear.Preferences.WindSpeedNotation</string>
+    <string name="autoRegionDetection_preference_key">TheWear.Preferences.AutoRegionDetection</string>
+    <string name="region_preference_key">TheWear.Preferences.Region</string>
+
+    <string name="resetPreferencesKey">TheWear.Preferences.Reset</string>
+
+    <string-array name="allPreferenceKeys">
+        <item>@string/forecast_preference1_key</item>
+        <item>@string/forecast_preference2_key</item>
+        <item>@string/forecast_preference3_key</item>
+        <item>@string/time_notation_preference_key</item>
+        <item>@string/temperature_notation_preference_key</item>
+        <item>@string/windspeed_notation_preference_key</item>
+        <item>@string/autoRegionDetection_preference_key</item>
+        <item>@string/region_preference_key</item>
+    </string-array>
+    <string-array name="timeNotationPreferenceText">
+        <item>12-hours</item>
+        <item>24-hours</item>
+    </string-array>
+    <string-array name="temperatureNotationPreferenceText">
+        <item>Celcius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+    </string-array>
+    <string-array name="windspeedNotationPreferenceText">
+        <item>m/s</item>
+        <item>Beaufort</item>
+        <item>Knots</item>
+    </string-array>
+    <string-array name="temperatureNotationShort">
+        <item>°C</item>
+        <item>°F</item>
+    </string-array>
+
+    <!-- Options Menu -->
     <string-array name="optionsMenuList">
         <item>Forecast Preferences</item>
         <item>Region Preferences</item>
         <item>Settings</item>
         <item>About TheWear</item>
     </string-array>
+
+    <!-- Detailed forecast strings -->
     <string-array name="mouseOverStringStrings">
         <item>Temperature</item>
         <!-- TMP -->
@@ -118,6 +181,7 @@
         <!-- WEASD -->
     </string-array>
 
+    <!-- Weather type descriptions - WeatherEnums -->
     <string name="LIGHTRAIN">light rain</string>
     <string name="HEAVYRAIN">heavy rain</string>
     <string name="STORMYRAIN">storm and rain</string>
@@ -130,6 +194,7 @@
     <string name="WARMSUNNYWEATHER">warm and sunny</string>
     <string name="DEFAULT">slightly uninteresting weather</string>
 
+    <!-- image Pathnames -->
     <string-array name="pathnames">
         <item>base</item>
         <item>left_arm_down</item>

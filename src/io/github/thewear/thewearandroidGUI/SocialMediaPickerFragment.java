@@ -1,12 +1,11 @@
 package io.github.thewear.thewearandroidGUI;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -26,6 +25,7 @@ public class SocialMediaPickerFragment extends DialogFragment {
 	 * the negative button of the dialog to cancel sharing.
 	 */
 
+	@Override
 	public Dialog onCreateDialog(Bundle SavedInstance) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		// get the LayoutInflater
@@ -36,13 +36,12 @@ public class SocialMediaPickerFragment extends DialogFragment {
 		// dialog layout
 		View dialogView = inflater.inflate(R.layout.social_media_dialog, null);
 		builder.setView(dialogView);
-		Log.d("TheWearDebug", "Share Dialog Created");
 
 		// Set dialog Title
 		builder.setTitle(R.string.social_media_dialog_Title);
 
 		// set Cancel button
-		builder.setNegativeButton(R.string.negative_button,
+		builder.setNegativeButton(R.string.cancel,
 				new DialogInterface.OnClickListener() {
 
 					@Override

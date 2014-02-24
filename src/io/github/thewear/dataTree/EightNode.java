@@ -29,7 +29,7 @@ public class EightNode extends Node {
 	public Object processNode(int nodeNumber, Object[] dataToCompare,
 			Object[] dataToCompareWith) {
 		// Convert cloud cover
-				double cloudCover = Double.parseDouble((String) dataToCompare[4]);
+		double cloudCover = Double.parseDouble((String) dataToCompare[4]);
 		// compare cloud cover > 80%
 		if (cloudCover > (Integer) dataToCompareWith[0]) {
 			WeatherEnums weatherType = WeatherEnums.DEFAULT;

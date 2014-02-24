@@ -14,5 +14,7 @@
     <dimen name="settingsDialogMargin">8dp</dimen>
     <dimen name="settingsDialogMainMargin">10dp</dimen>
     <dimen name="settingsDialogHorizontalSpacer">64dp</dimen>
+    <dimen name="seekBarCompensationMargin">16dp</dimen>
+    <dimen name="spaceMargin">4dp</dimen>
 
 </resources>

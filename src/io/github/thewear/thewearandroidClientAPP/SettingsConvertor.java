@@ -89,7 +89,7 @@ public class SettingsConvertor {
 	 */
 
 	public static float metersToKnots(double meters) {
-		float knots = (float) (Math.round((meters / (1.852 / 3.6)) * 100) / 100);
+		float knots = Math.round((meters / (1.852 / 3.6)) * 100) / (float) 100;
 		return knots;
 	}
 
@@ -99,8 +99,8 @@ public class SettingsConvertor {
 	 */
 
 	public static float beaufortToMeters(int beaufort) {
-		float meters = (float) (Math
-				.round((Math.pow(beaufort, 1.5) * 0.836) * 100) / 100);
+		float meters = Math
+				.round((Math.pow(beaufort, 1.5) * 0.836) * 100) / (float) 100;
 		return meters;
 	}
 
@@ -110,7 +110,7 @@ public class SettingsConvertor {
 	 */
 
 	public static float knotsToMeters(double knots) {
-		float meters = (float) (Math.round((knots * (1.852 / 3.6)) * 100) / 100);
+		float meters = Math.round((knots * (1.852 / 3.6)) * 100) / (float) 100;
 		return meters;
 	}
 }

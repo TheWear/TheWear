@@ -6,11 +6,9 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import src.gui.thewearandroid.R;
-
+import io.github.thewear.thewearandroid.R;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
 public class TimeHandler {
 
@@ -160,8 +158,8 @@ public class TimeHandler {
 			// Nothing to change
 			break;
 		default:
-			Log.e("TheWearDebug",
-					"No such time notation preference (TimeHandler)");
+			throw new IllegalArgumentException(
+					"TimeHandler: error - No such time notation preference");
 		}
 		// To string
 		hourOfDayString = to2CharString(hourOfDayInt);
@@ -204,7 +202,7 @@ public class TimeHandler {
 		forecastTimeMinute[2] = ThirdforecastEndTime.getMinuteOfHour();
 
 		int timeNotationPreference = sharedPref.getInt(
-				res.getString(R.string.time_notation_preference),
+				res.getString(R.string.time_notation_preference_key),
 				res.getInteger(R.integer.defaultTimeNotation));
 		String[] titleString = constructTitleStrings(forecastTimeHour,
 				forecastTimeMinute, timeNotationPreference, res);
@@ -321,8 +319,8 @@ public class TimeHandler {
 			}
 			break;
 		default: // ERROR
-			Log.e("TheWearDebug",
-					"No such time notation preference, can't change the title");
+			throw new IllegalArgumentException(
+					"TimeHandler: error - No such time notation preference, can't change the title");
 		}
 		String[] titleString = new String[3];
 		titleString[0] = now + " - " + to2CharString(hour[0]) + ":"

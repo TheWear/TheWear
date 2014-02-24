@@ -1,9 +1,9 @@
 package io.github.thewear.thewearandroidClientAPP;
 
-import src.gui.thewearandroid.R;
+import io.github.thewear.thewearandroid.R;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+import android.content.res.Resources;
 
 public class PreferencesHandler {
 
@@ -25,26 +25,26 @@ public class PreferencesHandler {
 
 	public static int[] getPreferences(Context context) {
 		// Get default Preference Values
-		int defaultPreference1Value = Integer.parseInt(context
-				.getString(R.string.preference1_defaultValue));
-		int defaultPreference2Value = Integer.parseInt(context
-				.getString(R.string.preference2_defaultValue));
-		int defaultPreference3Value = Integer.parseInt(context
-				.getString(R.string.preference3_defaultValue));
-		Log.d("TheWearDebug", "Got default Vales");
+		Resources res = context.getResources();
+		int defaultPreference1Value = res
+				.getInteger(R.integer.preference1_defaultValue);
+		int defaultPreference2Value = res
+				.getInteger(R.integer.preference2_defaultValue);
+		int defaultPreference3Value = res
+				.getInteger(R.integer.preference3_defaultValue);
 
 		// Read the preference values from Shared Preferences
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				context.getString(R.string.TheWear_preference_key),
 				Context.MODE_PRIVATE);
 		int coldLimit = sharedPref.getInt(
-				context.getString(R.string.forecast_preference1),
+				context.getString(R.string.forecast_preference1_key),
 				defaultPreference1Value);
 		int umbrellaLimit = sharedPref.getInt(
-				context.getString(R.string.forecast_preference2),
+				context.getString(R.string.forecast_preference2_key),
 				defaultPreference2Value);
 		int warmLimit = sharedPref.getInt(
-				context.getString(R.string.forecast_preference3),
+				context.getString(R.string.forecast_preference3_key),
 				defaultPreference3Value);
 
 		array = new int[3];

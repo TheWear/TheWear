@@ -54,6 +54,19 @@
                 <category android:name="android.intent.category.PREFERENCE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="io.github.thewear.thewearandroidGUI.MenuActivity"
+            android:label="@string/options"
+            android:screenOrientation="portrait"
+            android:parentActivityName="io.github.thewear.thewearandroidGUI.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.thewear.thewearandroidGUI.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.PREFERENCE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

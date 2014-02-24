@@ -77,7 +77,7 @@
     <string name="noForecast">Geen weerbericht om te delen</string>
     <string name="about_text">TheWear Development Version.\nAlleen te gebruiken voor testen en debuggen.</string>
 
-    <!-- MenuFragment -->
+    <!-- MenuActivity -->
     <string name="options">Opties</string>
 
     <!-- SocialMediaPickerFragment -->

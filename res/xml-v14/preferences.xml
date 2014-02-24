@@ -71,7 +71,7 @@
         android:negativeButtonText="@string/cancel"
         android:positiveButtonText="@string/setToDefaults"
         android:key="@string/resetPreferencesKey"
-        android:order="5"
+        android:order="6"
         android:persistent="false"
         android:summary="@string/resetPreferencesSummary"
         android:title="@string/resetPreferencesTitle"

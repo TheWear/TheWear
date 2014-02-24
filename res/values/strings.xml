@@ -75,7 +75,7 @@
     <string name="noForecast">No forecast to share</string>
     <string name="about_text">TheWear Development Version.\nFor debuging and testing purposes only.</string>
 
-    <!-- MenuFragment -->
+    <!-- MenuActivity -->
     <string name="options">Options</string>
 
     <!-- SocialMediaPickerFragment -->

@@ -52,7 +52,6 @@ public class MainActivity extends FragmentActivity {
 	private boolean[] imageViewAddedToImagePagerAdapter = { false, false, false };
 	private Forecaster myForecasterObject;
 	private SocialMediaPickerFragment mySocialMediaPickerFragment;
-	private MenuFragment myMenuFragment;
 	private ForecastTimeStruct myForecastTimeStruct;
 	private TextView titleTextView;
 	private String startLocation;
@@ -259,9 +258,8 @@ public class MainActivity extends FragmentActivity {
 		case KeyEvent.KEYCODE_MENU:
 
 			// Open Options Menu
-			myMenuFragment = new MenuFragment();
-			myMenuFragment.passNecessaryInformation(this, this);
-			myMenuFragment.show(getSupportFragmentManager(), "Menu");
+			Intent intent = new Intent(this, MenuActivity.class);
+			startActivity(intent);
 
 			return true;
 		}
@@ -353,40 +351,60 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * goToPreferences() calls showForecastPreferences() to show the forecast
-	 * preferences dialog
+	 * goToPreferences() shows the preferences menu (the
+	 * TheWearPreferenceActivity) when called.
 	 */
 
 	public boolean goToPreferences(MenuItem menu) {
-		showForecastPreferences();
+		Intent intent = new Intent(this, ForecastPreferenceActivity.class);
+		startActivity(intent);
+
 		return true;
 	}
 
 	/**
-	 * goToLocationPreference() calls showForecastPreferences() to show the
-	 * forecast preferences dialog
+	 * goToLocationPreference() calls [...] to show the forecast preferences
+	 * dialog
 	 */
 
 	public boolean goToLocationPreference(MenuItem menu) {
 		// TODO add locations history thingy
+
 		return true;
 	}
 
 	/**
-	 * goToSettings() calls showAboutApp to show the about dialog.
+	 * goToSettings() shows the settings menu (the TheWearPreferenceActivity)
+	 * when called.
 	 */
 
 	public boolean goToSettings(MenuItem menu) {
-		showSettings();
+		Intent intent = new Intent(this, TheWearPreferenceActivity.class);
+		startActivity(intent);
+
 		return true;
 	}
 
 	/**
-	 * showAbout() calls showAboutApp to show the about dialog.
+	 * showAbout() shows the user a dialog containing information of our App.
 	 */
 
 	public boolean showAbout(MenuItem menu) {
-		showAboutApp();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		String aboutText = getString(R.string.about_text) + "\nVersion: "
+				+ getString(R.string.testVersion);
+		builder.setMessage(aboutText).setTitle(R.string.action_about);
+		builder.setPositiveButton(R.string.close,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						// User clicked OK button
+					}
+				});
+		// Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
+
 		return true;
 	}
 
@@ -470,46 +488,6 @@ public class MainActivity extends FragmentActivity {
 		// Close the SocialMediaPickerFragment
 		mySocialMediaPickerFragment.dismiss();
 		// TODO implement sharing over Twitter
-	}
-
-	/**
-	 * showMenuItem1() calls showForecastPreferences() to show the forecast
-	 * preferences dialog and closes the menu dialog.
-	 */
-
-	public void showMenuItem1() {
-		myMenuFragment.dismiss();
-		showForecastPreferences();
-	}
-
-	/**
-	 * showMenuItem2() calls showLocationPreference() to show the forecast
-	 * location preference dialog and closes the menu dialog.
-	 */
-
-	public void showMenuItem2() {
-		myMenuFragment.dismiss();
-		// TODO add locations history thingy
-	}
-
-	/**
-	 * showMenuItem3() calls showAboutApp() to show the about dialog and closes
-	 * the menu dialog.
-	 */
-
-	public void showMenuItem3() {
-		myMenuFragment.dismiss();
-		showSettings();
-	}
-
-	/**
-	 * showMenuItem4() calls showAboutApp() to show the about dialog and closes
-	 * the menu dialog.
-	 */
-
-	public void showMenuItem4() {
-		myMenuFragment.dismiss();
-		showAboutApp();
 	}
 
 	/**
@@ -648,81 +626,6 @@ public class MainActivity extends FragmentActivity {
 	public void getGPSLocation(View view) {
 		EditText locationField = (EditText) findViewById(R.id.editText1);
 		new GPSCoordsManager(this, locationField).execute();
-	}
-
-	/**
-	 * showForecastPreferences() shows the preferences menu (the
-	 * TheWearPreferenceActivity) when called.
-	 * 
-	 * This method tries to retrieve the dataset of the last forecast, and
-	 * passes it to the setter method of the ForecastPreferencesFragment(),
-	 * together with the ImageViews that should be changed, and the
-	 * applicationContext.
-	 */
-
-	public void showForecastPreferences() {
-		// Show the Preferences Window
-		// if (myForecasterObject != null) {
-		// ForecastInfo myForecastInfo = null;
-		// Log.d("TheWearDebug", "\'Preferences\' clicked");
-		// try {
-		// myForecastInfo = myForecasterObject.get();
-		// } catch (InterruptedException e) {
-		// // Auto-generated catch block
-		// Log.e("TheWearDebug", "InterruptedException");
-		// e.printStackTrace();
-		// } catch (ExecutionException e) {
-		// // Auto-generated catch block
-		// Log.e("TheWearDebug", "ExecutionException4");
-		// e.printStackTrace();
-		// }
-		// ForecastPreferencesFragment myForecastPreferencesFragment = new
-		// ForecastPreferencesFragment();
-		// myForecastPreferencesFragment.passNecessaryInformation(
-		// myImageViews, myForecastInfo, this);
-		// myForecastPreferencesFragment.show(getSupportFragmentManager(),
-		// "Preferences");
-		// } else {
-		// // Catch an empty myForecastInfo and show dialog
-		// Log.d("TheWearAndroid", "myForecastObject == null");
-		// ForecastPreferencesFragment myForecastPreferencesFragment = new
-		// ForecastPreferencesFragment();
-		// myForecastPreferencesFragment.show(getSupportFragmentManager(),
-		// "Preferences");
-		// }
-		Intent intent = new Intent(this, ForecastPreferenceActivity.class);
-		startActivity(intent);
-	}
-
-	/**
-	 * showSettings() shows the settings menu (the TheWearPreferenceActivity)
-	 * when called.
-	 */
-
-	public void showSettings() {
-		Intent intent = new Intent(this, TheWearPreferenceActivity.class);
-		startActivity(intent);
-	}
-
-	/**
-	 * showAbout() shows the user a dialog containing information of our App.
-	 */
-
-	public void showAboutApp() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		String aboutText = getString(R.string.about_text) + "\nVersion: "
-				+ getString(R.string.testVersion);
-		builder.setMessage(aboutText).setTitle(R.string.action_about);
-		builder.setPositiveButton(R.string.close,
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						// User clicked OK button
-					}
-				});
-		// Get the AlertDialog from create()
-		AlertDialog dialog = builder.create();
-		dialog.show();
 	}
 
 	/**
